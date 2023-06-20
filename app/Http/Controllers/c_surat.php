@@ -23,17 +23,16 @@ class c_surat extends Controller
         $this->role = new m_role();
         $this->PO = new m_purchasingOrder();
         $this->surat = new m_surat();
-       
     }
 
     // Surat HKI
 
     public function tampilSurat_HKI()
     {
-        $data =[
+        $data = [
             'surat' => $this->surat->allData(),
         ];
-        return view ('hki.surat.index', $data);
+        return view('hki.surat.index', $data);
     }
 
     // END Surat HKI
@@ -44,24 +43,24 @@ class c_surat extends Controller
     public function tampilSurat_subcon()
     {
         $id = Auth::user()->id;
-        $data =[
+        $data = [
             'surat' => $this->surat->mySurat_Subcon($id),
         ];
-        return view ('subcon.surat.index', $data);
+        return view('subcon.surat.index', $data);
     }
 
     public function createSurat_subcon()
     {
-        $data =[
+        $data = [
             'hki' => $this->user->hkiData(),
         ];
-        return view ('subcon.surat.create', $data);
+        return view('subcon.surat.create', $data);
     }
 
     public function storeSurat_subcon(Request $request)
     {
         $now = Carbon::now()->format('d-m-Y');
-        $validator = Validator::make($request->all(), [ 
+        $validator = Validator::make($request->all(), [
             'part_no' => 'required',
             'id_tujuan' => 'required',
             'part_name' => 'required',
@@ -76,13 +75,12 @@ class c_surat extends Controller
         if ($validator->fails()) {
             session()->flash('error', 'error');
             return redirect()->back();
-        }else{
+        } else {
             $id = $this->surat->checkID();
-            if($id == null)
-            {
-                $id_baru = $id+1;
-                $data =[
-                    'no_surat'=> $id_baru,
+            if ($id == null) {
+                $id_baru = $id + 1;
+                $data = [
+                    'no_surat' => $id_baru,
                     'part_no' => $request->part_no,
                     'id_tujuan' => $request->id_tujuan,
                     'id_subcon' => Auth::user()->id,
@@ -96,12 +94,11 @@ class c_surat extends Controller
                     'dibuat' => $now,
                     'status' => "On Progress",
                 ];
-              
-            }else{
+            } else {
                 $idMax = $this->surat->maxIditem();
-                $id_baru = $idMax+1;
-                $data =[
-                    'no_surat'=> $id_baru,
+                $id_baru = $idMax + 1;
+                $data = [
+                    'no_surat' => $id_baru,
                     'part_no' => $request->part_no,
                     'id_tujuan' => $request->id_tujuan,
                     'id_subcon' => Auth::user()->id,
@@ -112,27 +109,23 @@ class c_surat extends Controller
                     'po_number' => $request->po_number,
                     'delivery_time' => $request->delivery_time,
                     'payment' => $request->payment,
-                    'dibuat'=> $now,
+                    'dibuat' => $now,
                     'status' => "On Progress",
                 ];
             }
-    
-            $this->surat->addData($data);
-            return redirect()->route('subcon.surat.index')->with('success','success');
-        }
 
-       
-     
-       
+            $this->surat->addData($data);
+            return redirect()->route('subcon.surat.index')->with('success', 'success');
+        }
     }
 
     public function editSurat_Subcon($no)
     {
-        $data =[
+        $data = [
             'surat' => $this->surat->detailSurat($no),
             'hki' => $this->user->detailHKI(),
         ];
-        return view ('subcon.surat.edit', $data);
+        return view('subcon.surat.edit', $data);
     }
 
     public function updateSurat_Subcon(Request $request, $no)
@@ -147,46 +140,127 @@ class c_surat extends Controller
             'order_no' => 'required',
             'po_number' => 'required',
             'delivery_time' => 'required',
-        ],[
-            'part_no.required'=>'Part Nomor Wajib terisi',
-            'id_tujuan.unique'=>'Supplier Wajib Diisi',
-            'part_name.required'=>'Part Name Wajib terisi',
-            'order_qty.required'=>'Order QTY Wajib terisi',
-            'weight.required'=>'Weight Wajib terisi',
-            'order_no.required'=>'Order No Wajib terisi',
-            'po_number.required'=>'PO Number Wajib terisi',
-            'delivery_time.required'=>'Delivery Time Wajib terisi',
+        ], [
+            'part_no.required' => 'Part Nomor Wajib terisi',
+            'id_tujuan.unique' => 'Supplier Wajib Diisi',
+            'part_name.required' => 'Part Name Wajib terisi',
+            'order_qty.required' => 'Order QTY Wajib terisi',
+            'weight.required' => 'Weight Wajib terisi',
+            'order_no.required' => 'Order No Wajib terisi',
+            'po_number.required' => 'PO Number Wajib terisi',
+            'delivery_time.required' => 'Delivery Time Wajib terisi',
         ]);
 
-            $data = [
-                'part_no' => $request->part_no,
-                'id_tujuan' => $request->id_tujuan,
-                'id_subcon' => Auth::user()->id,
-                'part_name' => $request->part_name,
-                'order_qty' => $request->order_qty,
-                'weight' => $request->weight,
-                'order_no' => $request->order_no,
-                'po_number' => $request->po_number,
-                'payment' => $request->payment,
-                'delivery_time' => $request->delivery_time,
-            ];
+        $data = [
+            'part_no' => $request->part_no,
+            'id_tujuan' => $request->id_tujuan,
+            'id_subcon' => Auth::user()->id,
+            'part_name' => $request->part_name,
+            'order_qty' => $request->order_qty,
+            'weight' => $request->weight,
+            'order_no' => $request->order_no,
+            'po_number' => $request->po_number,
+            'payment' => $request->payment,
+            'delivery_time' => $request->delivery_time,
+        ];
 
-           
-           
+
+
         $this->surat->editData($no, $data);
         return redirect()->route('subcon.surat.index')->with('success', 'Surat Berhasil diupdate.');
-           
-        }
+    }
 
-        public function destroySurat_Subcon($no)
-        {
-            $this->surat->deleteData($no);
-            return redirect()->route('subcon.surat.index')->with('success','Berhasil Dihapus');
-        }
-         
-    
+    public function destroySurat_Subcon($no)
+    {
+        $this->surat->deleteData($no);
+        return redirect()->route('subcon.surat.index')->with('success', 'Berhasil Dihapus');
+    }
 
-   
+
+    // surat supplier
+    public function tampilSurat_supplier()
+    {
+        $id = Auth::user()->id;
+        $data = [
+            'surat' => $this->surat->mySurat_supplier($id),
+        ];
+        return view('supplier.surat.index', $data);
+    }
+
+    public function createSurat_supplier()
+    {
+        $data = [
+            'supplier' => $this->user->supplierData(),
+        ];
+        return view('supplier.surat.create', $data);
+    }
+
+
+    // tambah surat supplier
+    public function storeSurat_supplier(Request $request)
+    {
+        $now = Carbon::now()->format('d-m-Y');
+        $validator = Validator::make($request->all(), [
+            'part_no' => 'required',
+            'id_tujuan' => 'required',
+            'part_name' => 'required',
+            'order_qty' => 'required',
+            'weight' => 'required',
+            'order_no' => 'required',
+            'po_number' => 'required',
+            'delivery_time' => 'required',
+            'payment' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            session()->flash('error', 'error');
+            return redirect()->back();
+        } else {
+            $id = $this->surat->checkID();
+            if ($id == null) {
+                $id_baru = $id + 1;
+                $data = [
+                    'no_surat' => $id_baru,
+                    'part_no' => $request->part_no,
+                    'id_tujuan' => $request->id_tujuan,
+                    'id_supplier' => Auth::user()->id,
+                    'part_name' => $request->part_name,
+                    'order_qty' => $request->order_qty,
+                    'weight' => $request->weight,
+                    'order_no' => $request->order_no,
+                    'po_number' => $request->po_number,
+                    'delivery_time' => $request->delivery_time,
+                    'payment' => $request->payment,
+                    'dibuat' => $now,
+                    'status' => "On Progress",
+                ];
+            } else {
+                $idMax = $this->surat->maxIditem();
+                $id_baru = $idMax + 1;
+                $data = [
+                    'no_surat' => $id_baru,
+                    'part_no' => $request->part_no,
+                    'id_tujuan' => $request->id_tujuan,
+                    'id_supplier' => Auth::user()->id,
+                    'part_name' => $request->part_name,
+                    'order_qty' => $request->order_qty,
+                    'weight' => $request->weight,
+                    'order_no' => $request->order_no,
+                    'po_number' => $request->po_number,
+                    'delivery_time' => $request->delivery_time,
+                    'payment' => $request->payment,
+                    'dibuat' => $now,
+                    'status' => "On Progress",
+                ];
+            }
+
+            $this->surat->addDo($data);
+            return redirect()->route('supplier.surat.index')->with('success', 'success');
+        }
+    }
+
+
+
 
 
 
@@ -196,44 +270,36 @@ class c_surat extends Controller
     public function detailPO($no)
     {
         $data = [
-            'PO'=> $this->PO->detailData($no)
+            'PO' => $this->PO->detailData($no)
         ];
-        
-        return view('subcon.po.detail', $data);
 
+        return view('subcon.po.detail', $data);
     }
 
     public function ubahStatus(Request $request)
     {
         $no_surat = $request->no_surat;
         $data = [
-            'status'=> "Finish",
+            'status' => "Finish",
         ];
         $this->surat->editData($no_surat, $data);
-
     }
 
     public function hki_lihatSurat(Request $request)
     {
         $no_surat = $request->no_surat;
         $data = [
-            'surat'=> $this->surat->detailSurat($request->no_surat),
+            'surat' => $this->surat->detailSurat($request->no_surat),
         ];
-        return view ('hki.surat.read', $data);
-
+        return view('hki.surat.read', $data);
     }
 
     public function subcon_lihatSurat(Request $request)
     {
         $no_surat = $request->no_surat;
         $data = [
-            'surat'=> $this->surat->detailSuratInSubcon($request->no_surat),
+            'surat' => $this->surat->detailSuratInSubcon($request->no_surat),
         ];
-        return view ('subcon.surat.read', $data);
-
+        return view('subcon.surat.read', $data);
     }
-
-
-
-    
 }

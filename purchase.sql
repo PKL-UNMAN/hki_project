@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 30 Bulan Mei 2023 pada 12.30
--- Versi server: 10.4.24-MariaDB
--- Versi PHP: 8.1.6
+-- Waktu pembuatan: 20 Jun 2023 pada 06.14
+-- Versi server: 10.4.28-MariaDB
+-- Versi PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,11 +29,11 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `failed_jobs` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `uuid` varchar(255) NOT NULL,
+  `connection` text NOT NULL,
+  `queue` text NOT NULL,
+  `payload` longtext NOT NULL,
+  `exception` longtext NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -45,7 +45,7 @@ CREATE TABLE `failed_jobs` (
 
 CREATE TABLE `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `migration` varchar(255) NOT NULL,
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -70,8 +70,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -83,11 +83,11 @@ CREATE TABLE `password_resets` (
 
 CREATE TABLE `personal_access_tokens` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_type` varchar(255) NOT NULL,
   `tokenable_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `token` varchar(64) NOT NULL,
+  `abilities` text DEFAULT NULL,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -101,19 +101,29 @@ CREATE TABLE `personal_access_tokens` (
 
 CREATE TABLE `purchasing` (
   `no` bigint(20) UNSIGNED NOT NULL,
-  `part_no` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `id_hki` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `id_tujuan` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `part_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `part_no` varchar(255) NOT NULL,
+  `id_hki` varchar(255) NOT NULL,
+  `id_tujuan` varchar(255) DEFAULT NULL,
+  `part_name` varchar(255) NOT NULL,
   `order_qty` int(11) NOT NULL,
   `weight` int(11) NOT NULL,
-  `order_no` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `po_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payment` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `issue_date` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `delivery_time` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `order_no` varchar(255) NOT NULL,
+  `po_number` varchar(255) NOT NULL,
+  `payment` varchar(255) NOT NULL,
+  `issue_date` varchar(255) NOT NULL,
+  `delivery_time` varchar(255) NOT NULL,
+  `status` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `purchasing`
+--
+
+INSERT INTO `purchasing` (`no`, `part_no`, `id_hki`, `id_tujuan`, `part_name`, `order_qty`, `weight`, `order_no`, `po_number`, `payment`, `issue_date`, `delivery_time`, `status`) VALUES
+(1, 'ds', '1', '4', 'dfs', 34, 34, '10', '56', '40000', '05-06-2023', '2023-06-15', 'On Progress'),
+(2, '12', '1', '3', '12', 12, 12, '12', '12', '12', '18-06-2023', '2023-06-18', 'On Progress'),
+(3, '23', '1', '2', '23', 23, 23, '23', '32', '12', '18-06-2023', '2023-06-18', 'On Progress'),
+(4, '14', '3', '3', '14', 41, 41, '14', '14', '115', '18-06-2023', '2023-06-20', 'On Progress');
 
 -- --------------------------------------------------------
 
@@ -123,7 +133,7 @@ CREATE TABLE `purchasing` (
 
 CREATE TABLE `role` (
   `role_id` bigint(20) UNSIGNED NOT NULL,
-  `role_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `role_name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -143,19 +153,49 @@ INSERT INTO `role` (`role_id`, `role_name`) VALUES
 
 CREATE TABLE `surat` (
   `no_surat` bigint(20) UNSIGNED NOT NULL,
-  `part_no` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `id_subcon` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `id_tujuan` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `part_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `part_no` varchar(255) NOT NULL,
+  `id_subcon` varchar(255) DEFAULT NULL,
+  `id_tujuan` varchar(255) DEFAULT NULL,
+  `part_name` varchar(255) NOT NULL,
   `order_qty` int(11) NOT NULL,
   `weight` int(11) NOT NULL,
-  `order_no` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `po_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payment` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `dibuat` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `delivery_time` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `order_no` varchar(255) NOT NULL,
+  `po_number` varchar(255) NOT NULL,
+  `payment` varchar(255) NOT NULL,
+  `dibuat` varchar(255) NOT NULL,
+  `delivery_time` varchar(255) NOT NULL,
+  `status` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `surat_supplier`
+--
+
+CREATE TABLE `surat_supplier` (
+  `no_surat` bigint(20) NOT NULL,
+  `part_no` varchar(255) NOT NULL,
+  `id_supplier` varchar(255) DEFAULT NULL,
+  `id_tujuan` varchar(255) DEFAULT NULL,
+  `part_name` varchar(255) NOT NULL,
+  `order_qty` int(11) NOT NULL,
+  `weight` int(11) NOT NULL,
+  `order_no` varchar(255) NOT NULL,
+  `po_number` varchar(255) NOT NULL,
+  `payment` varchar(255) NOT NULL,
+  `dibuat` varchar(255) NOT NULL,
+  `delivery_time` varchar(255) NOT NULL,
+  `status` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `surat_supplier`
+--
+
+INSERT INTO `surat_supplier` (`no_surat`, `part_no`, `id_supplier`, `id_tujuan`, `part_name`, `order_qty`, `weight`, `order_no`, `po_number`, `payment`, `dibuat`, `delivery_time`, `status`) VALUES
+(1, '23', '3', '2', 'HIKMAT', 908, 908, '12', '13', 'gu', '19-06-2023', '2023-06-19', 'On Progress'),
+(3, '21', '3', '2', 'dfds', 231, 231, '2', '3', '32123', '19-06-2023', '2023-06-20', 'On Progress');
 
 -- --------------------------------------------------------
 
@@ -165,11 +205,11 @@ CREATE TABLE `surat` (
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nama` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `role_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `username` varchar(255) NOT NULL,
+  `nama` varchar(255) NOT NULL,
+  `role_id` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `created_at` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -177,7 +217,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `nama`, `role_id`, `password`, `created_at`) VALUES
-(1, 'hki', 'Admin HKI', '1', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL);
+(1, 'hki', 'Admin HKI', '1', '$2a$12$DEQrrpCQ.shAVVdt2LC6tukIz80pP1Ev1MVCjsGAJnScfEVwjZI6m', NULL),
+(2, 'subcon', 'Subcon', '2', '$2y$10$T2QHnzaH/CEEhvnjUSrtoujWKa4KXpMrxdEsK0rsnqW2Z45G60iCm', NULL),
+(3, 'supplier', 'Supplier', '3', '$2a$12$DEQrrpCQ.shAVVdt2LC6tukIz80pP1Ev1MVCjsGAJnScfEVwjZI6m', NULL);
 
 -- --------------------------------------------------------
 
@@ -187,13 +229,13 @@ INSERT INTO `users` (`id`, `username`, `nama`, `role_id`, `password`, `created_a
 
 CREATE TABLE `users_detail` (
   `id_detail` bigint(20) UNSIGNED NOT NULL,
-  `id_user` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `telepon` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `fax` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `attn` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `alamat` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_date` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `id_user` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `telepon` varchar(255) DEFAULT NULL,
+  `fax` varchar(255) DEFAULT NULL,
+  `attn` varchar(255) DEFAULT NULL,
+  `alamat` varchar(255) DEFAULT NULL,
+  `user_date` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -201,7 +243,9 @@ CREATE TABLE `users_detail` (
 --
 
 INSERT INTO `users_detail` (`id_detail`, `id_user`, `email`, `telepon`, `fax`, `attn`, `alamat`, `user_date`) VALUES
-(1, '1', 'hki@gmail.com', '021 88888', '021 88888', NULL, 'Subang', '30-05-2023');
+(1, '1', 'hki@gmail.com', '021 88888', '021 88888', NULL, 'Subang', '30-05-2023'),
+(2, '2', 'hki@gmail.com', '021 88888', '021 88888', NULL, 'Subang', '30-05-2023'),
+(3, '3', 'hki@gmail.com', '021 88888', '021 88888', NULL, 'Subang', '30-05-2023');
 
 --
 -- Indexes for dumped tables
@@ -253,6 +297,12 @@ ALTER TABLE `surat`
   ADD PRIMARY KEY (`no_surat`);
 
 --
+-- Indeks untuk tabel `surat_supplier`
+--
+ALTER TABLE `surat_supplier`
+  ADD PRIMARY KEY (`no_surat`);
+
+--
 -- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
@@ -291,7 +341,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT untuk tabel `purchasing`
 --
 ALTER TABLE `purchasing`
-  MODIFY `no` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `no` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `role`
@@ -303,19 +353,25 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT untuk tabel `surat`
 --
 ALTER TABLE `surat`
-  MODIFY `no_surat` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `no_surat` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT untuk tabel `surat_supplier`
+--
+ALTER TABLE `surat_supplier`
+  MODIFY `no_surat` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `users_detail`
 --
 ALTER TABLE `users_detail`
-  MODIFY `id_detail` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_detail` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
