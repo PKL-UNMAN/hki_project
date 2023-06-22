@@ -1,7 +1,7 @@
 @extends('layouts.templateBaru',['title'=>'Surat Jalan'])
 @section('content')
 <div class="container">
-	<h3>Surat Jalan HKI</h3>
+	<h3>Monitor Surat</h3>
 	@if (session()->has('success'))
     <script>
         window.onload = function () {
@@ -17,7 +17,7 @@
             };
     </script>
     @endif
-    <a>Dashboard>Surat Jalan</a>
+    <a>Dashboard>Monitor Surat</a>
     <br>
     <br>
     <div class="row">
@@ -26,21 +26,14 @@
                 <table id="surat_hki" class="display nowrap" style="width:100%">
                     <thead>
                         <tr>
-                            <th>No</th>
-                            <th>PO Number</th>
-                            <th>Pengirim</th>
-                            <th>Tujuan Pengiriman</th>
-                            <th>Tanggal</th>
-                            <th>Part No</th>
-                            <th>Part Name</th>
-                            <th>QTY</th>
-                            <th>Unit(KG/PC)</th>
-                            <th>Status</th>
-                            <th>Action</th>
+                            <th style="text-align: center">No</th>
+                            <th style="text-align: center">ID <br>(default supplier)</th>
+                            <th style="text-align: center">Nama Perusahaan<br>(supllier name)</th>
+                            <th style="text-align: center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($surat as $data)
+                        {{-- @foreach($surat as $data)
                         <tr>
                             <td></td>
                             <td>{{$data->part_name}}</td>
@@ -68,7 +61,7 @@
                                 <a href="{{route('subcon.surat.download', $data->no_surat)}}" class="btn btn-primary">Download</a>
                             </td>
                         </tr>
-                        @endforeach
+                        @endforeach --}}
                     </tbody>
                 </table>
               </div>

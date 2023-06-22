@@ -137,3 +137,10 @@ Route::controller(c_surat::class)->middleware('auth')->group(function () {
     // Ubah Status PO
     Route::get('supplier/surat/detailpo/{no}', 'detailPO')->name('supplier.surat.detailpo');
 });
+
+// sementara 
+    // monitor surat hki
+    Route::get('/hki/monitorsurat', function () {
+        return view('hki.monitorSurat.index');
+    })->name('hki.monitorsurat.index');
+    
