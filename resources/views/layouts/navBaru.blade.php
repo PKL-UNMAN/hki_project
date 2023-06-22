@@ -38,7 +38,7 @@
                 </ul>
             </li>
             <li><a class="nav-link scrollto" href="{{ route('hki.surat.index') }}">Surat Jalan</a></li>
-            <li><a class="nav-link scrollto" href="{{ route('hki.surat.index') }}">Sisa Barang</a></li>
+            <li><a class="nav-link scrollto" href="{{ route('hki.sisabarang.index') }}">Sisa Barang</a></li>
             <li><a class="nav-link scrollto" href="{{ route('hki.monitorsurat.index') }}">Monitor Surat</a></li>
         @endif
         <li class="dropdownx"><a class="getstarted scrollto" href="#">{{ Auth::user()->username }}<i
