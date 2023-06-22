@@ -77,9 +77,18 @@ Route::controller(c_subcon::class)->middleware('auth')->group(function () {
     Route::get('subcon/po', 'myPO_Subcon')->name('subcon.po.index');
     Route::get('subcon/po/download/{no}', 'myPO_Download')->name('subcon.po.download');
 
-    // Surat Subcon
+    // Surat dari Supplier
+    Route::get('subcon/suratSup', 'mySuratSup_Subcon')->name('subcon.suratSup.index');
+   
+
+    // Surat Subcon ke HKI
     Route::get('subcon/surat', 'mySurat_Subcon')->name('subcon.surat.index');
     Route::get('subcon/surat/download/{no}', 'mySurat_Download')->name('subcon.surat.download');
+
+
+    // Monitoring Sisa
+    Route::get('subcon/sisa', 'mySisa_Subcon')->name('subcon.sisa.index');
+   
 
 
     // Modal Detail PO di Subcon
