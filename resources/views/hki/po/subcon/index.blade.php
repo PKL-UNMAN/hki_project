@@ -21,20 +21,23 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Tujuan</th>
-                            <th>Date</th>
                             <th>Part No</th>
                             <th>Part Name</th>
-                            <th>Order QTY</th>
-                            <th>Weight</th>
-                            <th>Order No</th>
-                            <th>PO Number</th>
-                            <th>Delivery Time</th>
+                            <th>Class</th>
+                            <th>Composition</th>
+                            <th>Unit</th>
+                            <th style="text-align: center">ID <br>(Default supplier)</th>
+                            <th>Nama Perusahaan</th>
+                            <th>Unit Price</th>
+                            <th>Amount</th>
+                            <th>Currency</th>
+                            <th>QTY</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                       @foreach($PO as $data)
+                       {{-- @foreach($PO as $data)
                         <tr>
                             <td>{{$data->no}}</td>
                             <td>{{$data->nama}}</td>
@@ -64,7 +67,7 @@
                               
                             </td>
                         </tr>
-                      @endforeach
+                      @endforeach --}}
                     </tbody>
                 </table>
               </div>
