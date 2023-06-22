@@ -153,3 +153,7 @@ Route::controller(c_surat::class)->middleware('auth')->group(function () {
         return view('hki.monitorSurat.index');
     })->name('hki.monitorsurat.index');
     
+ // Sisa Barang hki
+ Route::get('/hki/sisabarang', function () {
+    return view('hki.sisabarang.index');
+})->name('hki.sisabarang.index');
