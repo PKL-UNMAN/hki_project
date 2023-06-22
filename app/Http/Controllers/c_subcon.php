@@ -48,8 +48,19 @@ class c_subcon extends Controller
 
 
     // END PO SUBCON
+    
+    // Monitoring  Sisa
+    public function mySisa_Subcon()
+    {
+        $id = Auth::user()->id;
+        $data =[
+            'surat' => $this->surat->mySurat_Subcon($id)
+        ];
+        return view ('subcon.sisa.index', $data);
+    }
+    // END Monitoring Sisa
 
-    // SURAT SUBCON
+    // SURAT SUBCON ke HKI
     public function mySurat_Subcon()
     {
         $id = Auth::user()->id;
@@ -59,7 +70,21 @@ class c_subcon extends Controller
         return view ('subcon.surat.index', $data);
     }
 
-    // END SURAT
+
+    // END SURAT Ke HKI
+
+     // SURAT DARI SUPPLIER
+     public function mySuratSup_Subcon()
+     {
+         $id = Auth::user()->id;
+         $data =[
+             'surat' => $this->surat->mySuratSup_Subcon($id)
+         ];
+         return view ('subcon.suratSup.index', $data);
+     }
+     // END SURAT DARI SUPPLIER
+
+
 
     //Download Surat Subcon
     public function mySurat_Download($no)
