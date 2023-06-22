@@ -1,7 +1,7 @@
 @extends('layouts.templateBaru',['title' => 'Surat Jalan'])
 @section('content')
 <div class="container">
-	<h3>Surat Jalan HKI {{Auth::user()->name}}</h3>
+	<h3>Surat Jalan Supplier {{Auth::user()->name}}</h3>
 	@if (session()->has('success'))
     <script>
         window.onload = function () {
@@ -17,11 +17,7 @@
             };
     </script>
     @endif
-    <div class="row">
-        <div class="col-2  mt-2 mb-4">
-                <a href="#" onclick="tambahSurat()" class="btn btn-primary" style="width:150px">Buat Surat</a>
-        </div>
-    </div>
+
     <div class="row">
         <div class="col col-md-12 col-12 mt-2">
             <div class="ss" data-aos="fade-up">

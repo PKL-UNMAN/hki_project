@@ -52,6 +52,16 @@ class m_surat extends Model
         return DB::table('surat')->join('users', 'surat.id_subcon', '=', 'users.id')->where('id_subcon', $id)->get();
     }
 
+
+    // model surat dari supplier ke subcon
+    public function mySuratSup_Subcon($id)
+    {
+        return DB::table('surat')->join('users', 'surat.id_subcon', '=', 'users.id')->where('id_subcon', $id)->get();
+    }
+    //END model surat dari supplier ke subcon
+
+
+
     public function mySurat_supplier($id)
     {
         return DB::table('surat_supplier')->join('users', 'surat_supplier.id_supplier', '=', 'users.id')->where('id_supplier', $id)->get();

@@ -12,7 +12,21 @@
         {{-- subcon --}}
         @if (Auth::user()->role_id == '2')
             <li><a class="nav-link scrollto" href="{{ route('subcon.po.index') }}">Purchase Order</a></li>
-            <li><a class="nav-link scrollto" href="{{ route('subcon.surat.index') }}">Surat Jalan</a></li>
+           
+            <li class="dropdownx">
+                <a href="#">Surat Jalan
+                    <i class="bi bi-chevron-down">
+                    </i>
+                </a>
+            <ul>
+                <li><a class="nav-link scrollto" href="{{ route('subcon.surat.index') }}">Surat HKI</a></li>
+                <li><a href="{{ route('subcon.suratSup.index') }}">Surat Supplier</a></li>
+                <li>
+            </ul>
+            <li><a class="nav-link scrollto" href="{{ route('subcon.sisa.index') }}">Monitoring Sisa</a></li>
+
+        </li>
+
         @endif
         {{-- hki --}}
         @if (Auth::user()->role_id == '1')

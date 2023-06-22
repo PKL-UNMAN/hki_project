@@ -19,28 +19,35 @@
         @endif
 
         <div class="row">
-            <div class="col col-md-8 col-12 mt-2">
+        <div class="col col-md-2 col-12 mt-2 mb-4">
+                <a href="#" onclick="tambahSurat()" class="btn btn-primary" style="width:150px">Buat Surat</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-md-12 col-12 mt-2">
                 <div class="ss" data-aos="fade-up">
                     <table id="surat" class="display nowrap" style="width:100%">
                         <thead>
                             <tr>
-                                <th>No</th>
-                                <th>Part Name</th>
-                                <th>Part No</th>
-                                <!-- <th>Surat Tujuan</th> -->
-                                <th>Order No</th>
-                                <th>Delivery Time</th>
-                                <th>Status</th>
-                                <th>Action</th>
+                            <th>No</th>
+                            <th>PO Number</th>
+                            <th>Pengirim</th>
+                            <th>Tujuan Pengiriman</th>
+                            <th>Tanggal</th>
+                            <th>Part No</th>
+                            <th>Part Name</th>
+                            <th>QTY</th>
+                            <th>Unit(Kg/Pc)</th>
+                            <th>Status</th>
+                            <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($surat as $data)
+                            <!-- @foreach ($surat as $data)
                                 <tr>
                                     <td></td>
                                     <td>{{ $data->part_name }}</td>
                                     <td>{{ $data->part_no }}</td>
-                                    <!-- <td>{{ $data->nama }}</td> -->
                                     <td>{{ $data->order_no }}</td>
                                     <td>{{ $data->delivery_time }}</td>
                                     <td>
@@ -61,14 +68,12 @@
                                             class="btn btn-primary">Download</a>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @endforeach -->
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="col col-md-4 col-12 mt-2">
-                <a href="#" onclick="tambahSurat()" class="btn btn-primary" style="width:150px">Buat Surat</a>
-            </div>
+          
         </div>
 
 

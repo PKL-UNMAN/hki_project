@@ -21,20 +21,40 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Date</th>
                             <th>Part No</th>
                             <th>Part Name</th>
-                            <th>Order QTY</th>
-                            <th>Weight</th>
-                            <th>Order No</th>
-                            <th>PO Number</th>
-                            <th>Delivery Time</th>
+                            <th>Class</th>
+                            <th>Composition</th>
+                            <th>Unit</th>
+                            <th>ID (default Supplier)</th>
+                            <th>Nama Perusahaan</th>
+                            <th>Unit Price</th>
+                            <th>Amount</th>
+                            <th>Currency</th>
+                            <th>QTY</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                       @foreach($PO as $data)
+                            <td>1</td>
+                            <td>12</td>
+                            <td>Metal</td>
+                            <td>material</td>
+                            <td>Kg</td>
+                            <td>0.138</td>
+                            <td>0181818</td>
+                            <td>Miyuki</td>
+                            <td>1000</td>
+                            <td>20.000</td>
+                            <td>IDR</td>
+                            <td>200</td>
+                            <td>on Going</td>
+                            <td>actions</td>
+
+
+                            
+                       <!-- @foreach($PO as $data)
                         <tr>
                             <td>{{$data->no}}</td>
                             <td>{{$data->issue_date}}</td>
@@ -56,7 +76,7 @@
                                 <a href="{{route('subcon.po.download', $data->no)}}" class="btn btn-primary">Download</a>
                             </td>
                         </tr>
-                      @endforeach
+                      @endforeach -->
                     </tbody>
                 </table>
               </div>

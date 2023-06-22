@@ -1,7 +1,7 @@
 @extends('layouts.templateBaru',['title' => 'Surat Jalan'])
 @section('content')
 <div class="container">
-	<h3>Surat Jalan HKI {{Auth::user()->name}}</h3>
+	<h3>Monitoring Sisa {{Auth::user()->name}}</h3>
 	@if (session()->has('success'))
     <script>
         window.onload = function () {
@@ -17,11 +17,10 @@
             };
     </script>
     @endif
-    <div class="row">
-        <div class="col-2  mt-2 mb-4">
-                <a href="#" onclick="tambahSurat()" class="btn btn-primary" style="width:150px">Buat Surat</a>
-        </div>
-    </div>
+  
+
+
+
     <div class="row">
         <div class="col col-md-12 col-12 mt-2">
             <div class="ss" data-aos="fade-up">
@@ -29,43 +28,15 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>PO Number</th>
-                            <th>Pengirim</th>
-                            <th>Tujuan Pengiriman</th>
-                            <th>Tanggal</th>
-                            <!-- <th>Surat Tujuan</th> -->
+                            <th>ID (default Supplier)</th>
+                            <th>Nama Perusahaan</th>
                             <th>Part No</th>
-                            <th>Part Name</th>
-                            <th>QTY</th>
-                            <th>Unit(Kg/Pc)</th>
-                            <th>Status</th>
-                            <th>Action</th>
+                            <th>Part Name </th>
+                            <th>Sisa</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- @foreach($surat as $data)
-                        <tr>
-                            <td></td>
-                            <td>{{$data->part_name}}</td>
-                            <td>{{$data->part_no}}</td> -->
-                            <!-- <td>{{$data->nama}}</td> -->
-                            <!-- <td>{{$data->order_no}}</td>
-                            <td>{{$data->delivery_time}}</td>
-                            <td>
-                                @if($data->status == "On Progress")
-                                <span class="badge" style="background-color: orangered">On Progress</span>
-                                @elseif($data->status == "Finish")
-                                <span class="badge" style="background-color: rgb(0, 193, 55)">Accepted</span>
-                                @endif
-                            </td>
-                            <td>
-                                <a href="{{route('subcon.surat.edit', $data->no_surat)}}" class="btn btn-warning">Edit</a>
-                                <a id="hapus" onclick="modalHapus({{$data->no_surat}})" href="#" class="btn btn-danger">Delete</a>
-                                <a href="#" onclick="modalREAD({{$data->no_surat}})" class="btn btn-warning">READ</a>
-                                <a href="{{route('subcon.surat.download', $data->no_surat)}}" class="btn btn-primary">Download</a>
-                            </td>
-                        </tr>
-                        @endforeach -->
+							<!-- Isi Surat -->
                     </tbody>
                 </table>
               </div>
