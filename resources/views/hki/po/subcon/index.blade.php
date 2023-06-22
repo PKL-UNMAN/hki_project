@@ -12,6 +12,7 @@
 	
     <div style="text-align: left">
         <a href="{{route('hki.po.subcon.create')}}" class="btn btn-primary">Tambah PO</a>
+        <a href="#" class="btn btn-info" style="color: white">Upload PO</a>
     </div>
 
     <div class="row">

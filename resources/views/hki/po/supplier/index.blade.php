@@ -12,6 +12,7 @@
 	
     <div style="text-align: left">
         <a href="{{route('hki.po.supplier.create')}}" class="btn btn-primary">Tambah PO</a>
+        <a href="#" class="btn btn-info" style="color: white">Upload PO</a>
     </div>
 
     <div class="row">
@@ -21,14 +22,18 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Tujuan</th>
-                            <th>Date</th>
                             <th>Part No</th>
-                            <th>Order QTY</th>
-                            <th>Weight</th>
-                            <th>Order No</th>
-                            <th>PO Number</th>
-                            <th>Delivery Time</th>
+                            <th>Part Name</th>
+                            <th>Class</th>
+                            <th>Composition</th>
+                            <th>Unit</th>
+                            <th style="text-align: center">ID<br>(Default Supplier)</th>
+                            <th>Nama Perusahaan</th>
+                            <th>Unit Price</th>
+                            <th>Ammount</th>
+                            <th>Currency</th>
+                            <th>QTY</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -44,6 +49,11 @@
                             <td>{{$data->order_no}}</td>
                             <td>{{$data->po_number}}</td>
                             <td>{{$data->delivery_time}}</td>
+                            <td>{{$data->po_number}}</td>
+                            <td>{{$data->po_number}}</td>
+                            <td>{{$data->po_number}}</td>
+                            <td>{{$data->po_number}}</td>
+
                             <td style="width:40%">
                                 <div class="row">
                                     <div class="col-md-6">
