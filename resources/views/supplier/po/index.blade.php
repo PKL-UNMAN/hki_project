@@ -17,6 +17,7 @@
                     <thead>
                         <tr>
                         <th>No</th>
+                            <th>PO No</th>
                             <th>Part No</th>
                             <th>Part Name</th>
                             <th>Class</th>
@@ -34,6 +35,7 @@
                     </thead>
                     <tbody>
 
+                            <td>1</td>
                             <td>1</td>
                             <td>12</td>
                             <td>Metal</td>

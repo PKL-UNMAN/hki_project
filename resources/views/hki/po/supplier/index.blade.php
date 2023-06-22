@@ -22,6 +22,7 @@
                     <thead>
                         <tr>
                             <th>No</th>
+                            <th>PO No</th>
                             <th>Part No</th>
                             <th>Part Name</th>
                             <th>Class</th>
@@ -40,6 +41,7 @@
                     <tbody>
                        @foreach($PO as $data)
                         <tr>
+                            <td>{{$data->no}}</td>
                             <td>{{$data->no}}</td>
                             <td>{{$data->nama}}</td>
                             <td>{{$data->issue_date}}</td>

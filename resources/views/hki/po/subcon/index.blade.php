@@ -22,7 +22,7 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Part No</th>
+                            <th>PO No</th>
                             <th>Part Name</th>
                             <th>Class</th>
                             <th>Composition</th>
