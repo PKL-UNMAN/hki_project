@@ -39,7 +39,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                       @foreach($PO as $data)
+                       {{-- @foreach($PO as $data)
                         <tr>
                             <td>{{$data->no}}</td>
                             <td>{{$data->no}}</td>
@@ -74,7 +74,7 @@
                                 </div>  
                             </td>
                         </tr>
-                      @endforeach
+                      @endforeach --}}
                     </tbody>
                 </table>
               </div>

@@ -18,7 +18,7 @@ class m_purchasingOrder extends Model
 
     public function tampilPO_Supplier()
     {
-        return DB::table('purchasing')->join('users','purchasing.id_tujuan','=','users.id')->where('users.role_id', '3')->get();
+        return DB::table('purchasing')->join('users','purchasing.default_supplier_id','=','users.id')->where('users.role_id', '3')->get();
     }
 
     public function tampilPO_Subcon()

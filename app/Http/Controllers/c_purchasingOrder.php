@@ -35,72 +35,82 @@ class c_purchasingOrder extends Controller
     {
         $data =[
             'supplier' => $this->user->supplierData(),
+            'subcon' => $this->user->subconData(),
         ];
         return view ('hki.po.supplier.create', $data);
     }
 
     public function storePO_Supplier(Request $request)
     {
-        $now = Carbon::now()->format('d-m-Y');
-        $request->validate([
-            'part_no' => 'required',
-            'id_tujuan' => 'required',
-            'part_name' => 'required',
-            'order_qty' => 'required',
-            'weight' => 'required',
-            'order_no' => 'required',
-            'po_number' => 'required',
-            'delivery_time' => 'required',
-        ],[
-            'part_no.required'=>'Part Nomor Wajib terisi',
-            'id_tujuan.unique'=>'Supplier Wajib Diisi',
-            'part_name.required'=>'Part Name Wajib terisi',
-            'order_qty.required'=>'Order QTY Wajib terisi',
-            'weight.required'=>'Weight Wajib terisi',
-            'order_no.required'=>'Order No Wajib terisi',
-            'po_number.required'=>'PO Number Wajib terisi',
-            'delivery_time.required'=>'Delivery Time Wajib terisi',
-        ]);
-
-        $id = $this->PO->checkID();
-        if($id == null)
-        {
-            $id_baru = $id+1;
-            $data =[
-                'no'=> $id_baru,
-                'part_no' => $request->part_no,
-                'id_tujuan' => $request->id_tujuan,
-                'id_hki' => Auth::user()->id,
-                'part_name' => $request->part_name,
-                'order_qty' => $request->order_qty,
-                'weight' => $request->weight,
-                'order_no' => $request->order_no,
-                'po_number' => $request->po_number,
-                'payment' => $request->payment,
-                'issue_date' => $now,
-                'delivery_time' => $request->delivery_time,
-                'status'=> "On Progress",
-            ];
-          
-        }else{
-            $idMax = $this->PO->maxIditem();
-            $id_baru = $idMax+1;
-            $data =[
-                'no'=> $id_baru,
-                'part_no' => $request->part_no,
-                'id_tujuan' => $request->id_tujuan,
-                'id_hki' => Auth::user()->id,
-                'part_name' => $request->part_name,
-                'order_qty' => $request->order_qty,
-                'weight' => $request->weight,
-                'order_no' => $request->order_no,
-                'po_number' => $request->po_number,
-                'payment' => $request->payment,
-                'issue_date' => $now,
-                'delivery_time' => $request->delivery_time,
-                'status'=> "On Progress",
+        dd($request);
+        foreach ($unit_number as $index => $unit) {
+            $units[] = [
+                "course_id" => $course_id, // change this
+                "unit_number" => $unit_number[$index],
+                'created_at' => \Carbon::now(),
+                "unit_title" => $unit_title[$index]
             ];
         }
+        // $now = Carbon::now()->format('d-m-Y');
+        // $request->validate([
+        //     'part_no' => 'required',
+        //     'id_tujuan' => 'required',
+        //     'part_name' => 'required',
+        //     'order_qty' => 'required',
+        //     'weight' => 'required',
+        //     'order_no' => 'required',
+        //     'po_number' => 'required',
+        //     'delivery_time' => 'required',
+        // ],[
+        //     'part_no.required'=>'Part Nomor Wajib terisi',
+        //     'id_tujuan.unique'=>'Supplier Wajib Diisi',
+        //     'part_name.required'=>'Part Name Wajib terisi',
+        //     'order_qty.required'=>'Order QTY Wajib terisi',
+        //     'weight.required'=>'Weight Wajib terisi',
+        //     'order_no.required'=>'Order No Wajib terisi',
+        //     'po_number.required'=>'PO Number Wajib terisi',
+        //     'delivery_time.required'=>'Delivery Time Wajib terisi',
+        // ]);
+
+        // $id = $this->PO->checkID();
+        // if($id == null)
+        // {
+        //     $id_baru = $id+1;
+        //     $data =[
+        //         'no'=> $id_baru,
+        //         'part_no' => $request->part_no,
+        //         'id_tujuan' => $request->id_tujuan,
+        //         'id_hki' => Auth::user()->id,
+        //         'part_name' => $request->part_name,
+        //         'order_qty' => $request->order_qty,
+        //         'weight' => $request->weight,
+        //         'order_no' => $request->order_no,
+        //         'po_number' => $request->po_number,
+        //         'payment' => $request->payment,
+        //         'issue_date' => $now,
+        //         'delivery_time' => $request->delivery_time,
+        //         'status'=> "On Progress",
+        //     ];
+          
+        // }else{
+        //     $idMax = $this->PO->maxIditem();
+        //     $id_baru = $idMax+1;
+        //     $data =[
+        //         'no'=> $id_baru,
+        //         'part_no' => $request->part_no,
+        //         'id_tujuan' => $request->id_tujuan,
+        //         'id_hki' => Auth::user()->id,
+        //         'part_name' => $request->part_name,
+        //         'order_qty' => $request->order_qty,
+        //         'weight' => $request->weight,
+        //         'order_no' => $request->order_no,
+        //         'po_number' => $request->po_number,
+        //         'payment' => $request->payment,
+        //         'issue_date' => $now,
+        //         'delivery_time' => $request->delivery_time,
+        //         'status'=> "On Progress",
+        //     ];
+        // }
         $this->PO->addData($data);
         return redirect()->route('hki.po.supplier.index')->with('success','PO berhasil ditambahkan');
     }
