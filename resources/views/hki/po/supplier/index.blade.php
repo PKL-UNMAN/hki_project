@@ -2,10 +2,16 @@
 @section('content')
 <div class="container">
 	<h3>Purchase Order Supplier</h3>
-	@if (session()->has('success'))
+	@if ($message =session('success'))
+        <script>
+            window.onload = function () {
+                    swal.fire("{{$message}}");
+                };
+        </script>
+    @elseif($message =session('fail'))
     <script>
         window.onload = function () {
-                swal.fire("Berhasil");
+                swal.fire("{{$message}}");
             };
     </script>
     @endif

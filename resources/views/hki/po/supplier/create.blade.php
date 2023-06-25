@@ -8,19 +8,16 @@
                 <h3>Tambah PO Supplier</h3>
             </center>
             <div class="text-center mt-4" style="margin-left: 800px">
-                <a href="javascript:void(0);" id="tambah">Tambah Item</a>
               </div>
-<form id="formPO" method="POST" action="{{route('hki.po.supplier.store')}}" enctype="multipart/form-data">
-    @csrf
             <div class="form mt-4">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="" class="text-left">Tujuan Supplier (Nama Perusahaan)</label>
                                 <select name="id_tujuan" id="id_tujuan" class="form-control @error('id_tujuan') is-invalid @enderror">
-                                    <option value="1" selected disabled>-- Pilih Supplier --</option>
+                                <option value="1" selected disabled>-- Pilih Supplier --</option>
                                     @foreach($supplier as $data)
-                                    <option data-id="{{$data->id}}" data-class="SUPPLIER" value="{{$data->id}}">{{$data->nama}}</option>
+                                    <option data-id="{{$data->id}}" data-class="SUPPLIER" value="{{$data->id}}">{{$data->id}} - {{$data->nama}}</option>
                                     @endforeach
                                 </select>
                                 @error('id_tujuan')
@@ -56,8 +53,8 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="default_id">ID Default Supplier</label>
-                                <input type="text" class="form-control @error('default_id') is-invalid @enderror" id="default_id" placeholder="Masukkan default_id">
-                                @error('po_number')
+                                <input type="text" class="form-control @error('default_id') is-invalid @enderror" id="default_id" placeholder="Masukkan default_id" value="{{old('default_id')}}">
+                                @error('default_id')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -77,7 +74,7 @@
                             <div class="form-group">
                                 <label for="class">Class</label>
                                 <input type="text" class="form-control @error('class') is-invalid @enderror" id="classname" placeholder="Masukkan class">
-                                @error('class')
+                                @error('classname')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -105,6 +102,7 @@
 
     <div class="card mt-3">
         <div class="container">
+            <form class="temp">
             <div class="row mb-3">
                 <div class="col-md-4">
                     <div class="form-group">
@@ -194,17 +192,20 @@
                     </div>
                 </div>
             </div>
+        </form>
         </div>
     </div>
+    <a href="javascript:void(0);" id="tambah" style="margin-left: 900px" class="mt-3 btn btn-success disabled">+Tambah Item</a>
+<form id="formPO" method="POST" action="{{route('hki.po.supplier.store')}}" enctype="multipart/form-data">
+        @csrf
     <div class="po">
-        <input type="text" name="id_tujuan" value="">
-        <input type="text" name="po_number" value="">
-        <input type="text" name="destination" value="">
-        <input type="text" name="default_id" value="">
-        <input type="text" name="issue_date" value="">
-        <input type="text" name="classname" value="">
-        <input type="text" name="currency" value="">
-        
+        <input type="hidden" name="id_tujuan" value="">
+        <input type="hidden" name="po_number" value="">
+        <input type="hidden" name="destination" value="">
+        <input type="hidden" name="default_id" value="">
+        <input type="hidden" name="issue_date" value="">
+        <input type="hidden" name="classname" value="">
+        <input type="hidden" name="currency" value="">
     </div>
     <table id="myTable" class="table" style="margin-top: 40px">
         <tbody>
@@ -225,7 +226,7 @@
             </tr>
         </tbody>
     </table>
-        <button style="margin-left: 600px" type="submit" id="simpan" class="btn btn-success">Simpan</button>
+        <button style="margin-left: 900px" type="submit" id="simpan" class="btn btn-primary">Simpan</button>
 </form>
     </div>
 </div>
@@ -239,7 +240,7 @@
         });
         $('#po_number').keyup(function(){
             date = new Date();
-            const issue_date = $('#issue_date').val(date.toLocaleDateString('id-ID'))
+            const issue_date = $('#issue_date').val(date.toLocaleDateString('id-ID')+' - '+date.toLocaleTimeString('id-ID'))
         });
         //Ketika tambah item saja!!!!
         $('#part_no').keyup(function(){
@@ -258,6 +259,22 @@
             $('[name="classname"]').val(classname)
             $('[name="currency"]').val(currency)
         });
+        $('#unit_price').keyup(function(){
+            let amount = ($('#unit_price').val()*$('#composition').val())*$('#qty').val()
+            $('#amount').val(amount)
+        })
+
+        $('form.temp .form-group input').keyup(function(){
+            $(this).each(function() {
+                let val =$(this).val().length
+                if (val == 0) {
+                    $('.btn-success').addClass('disabled')
+                }else{
+                    $('.btn-success').removeClass('disabled')
+                }
+            })
+        });
+
     })
 
     let no = 0
