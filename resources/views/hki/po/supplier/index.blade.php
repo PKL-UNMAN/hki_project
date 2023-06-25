@@ -37,7 +37,7 @@
                             <th style="text-align: center">ID<br>(Default Supplier)</th>
                             <th>Nama Perusahaan</th>
                             <th>Unit Price</th>
-                            <th>Ammount</th>
+                            <th>Amount</th>
                             <th>Currency</th>
                             <th>QTY</th>
                             <th>Status</th>
@@ -45,42 +45,41 @@
                         </tr>
                     </thead>
                     <tbody>
-                       {{-- @foreach($PO as $data)
+                        @php
+                            $no=1;    
+                        @endphp
+                       @foreach($PO as $data)
                         <tr>
-                            <td>{{$data->no}}</td>
-                            <td>{{$data->no}}</td>
-                            <td>{{$data->nama}}</td>
-                            <td>{{$data->issue_date}}</td>
+                            <td>{{$no++}}</td>
+                            <td>{{$data->po_number}}</td>
                             <td>{{$data->part_no}}</td>
+                            <td>{{$data->part_name}}</td>
+                            <td>{{$data->class}}</td>
+                            <td>{{$data->composition}}</td>
+                            <td>{{$data->unit}}</td>
+                            <td>{{$data->default_supplier_id}}</td>
+                            <td>{{$data->nama}}</td>
+                            <td>{{$data->unit_price}}</td>
+                            <td>{{$data->amount}}</td>
+                            <td>{{$data->currency_code}}</td>
                             <td>{{$data->order_qty}}</td>
-                            <td>{{$data->weight}}</td>
-                            <td>{{$data->order_no}}</td>
-                            <td>{{$data->po_number}}</td>
-                            <td>{{$data->delivery_time}}</td>
-                            <td>{{$data->po_number}}</td>
-                            <td>{{$data->po_number}}</td>
-                            <td>{{$data->po_number}}</td>
-                            <td>{{$data->po_number}}</td>
-
+                            <td>
+                                <select name="status" class="form-select" id="status{{$data->id_po}}" onchange="ubahStatus({{$data->id}})" >
+                                    <option value="" @if($data->status == "") selected @endif>--Status --</option>
+                                    <option value="On Progress" @if($data->status == "On Progress") selected @endif>On Progress</option>
+                                    <option value="Finish"  @if($data->status == "Finish") selected @endif>Finish</option>
+                                </select>
+                            </td>
                             <td style="width:40%">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <select name="status" class="form-select" id="status{{$data->no}}" onchange="ubahStatus({{$data->no}})" >
-                                            <option value="" @if($data->status == "") selected @endif>--Status --</option>
-                                            <option value="On Progress" @if($data->status == "On Progress") selected @endif>On Progress</option>
-                                            <option value="Finish"  @if($data->status == "Finish") selected @endif>Finish</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <a href="{{route('hki.po.supplier.edit', $data->no)}}" class="btn btn-warning">Edit</a>
-                                        <a id="hapus" onclick="modalHapus({{$data->no}})" href="#" class="btn btn-danger">Delete</a>
-                                        <a href="#" onclick="modalRead({{$data->no}})" class="btn btn-info">Read</a>
-                                        <a href="{{route('supplier.po.download', $data->no)}}" class="btn btn-primary">Download</a>
-                                    </div>
+                                        <a href="{{route('hki.po.supplier.edit', $data->id_po)}}" class="btn btn-warning">Edit</a>
+                                        <a id="hapus" onclick="modalHapus({{$data->id_po}})" href="#" class="btn btn-danger">Delete</a>
+                                        <a href="#" onclick="modalRead({{$data->id_po}})" class="btn btn-info">Read</a>
+                                        <a href="{{route('supplier.po.download', $data->id_po)}}" class="btn btn-primary">Download</a>
+                                    
                                 </div>  
                             </td>
                         </tr>
-                      @endforeach --}}
+                      @endforeach
                     </tbody>
                 </table>
               </div>

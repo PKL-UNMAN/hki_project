@@ -259,7 +259,7 @@
             $('[name="classname"]').val(classname)
             $('[name="currency"]').val(currency)
         });
-        $('#unit_price').keyup(function(){
+        $('#composition').keyup(function(){
             let amount = ($('#unit_price').val()*$('#composition').val())*$('#qty').val()
             $('#amount').val(amount)
         })

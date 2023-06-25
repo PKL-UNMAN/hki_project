@@ -18,7 +18,7 @@ class m_purchasingOrder extends Model
 
     public function tampilPO_Supplier()
     {
-        return DB::table('purchasing')->join('users','purchasing.default_supplier_id','=','users.id')->where('users.role_id', '3')->get();
+        return DB::table('purchasing')->join('users','purchasing.default_supplier_id','=','users.id')->get();
     }
 
     public function tampilPO_Subcon()
@@ -31,14 +31,14 @@ class m_purchasingOrder extends Model
         DB::table('purchasing')->insert($data);
     }
     
-    public function editData($no, $data)
+    public function editData($id, $data)
     {
-        return DB::table('purchasing')->where('no', $no)->update($data);
+        return DB::table('purchasing')->where('id_po', $id)->update($data);
     }
 
-    public function detailData($no)
+    public function detailData($id)
     {
-        return DB::table('purchasing')->where('no', $no)->first();
+        return DB::table('purchasing')->join('users','purchasing.id_tujuan','=','users.id')->where('id_po', $id)->first();
     }
 
     public function deleteData($no)

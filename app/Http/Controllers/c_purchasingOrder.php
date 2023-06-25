@@ -67,41 +67,41 @@ class c_purchasingOrder extends Controller
                     "order_number" => $request->order_number[$index],
                     "status" => 'On Progress'
                 ];
-                $request->validate([
-                    "po_number" => 'required', 
-                    "id_tujuan" => 'required', 
-                    "destination" => 'required',
-                    "default_id" => 'required',
-                    "issue_date" => 'required',
-                    "classname" => 'required', 
-                    "currency" => 'required',
-                    "part_no" => 'required',
-                    "part_name" => 'required',
-                    "unit_price" => 'required',
-                    "composition" => 'required',
-                    "order_qty" => 'required',
-                    "unit" => 'required',
-                    "amount" => 'required',
-                    "delivery_time" => 'required',
-                    "order_number" => 'required'
-                ],[
-                    'po_number.required'=>'Nomor PO Wajib Diisi', 
-                    'id_tujuan.required'=>'Tujuan Supplier Wajib Diisi', 
-                    'destination.required'=>'Tujuan Pengiriman Wajib Diisi',
-                    'default_id.required'=>'Supplier ID Wajib Diisi',
-                    'issue_date.required'=>'Issue Date Wajib Diisi',
-                    'classname.required'=>'Class Wajib Diisi', 
-                    'currency.required'=>'Kode Currency Wajib Diisi',
-                    'part_no.required'=>'Nomor Part Wajib Diisi',
-                    'part_name.required'=>'Nama Part Wajib Diisi',
-                    'unit_price.required'=>'Unit Price Wajib Diisi',
-                    'composition.required'=>'Composition Wajib Diisi',
-                    'order_qty.required'=>'QTY Order Wajib Diisi',
-                    'unit.required'=>'Unit Wajib Diisi',
-                    'amount.required'=>'Amount Wajib Diisi',
-                    'delivery_time.required'=>'Delivery Time Wajib Diisi',
-                    'order_number.required'=>'Order Number Wajib Diisi'
-                ]);
+                // $request->validate([
+                //     "po_number" => 'required', 
+                //     "id_tujuan" => 'required', 
+                //     "destination" => 'required',
+                //     "default_id" => 'required',
+                //     "issue_date" => 'required',
+                //     "classname" => 'required', 
+                //     "currency" => 'required',
+                //     "part_no" => 'required',
+                //     "part_name" => 'required',
+                //     "unit_price" => 'required',
+                //     "composition" => 'required',
+                //     "order_qty" => 'required',
+                //     "unit" => 'required',
+                //     "amount" => 'required',
+                //     "delivery_time" => 'required',
+                //     "order_number" => 'required'
+                // ],[
+                //     'po_number.required'=>'Nomor PO Wajib Diisi', 
+                //     'id_tujuan.required'=>'Tujuan Supplier Wajib Diisi', 
+                //     'destination.required'=>'Tujuan Pengiriman Wajib Diisi',
+                //     'default_id.required'=>'Supplier ID Wajib Diisi',
+                //     'issue_date.required'=>'Issue Date Wajib Diisi',
+                //     'classname.required'=>'Class Wajib Diisi', 
+                //     'currency.required'=>'Kode Currency Wajib Diisi',
+                //     'part_no.required'=>'Nomor Part Wajib Diisi',
+                //     'part_name.required'=>'Nama Part Wajib Diisi',
+                //     'unit_price.required'=>'Unit Price Wajib Diisi',
+                //     'composition.required'=>'Composition Wajib Diisi',
+                //     'order_qty.required'=>'QTY Order Wajib Diisi',
+                //     'unit.required'=>'Unit Wajib Diisi',
+                //     'amount.required'=>'Amount Wajib Diisi',
+                //     'delivery_time.required'=>'Delivery Time Wajib Diisi',
+                //     'order_number.required'=>'Order Number Wajib Diisi'
+                // ]);
         
                 $this->PO->addData($parts);
                 return redirect()->route('hki.po.supplier.index')->with('success','PO berhasil ditambahkan');
@@ -110,12 +110,14 @@ class c_purchasingOrder extends Controller
 
     }
 
-    public function editPO_Supplier($no)
+    public function editPO_Supplier($id)
     {
         $data =[
-            'PO' => $this->PO->detailData($no),
+            'PO' => $this->PO->detailData($id),
+            'subcon' => $this->user->subconData(),
             'supplier' => $this->user->supplierData(),
         ];
+        // dd($data['PO']);
         return view ('hki.po.supplier.edit', $data);
     }
 
