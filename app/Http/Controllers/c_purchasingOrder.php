@@ -89,45 +89,35 @@ class c_purchasingOrder extends Controller
         return view ('hki.po.supplier.edit', $data);
     }
 
-    public function updatePO_Supplier(Request $request, $no)
+    public function updatePO_Supplier(Request $request, $id_po)
     {
+        $part_no = $request->part_no;
 
-        $request->validate([
-            'part_no' => 'required',
-            'id_tujuan' => 'required',
-            'part_name' => 'required',
-            'order_qty' => 'required',
-            'weight' => 'required',
-            'order_no' => 'required',
-            'po_number' => 'required',
-            'delivery_time' => 'required',
-            'payment' => 'required',
-        ],[
-            'part_no.required'=>'Part Nomor Wajib terisi',
-            'id_tujuan.unique'=>'Supplier Wajib Diisi',
-            'part_name.required'=>'Part Name Wajib terisi',
-            'order_qty.required'=>'Order QTY Wajib terisi',
-            'weight.required'=>'Weight Wajib terisi',
-            'order_no.required'=>'Order No Wajib terisi',
-            'po_number.required'=>'PO Number Wajib terisi',
-            'delivery_time.required'=>'Delivery Time Wajib terisi',
-            'payment.required'=>'Payment Wajib terisi',
-        ]);
-
-            $data = [
-                'part_no' => $request->part_no,
-                'id_tujuan' => $request->id_tujuan,
-                'id_hki' => Auth::user()->id,
-                'part_name' => $request->part_name,
-                'order_qty' => $request->order_qty,
-                'weight' => $request->weight,
-                'order_no' => $request->order_no,
-                'po_number' => $request->po_number,
-                'payment' => $request->payment,
-                'delivery_time' => $request->delivery_time,
-            ];
+        if($part_no == NULL){
+            return redirect()->route('hki.po.supplier.index')->with('fail','Silakan lengkapi data terlebih dahulu!');
+        }else{
+                $part = [
+                    "po_number" => $request->po_number,
+                    "id_tujuan" => $request->id_tujuan,
+                    "id_destination" => $request->destination,
+                    "default_supplier_id" => $request->default_id,
+                    "issue_date" => $request->issue_date,
+                    "class" => $request->classname,
+                    "currency_code" => $request->currency,
+                    "part_no" => $request->part_no,
+                    "part_name" => $request->part_name,
+                    "unit_price" => $request->unit_price,
+                    "composition" => $request->composition,
+                    "order_qty" => $request->qty,
+                    "unit" => $request->unit,
+                    "amount" => $request->amount,
+                    "delivery_time" => $request->delivery_date,
+                    "order_number" => $request->order_number,
+                    "status" => 'On Progress'
+                ];
+            }
            
-        $this->PO->editData($no, $data);
+        $this->PO->editData($id_po, $part);
         return redirect()->route('hki.po.supplier.index')->with('success', 'User Berhasil diupdate.');
            
         }
@@ -291,9 +281,9 @@ class c_purchasingOrder extends Controller
 
     }
 
-    public function destroyPO_Supplier($no)
+    public function destroyPO_Supplier($id_po)
     {
-        $this->PO->deleteData($no);
+        $this->PO->deleteData($id_po);
         return redirect()->route('hki.po.supplier.index')->with('success','Berhasil Dihapus');
     }
 

@@ -10,6 +10,7 @@
             </center>
             <div class="text-center mt-4" style="margin-left: 800px">
               </div>
+
             <div class="form mt-4">
                     <div class="row">
                         <div class="col-md-4">
@@ -84,7 +85,7 @@
                             <div class="form-group mt-3">
                                 <label for="" class="text-left">Currency</label>
                                 <select id="currency" class="form-control @error('currency') is-invalid @enderror">
-                                    <option value="{{$PO->currency_code}}" selected disabled>-- {{$PO->currency_code}} --</option>
+                                    <option value="{{$PO->currency_code}}">-- {{$PO->currency_code}} --</option>
                                     <option>IDR</option>
                                 </select>
                                 @error('currency')
@@ -102,13 +103,14 @@
     </div>
 
     <div class="card mt-3">
+        <form id="formPO" method="POST" action="{{url('hki/po/supplier/update/'.$PO->id_po)}}" enctype="multipart/form-data">
+            @csrf
         <div class="container">
-            <form class="temp">
             <div class="row mb-3">
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="">Part No.</label>
-                        <input type="text" class="form-control @error('part_no') is-invalid @enderror" id="part_no" placeholder="Masukkan part_no">
+                        <input type="text" class="form-control @error('part_no') is-invalid @enderror" name="part_no" placeholder="Masukkan part_no" value="{{$PO->part_no}}">
                         @error('part_no')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -117,7 +119,7 @@
                     </div>
                     <div class="form-group mt-3">
                         <label for="">QTY</label>
-                        <input type="text" class="form-control @error('qty') is-invalid @enderror" id="qty" placeholder="Masukkan qty">
+                        <input type="text" class="form-control @error('qty') is-invalid @enderror" name="qty" placeholder="Masukkan qty" value="{{$PO->order_qty}}">
                         @error('qty')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -126,7 +128,7 @@
                     </div>
                     <div class="form-group mt-3">
                         <label for="">Composition</label>
-                        <input type="text" class="form-control @error('composition') is-invalid @enderror" id="composition" placeholder="Masukkan composition">
+                        <input type="text" class="form-control @error('composition') is-invalid @enderror" name="composition" placeholder="Masukkan composition" value="{{$PO->composition}}">
                         @error('composition')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -137,7 +139,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="">Part Name</label>
-                        <input type="text" class="form-control @error('part_name') is-invalid @enderror" id="part_name" placeholder="Masukkan part_name">
+                        <input type="text" class="form-control @error('part_name') is-invalid @enderror" name="part_name" placeholder="Masukkan part_name" value="{{$PO->part_name}}">
                         @error('part_name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -146,7 +148,7 @@
                     </div>
                     <div class="form-group mt-3">
                         <label for="">Unit</label>
-                        <input type="text" class="form-control @error('unit') is-invalid @enderror" id="unit" placeholder="Masukkan unit">
+                        <input type="text" class="form-control @error('unit') is-invalid @enderror" name="unit" placeholder="Masukkan unit" value="{{$PO->unit}}">
                         @error('unit')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -155,7 +157,7 @@
                     </div>
                     <div class="form-group mt-3">
                         <label for="">Amount</label>
-                        <input type="text" class="form-control @error('amount') is-invalid @enderror" id="amount" placeholder="Masukkan amount">
+                        <input type="text" class="form-control @error('amount') is-invalid @enderror" name="amount" placeholder="Masukkan amount" value="{{$PO->amount}}">
                         @error('amount')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -166,7 +168,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="">Unit Price</label>
-                        <input type="text" class="form-control @error('unit_price') is-invalid @enderror" id="unit_price" placeholder="Masukkan unit_price">
+                        <input type="text" class="form-control @error('unit_price') is-invalid @enderror" name="unit_price" placeholder="Masukkan unit_price" value="{{$PO->unit_price}}">
                         @error('unit_price')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -175,7 +177,7 @@
                     </div>
                     <div class="form-group mt-3">
                         <label for="">Delivery Date</label>
-                        <input type="date" class="form-control @error('delivery_date') is-invalid @enderror" id="delivery_date" placeholder="Masukkan delivery date">
+                        <input type="datetime" class="form-control @error('delivery_date') is-invalid @enderror" name="delivery_date" placeholder="Masukkan delivery date" value="{{$PO->delivery_time}}">
                         @error('delivery_date')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -184,50 +186,27 @@
                     </div>
                     <div class="form-group mt-3">
                         <label for="">Order Number</label>
-                        <input type="text" class="form-control @error('order_number') is-invalid @enderror" id="order_number" placeholder="Masukkan order_number">
+                        <input type="text" class="form-control @error('order_number') is-invalid @enderror" name="order_number" placeholder="Masukkan order_number" value="{{$PO->order_number}}">
                         @error('order_number')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
                     </div>
+                    <div class="po">
+                        <input type="hidden" name="id_tujuan" value="">
+                        <input type="hidden" name="po_number" value="">
+                        <input type="hidden" name="destination" value="">
+                        <input type="hidden" name="default_id" value="">
+                        <input type="hidden" name="issue_date" value="">
+                        <input type="hidden" name="classname" value="">
+                        <input type="hidden" name="currency" value="">
+                    </div>
                 </div>
             </div>
-        </form>
         </div>
     </div>
-    <a href="javascript:void(0);" id="tambah" style="margin-left: 900px" class="mt-3 btn btn-success disabled">+Tambah Item</a>
-<form id="formPO" method="POST" action="{{route('hki.po.supplier.store')}}" enctype="multipart/form-data">
-        @csrf
-    <div class="po">
-        <input type="hidden" name="id_tujuan" value="">
-        <input type="hidden" name="po_number" value="">
-        <input type="hidden" name="destination" value="">
-        <input type="hidden" name="default_id" value="">
-        <input type="hidden" name="issue_date" value="">
-        <input type="hidden" name="classname" value="">
-        <input type="hidden" name="currency" value="">
-    </div>
-    <table id="myTable" class="table" style="margin-top: 40px">
-        <tbody>
-        <tr>
-            <th>No</th>
-            <th>Part No</th>
-            <th>Part Name</th>
-            <th>Unit Price</th>
-            <th>Composition</th>
-            <th>QTY</th>
-            <th>Unit</th>
-            <th>Amount</th>
-            <th>Delivery Date</th>
-            <th>Order Number</th>
-            <th>Action</th>
-        </tr>
-        <tr>
-            </tr>
-        </tbody>
-    </table>
-        <button style="margin-left: 900px" type="submit" id="simpan" class="btn btn-primary">Simpan</button>
+    <button style="margin-left: 900px; margin-top:20px" type="submit" id="simpan" class="btn btn-primary">Simpan</button>
 </form>
     </div>
 </div>
@@ -244,14 +223,13 @@
             const issue_date = $('#issue_date').val(date.toLocaleDateString('id-ID')+' - '+date.toLocaleTimeString('id-ID'))
         });
         //Ketika tambah item saja!!!!
-        $('#part_no').keyup(function(){
             let id_tujuan = $('#id_tujuan').val()
             let po_num = $('#po_number').val()
             let destination = $('#destination').val()
             let default_id = $('#default_id').val()
             let issue_date = $('#issue_date').val()
             let classname = $('#classname').val()
-            let currency = $('#currency').val()
+            let currency = $('select#currency').val()
             $('[name="id_tujuan"]').val(id_tujuan)
             $('[name="po_number"]').val(po_num)
             $('[name="destination"]').val(destination)
@@ -259,59 +237,15 @@
             $('[name="issue_date"]').val(issue_date)
             $('[name="classname"]').val(classname)
             $('[name="currency"]').val(currency)
-        });
+
         $('#unit_price').keyup(function(){
             let amount = ($('#unit_price').val()*$('#composition').val())*$('#qty').val()
             $('#amount').val(amount)
         })
 
-        $('form.temp .form-group input').keyup(function(){
-            $(this).each(function() {
-                let val =$(this).val().length
-                if (val == 0) {
-                    $('.btn-success').addClass('disabled')
-                }else{
-                    $('.btn-success').removeClass('disabled')
-                }
-            })
-        });
-
     })
 
-    let no = 0
-    $('#tambah').click(function() {
-
-        no++
-       $('#myTable tbody').append('<tr id=row'+no+' class="child">'+
-        '<td>'+no+'</td>'+
-        '<td><input class="form-control" name="part_no[]" value='+$('#part_no').val()+'></td>'+
-        '<td><input class="form-control" name="part_name[]" value='+$('#part_name').val()+'></td>'+
-        '<td><input class="form-control" name="unit_price[]" value='+$('#unit_price').val()+'></td>'+
-        '<td><input class="form-control" name="composition[]" value='+$('#composition').val()+'></td>'+
-        '<td><input class="form-control" name="qty[]" value='+$('#qty').val()+'></td>'+
-        '<td><input class="form-control" name="unit[]" value='+$('#unit').val()+'></td>'+
-        '<td><input class="form-control" name="amount[]" value='+$('#amount').val()+'></td>'+
-        '<td><input class="form-control" name="delivery_date[]" value='+$('#delivery_date').val()+'></td>'+
-        '<td><input class="form-control" name="order_number[]" value='+$('#order_number').val()+'></td>'+
-        '<td><a href="javascript:void(0)" id=delete'+no+' class="btn btn-danger">Hapus</a></td>'+
-        '</tr>');
-        $('#part_no').val('')
-        $('#part_name').val('')
-        $('#unit_price').val('')
-        $('#composition').val('')
-        $('#qty').val('')
-        $('#unit').val('')
-        $('#amount').val('')
-        $('#delivery_date').val('')
-        $('#order_number').val('')
-        $('#delete'+no).click(function() {
-            $('#row'+no).remove()
-            no--
-        })
-    });
 </script>
-
-@endsection
 
 
 @endsection

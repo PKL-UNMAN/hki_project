@@ -43,7 +43,7 @@ class m_purchasingOrder extends Model
 
     public function deleteData($no)
     {
-        return DB::table('purchasing')->where('no', $no)->delete();
+        return DB::table('purchasing')->where('id_po', $no)->delete();
     }
 
     public function checkID()
