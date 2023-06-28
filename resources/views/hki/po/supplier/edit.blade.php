@@ -16,7 +16,7 @@
                             <div class="form-group">
                                 <label for="" class="text-left">Tujuan Supplier (Nama Perusahaan)</label>
                                 <select name="id_tujuan" id="id_tujuan" class="form-control @error('id_tujuan') is-invalid @enderror">
-                                <option value="{{$PO->id_tujuan}}">-- {{$PO->id_tujuan}} - {{$PO->nama}} --</option>
+                                <option data-class="SUPPLIER" data-id="{{$supplierBy->id}}" value="{{$PO->id_tujuan}}"> {{$PO->id_tujuan}} - {{$PO->nama}} </option>
                                     @foreach($supplier as $data)
                                     <option data-id="{{$data->id}}" data-class="SUPPLIER" value="{{$data->id}}">{{$data->id}} - {{$data->nama}}</option>
                                     @endforeach
@@ -29,7 +29,7 @@
                             </div>
                             <div class="form-group mt-3">
                                 <label for="password">PO Number</label>
-                                <input type="text" class="form-control @error('po_number') is-invalid @enderror" id="po_number" placeholder="Masukkan po_number" value="{{old('po_number')}}">
+                                <input type="text" class="form-control @error('po_number') is-invalid @enderror" id="po_number" placeholder="Masukkan po_number" value="{{$PO->po_number}}">
                                 @error('po_number')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -39,7 +39,7 @@
                             <div class="form-group mt-3">
                                 <label for="" class="text-left">Tujuan Pengiriman (Delivery Destination)</label>
                                 <select id="destination" class="form-control @error('destination') is-invalid @enderror">
-                                    <option value="1" selected disabled>-- Pilih Subcon --</option>
+                                    <option value="{{$subconBy->id}}">{{$subconBy->nama}}</option>
                                     @foreach($subcon as $data)
                                         <option value="{{$data->id}}">{{$data->nama}}</option>
                                     @endforeach
@@ -54,7 +54,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="default_id">ID Default Supplier</label>
-                                <input type="text" class="form-control @error('default_id') is-invalid @enderror" id="default_id" placeholder="Masukkan default_id" value="{{old('default_id')}}">
+                                <input type="text" class="form-control @error('default_id') is-invalid @enderror" id="default_id" placeholder="Masukkan default_id" value="{{$PO->default_supplier_id}}">
                                 @error('default_id')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -63,7 +63,7 @@
                             </div>
                             <div class="form-group mt-3">
                                 <label for="issue_date">Issue Date</label>
-                                <input type="text" class="form-control @error('issue_date') is-invalid @enderror" id="issue_date" placeholder="Masukkan issue_date">
+                                <input type="text" class="form-control @error('issue_date') is-invalid @enderror" id="issue_date" placeholder="Masukkan issue_date" value="{{$PO->issue_date}}">
                                 @error('issue_date')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -74,7 +74,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="class">Class</label>
-                                <input type="text" class="form-control @error('class') is-invalid @enderror" id="classname" placeholder="Masukkan class">
+                                <input type="text" class="form-control @error('class') is-invalid @enderror" id="classname" placeholder="Masukkan class" value="{{$PO->class}}">
                                 @error('classname')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -84,7 +84,7 @@
                             <div class="form-group mt-3">
                                 <label for="" class="text-left">Currency</label>
                                 <select id="currency" class="form-control @error('currency') is-invalid @enderror">
-                                    <option value="1" selected disabled>-- Pilih Currency --</option>
+                                    <option value="{{$PO->currency_code}}" selected disabled>-- {{$PO->currency_code}} --</option>
                                     <option>IDR</option>
                                 </select>
                                 @error('currency')

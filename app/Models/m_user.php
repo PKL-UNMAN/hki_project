@@ -60,11 +60,23 @@ class m_user extends Model
         return DB::table('users')->where('role_id', '2')->get();
     }
 
+    public function subconDataById($id)
+    {
+        return DB::table('users')->where('id', $id)->first();
+    }
+
+
   
     public function supplierData()
     {
         return DB::table('users')->where('role_id', '3')->get();
     }
+
+    public function supplierDataById($id)
+    {
+        return DB::table('users')->where('id', $id)->first();
+    }
+
 
     public function checkID()
     {
