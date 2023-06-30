@@ -39,6 +39,7 @@ class c_login extends Controller
         $pass = $request->password;
         if(auth()->attempt(array('username'=>$user,'password'=>$pass)))
         {
+            $request->session()->put('id_user', Auth::user()->id);
             return redirect('/dashboard');
         }
         else

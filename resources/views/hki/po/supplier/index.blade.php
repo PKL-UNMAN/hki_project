@@ -75,8 +75,6 @@
                                         <a id="hapus" onclick="modalHapus({{$data->id_po}})" href="#" class="btn btn-danger">Delete</a>
                                         <a href="#" onclick="modalRead({{$data->id_po}})" class="btn btn-info">Read</a>
                                         <a href="{{route('supplier.po.download', $data->id_po)}}" class="btn btn-primary">Download</a>
-                                    
-                                </div>  
                             </td>
                         </tr>
                       @endforeach
@@ -147,7 +145,7 @@
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: 'Ya, Hapus'
         }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
@@ -155,12 +153,12 @@
                 url: "{{ url('hki/po/supplier/destroy') }}/" + no,
                 success: function(data) {
                     Swal.fire(
-                    'Deleted!',
-                    'Your file has been deleted.',
+                    'Berhasil!',
+                    'PO Supplier Berhasil Dihapus.',
                     'success',
-                    '3000'
+                    '5000'
                     )
-                    location.reload(true);
+                    // location.reload(true);
                 }
             });
             
