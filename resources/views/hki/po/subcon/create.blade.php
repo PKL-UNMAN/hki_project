@@ -2,18 +2,19 @@
 @section('content')
 
 <div class="container">
-    <div class="card">
-        <div class="xformdm">
-            <center>
-                <h3>Tambah PO Subcon</h3>
-            </center>
-            <div class="text-center mt-4" style="margin-left: 800px">
-              </div>
+    <div class="card shadow-sm">
+        <div class="xformdm ">
+            <div class="card-header bg-primary text-light pt-3">
+                <center>
+                    <h3>Tambah PO Subcon</h3>
+                </center>
+            </div>
+      
             <div class="form mt-4">
                     <div class="row">
                         <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="" class="text-left">Tujuan Subcon (Nama Perusahaan)</label>
+                            <div class="form-group text-start">
+                                <label for="" class=" fw-bold ">Tujuan Subcon (Nama Perusahaan)</label>
                                 <select name="id_tujuan" id="id_tujuan" class="form-control @error('id_tujuan') is-invalid @enderror">
                                 <option value="1" selected disabled>-- Pilih Subcon --</option>
                                     @foreach($subcon as $data)
@@ -26,8 +27,8 @@
                                 </span>
                                 @enderror
                             </div>
-                            <div class="form-group mt-3">
-                                <label for="password">PO Number</label>
+                            <div class="form-group mt-3 text-start">
+                                <label for="po number" class=" fw-bold" >PO Number</label>
                                 <input type="text" class="form-control @error('po_number') is-invalid @enderror" id="po_number" placeholder="Masukkan po_number" value="{{old('po_number')}}">
                                 @error('po_number')
                                 <span class="invalid-feedback" role="alert">
@@ -35,8 +36,8 @@
                                 </span>
                                 @enderror
                             </div>
-                            <div class="form-group mt-3">
-                                <label for="" class="text-left">Tujuan Pengiriman (Delivery Destination)</label>
+                            <div class="form-group mt-3 text-start">
+                                <label for="" class="fw-bold">Tujuan Pengiriman (Delivery Destination)</label>
                                 <input type="text" class="form-control @error('destination') is-invalid @enderror" id="destination" placeholder="Masukkan destination" value="{{session('id_user')}}">
                                 @error('destination')
                                 <span class="invalid-feedback" role="alert">
@@ -45,9 +46,10 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="default_id">ID HKI</label>
+
+                        <div class="col-md-4">    
+                            <div class="form-group text-start">
+                                <label for="default_id" class="fw-bold">ID HKI</label>
                                 <input type="text" class="form-control @error('default_id') is-invalid @enderror" id="default_id" placeholder="Masukkan default_id" value="{{session('id_user')}}">
                                 @error('default_id')
                                 <span class="invalid-feedback" role="alert">
@@ -55,8 +57,8 @@
                                 </span>
                                 @enderror
                             </div>
-                            <div class="form-group mt-3">
-                                <label for="issue_date">Issue Date</label>
+                            <div class="form-group mt-3 text-start">
+                                <label for="issue_date" class="fw-bold">Issue Date</label>
                                 <input type="text" class="form-control @error('issue_date') is-invalid @enderror" id="issue_date" placeholder="Masukkan issue_date">
                                 @error('issue_date')
                                 <span class="invalid-feedback" role="alert">
@@ -66,8 +68,8 @@
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="class">Class</label>
+                            <div class="form-group text-start">
+                                <label for="classname" class="fw-bold">Class</label>
                                 <input type="text" class="form-control @error('class') is-invalid @enderror" id="classname" placeholder="Masukkan class">
                                 @error('classname')
                                 <span class="invalid-feedback" role="alert">
@@ -75,8 +77,8 @@
                                 </span>
                                 @enderror
                             </div>
-                            <div class="form-group mt-3">
-                                <label for="" class="text-left">Currency</label>
+                            <div class="form-group mt-3 text-start">
+                                <label for="currency" class="fw-bold">Currency</label>
                                 <select id="currency" class="form-control @error('currency') is-invalid @enderror">
                                     <option value="1" selected disabled>-- Pilih Currency --</option>
                                     <option>IDR</option>
@@ -95,13 +97,13 @@
 
     </div>
 
-    <div class="card mt-3">
+    <div class="card shadow-sm mt-3">
         <div class="container">
             <form class="temp">
             <div class="row mb-3">
                 <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="">Part No.</label>
+                    <div class="form-group text-start">
+                        <label for="part_no" class="fw-bold">Part No.</label>
                         <input type="text" class="form-control @error('part_no') is-invalid @enderror" id="part_no" placeholder="Masukkan part_no">
                         @error('part_no')
                         <span class="invalid-feedback" role="alert">
@@ -109,8 +111,8 @@
                         </span>
                         @enderror
                     </div>
-                    <div class="form-group mt-3">
-                        <label for="">QTY</label>
+                    <div class="form-group mt-3 text-start">
+                        <label for="qty" class="fw-bold">QTY</label>
                         <input type="text" class="form-control @error('qty') is-invalid @enderror" id="qty" placeholder="Masukkan qty">
                         @error('qty')
                         <span class="invalid-feedback" role="alert">
@@ -118,8 +120,8 @@
                         </span>
                         @enderror
                     </div>
-                    <div class="form-group mt-3">
-                        <label for="">Composition</label>
+                    <div class="form-group mt-3 text-start">
+                        <label for="composition" class="fw-bold">Composition</label>
                         <input type="text" class="form-control @error('composition') is-invalid @enderror" id="composition" placeholder="Masukkan composition">
                         @error('composition')
                         <span class="invalid-feedback" role="alert">
@@ -129,8 +131,8 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="">Part Name</label>
+                    <div class="form-group text-start">
+                        <label for="part_name" class="fw-bold">Part Name</label>
                         <input type="text" class="form-control @error('part_name') is-invalid @enderror" id="part_name" placeholder="Masukkan part_name">
                         @error('part_name')
                         <span class="invalid-feedback" role="alert">
@@ -138,8 +140,8 @@
                         </span>
                         @enderror
                     </div>
-                    <div class="form-group mt-3">
-                        <label for="">Unit</label>
+                    <div class="form-group mt-3 text-start">
+                        <label for="unit" class="fw-bold">Unit</label>
                         <input type="text" class="form-control @error('unit') is-invalid @enderror" id="unit" placeholder="Masukkan unit">
                         @error('unit')
                         <span class="invalid-feedback" role="alert">
@@ -147,8 +149,8 @@
                         </span>
                         @enderror
                     </div>
-                    <div class="form-group mt-3">
-                        <label for="">Amount</label>
+                    <div class="form-group mt-3 text-start">
+                        <label for="amount" class="fw-bold">Amount</label>
                         <input type="text" class="form-control @error('amount') is-invalid @enderror" id="amount" placeholder="Masukkan amount">
                         @error('amount')
                         <span class="invalid-feedback" role="alert">
@@ -158,8 +160,8 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="">Unit Price</label>
+                    <div class="form-group text-start">
+                        <label for="unit_price" class="fw-bold">Unit Price</label>
                         <input type="text" class="form-control @error('unit_price') is-invalid @enderror" id="unit_price" placeholder="Masukkan unit_price">
                         @error('unit_price')
                         <span class="invalid-feedback" role="alert">
@@ -167,8 +169,8 @@
                         </span>
                         @enderror
                     </div>
-                    <div class="form-group mt-3">
-                        <label for="">Delivery Date</label>
+                    <div class="form-group mt-3 text-start">
+                        <label for="delivery_date" class="fw-bold">Delivery Date</label>
                         <input type="date" class="form-control @error('delivery_date') is-invalid @enderror" id="delivery_date" placeholder="Masukkan delivery date">
                         @error('delivery_date')
                         <span class="invalid-feedback" role="alert">
@@ -176,8 +178,8 @@
                         </span>
                         @enderror
                     </div>
-                    <div class="form-group mt-3">
-                        <label for="">Order Number</label>
+                    <div class="form-group mt-3 text-start">
+                        <label for="order_number" class="fw-bold">Order Number</label>
                         <input type="text" class="form-control @error('order_number') is-invalid @enderror" id="order_number" placeholder="Masukkan order_number">
                         @error('order_number')
                         <span class="invalid-feedback" role="alert">
@@ -190,7 +192,7 @@
         </form>
         </div>
     </div>
-    <a href="javascript:void(0);" id="tambah" style="margin-left: 900px" class="mt-3 btn btn-success disabled">+Tambah Item</a>
+    <a href="javascript:void(0);" id="tambah" style="margin-left: 900px" class="shadow-sm mt-3 btn btn-success disabled">+Tambah Item</a>
 <form id="formPO" method="POST" action="{{route('hki.po.subcon.store')}}" enctype="multipart/form-data">
         @csrf
     <div class="po">
@@ -221,7 +223,7 @@
             </tr>
         </tbody>
     </table>
-        <button style="margin-left: 900px" type="submit" id="simpan" class="btn btn-primary">Simpan</button>
+        <button style="margin-left: 900px" type="submit" id="simpan" class="btn btn-primary shadow-sm">Simpan</button>
 </form>
     </div>
 </div>
