@@ -62,6 +62,14 @@ class m_surat extends Model
     {
         return DB::table('surat_supplier')->where('no_surat', $no_surat)->update($data);
     }
+    public function detailSurat_sup($no_surat)
+    {
+        return DB::table('surat_supplier')->join('users', 'surat_supplier.id_tujuan', '=', 'users.id')->join('users_detail', 'users.id', '=', 'users_detail.id_user')->first();
+    }
+    public function detailSurat_supInSubcon($no_surat)
+    {
+        return DB::table('surat_supplier')->join('users', 'surat_supplier.id_tujuan', '=', 'users.id')->join('users_detail', 'users.id', '=', 'users_detail.id_user')->first();
+    }
     //END model surat dari supplier ke subcon
 
 

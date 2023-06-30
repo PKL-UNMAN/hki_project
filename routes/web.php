@@ -79,9 +79,11 @@ Route::controller(c_subcon::class)->middleware('auth')->group(function () {
 
     // Surat dari Supplier
     Route::get('subcon/suratSup', 'mySuratSup_Subcon')->name('subcon.suratSup.index');
+    // ubah status surat dari supplier
     Route::get('subcon/suratSup/status/{no_surat}', 'ubahStatus_suratSup')->name('subcon.suratSup.ubahstatus');
    // Read Surat di subcon
    Route::get('subcon/suratSup/read/{no_surat}', 'subcon_lihatSurat')->name('subcon.suratSup.read');
+
 
     // Surat Subcon ke HKI
     Route::get('subcon/surat', 'mySurat_Subcon')->name('subcon.surat.index');
@@ -120,10 +122,6 @@ Route::controller(c_surat::class)->middleware('auth')->group(function () {
 
     // Read Surat di HKI
     Route::get('hki/surat/read/{no_surat}', 'hki_lihatSurat')->name('hki.surat.read');
-    // Read Surat di Subcon
-    Route::get('subcon/surat/read/{no_surat}', 'subcon_lihatSurat')->name('subcon.surat.read');
-
-
 
 
     // Surat Subcon

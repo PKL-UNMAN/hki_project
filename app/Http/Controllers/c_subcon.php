@@ -82,7 +82,7 @@ class c_subcon extends Controller
          ];
          return view ('subcon.suratSup.index', $data);
      }
-      // surat dari supplier ke subcon di subcon
+      // ubah status
     public function ubahStatus_suratSup(Request $request)
     {
         $no_surat = $request->no_surat;
@@ -92,6 +92,16 @@ class c_subcon extends Controller
         $this->surat->editStatusSuratSup($no_surat, $data);
     }
     // end surat dari supplier ke subcon di subcon
+    // read surat
+    public function subcon_lihatSurat(Request $request)
+    {
+        $no_surat = $request->no_surat;
+        $data = [
+            'surat' => $this->surat->detailSurat_supInSubcon($request->no_surat),
+        ];
+        return view('subcon.suratSup.read', $data);
+    }
+    // end read surat
 
      // END SURAT DARI SUPPLIER
 

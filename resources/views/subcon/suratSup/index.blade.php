@@ -171,7 +171,7 @@
 
 
     function modalREAD(no_surat) {
-        $.get("{{ url('subcon/suratSup/read/ ') }}"+no_surat, {}, function(data, status) {
+        $.get("{{ url('subcon/suratSup/read') }}/"+no_surat, {}, function(data, status) {
             $("#exampleModalCenterTitle").html(`Detail Surat`)
             $("#page").html(data);
             $("#exampleModalCenter").modal('show');
