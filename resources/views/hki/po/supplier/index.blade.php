@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
     <div class="header bg-primary text-light pb-3 pt-4 mb-3 rounded shadow">
-        <h3>Purchase Order Supplier</h3>
+        <h3><i class="fa-solid fa-cart-shopping fa-lg"></i> Purchase Order Supplier</h3>
     </div>
 	@if ($message =session('success'))
         <script>
@@ -19,8 +19,8 @@
     @endif
 	
     <div class="mb-2" style="text-align: left">
-        <a href="{{route('hki.po.supplier.create')}}" class="btn btn-primary shadow">Tambah PO</a>
-        <a href="#" class="btn btn-info shadow" style="color: white">Upload PO</a>
+        <a href="{{route('hki.po.supplier.create')}}" class="btn btn-primary shadow"><i class="fa-solid fa-square-plus"></i> Tambah PO</a>
+        <a href="#" class="btn btn-info shadow" style="color: white"><i class="fa-sharp fa-solid fa-cloud-arrow-up"></i> Upload PO</a>
     </div>
 
     <div class="row">

@@ -4,7 +4,7 @@
 <div class="container">
     <div class="card shadow-sm">
         <div class="xformdm ">
-            <div class="card-header bg-primary text-light pt-3">
+            <div class="card-header bg-primary text-light pt-3 rounded">
                 <center>
                     <h3>Tambah PO Subcon</h3>
                 </center>
@@ -14,7 +14,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group text-start">
-                                <label for="" class=" fw-bold ">Tujuan Subcon (Nama Perusahaan)</label>
+                                <label for="" class=" fw-bold "><i class="fa-solid fa-location-dot"></i> Tujuan Subcon (Nama Perusahaan)</label>
                                 <select name="id_tujuan" id="id_tujuan" class="form-control @error('id_tujuan') is-invalid @enderror">
                                 <option value="1" selected disabled>-- Pilih Subcon --</option>
                                     @foreach($subcon as $data)
@@ -28,7 +28,7 @@
                                 @enderror
                             </div>
                             <div class="form-group mt-3 text-start">
-                                <label for="po number" class=" fw-bold" >PO Number</label>
+                                <label for="po number" class=" fw-bold" ><i class="fa-solid fa-envelope"></i> PO Number</label>
                                 <input type="text" class="form-control @error('po_number') is-invalid @enderror" id="po_number" placeholder="Masukkan po_number" value="{{old('po_number')}}">
                                 @error('po_number')
                                 <span class="invalid-feedback" role="alert">
@@ -37,7 +37,7 @@
                                 @enderror
                             </div>
                             <div class="form-group mt-3 text-start">
-                                <label for="" class="fw-bold">Tujuan Pengiriman (Delivery Destination)</label>
+                                <label for="" class="fw-bold"><i class="fa-solid fa-truck"></i> Tujuan Pengiriman (Delivery Destination)</label>
                                 <input type="text" class="form-control @error('destination') is-invalid @enderror" id="destination" placeholder="Masukkan destination" value="{{session('id_user')}}">
                                 @error('destination')
                                 <span class="invalid-feedback" role="alert">
@@ -49,7 +49,7 @@
 
                         <div class="col-md-4">    
                             <div class="form-group text-start">
-                                <label for="default_id" class="fw-bold">ID HKI</label>
+                                <label for="default_id" class="fw-bold"><i class="fa-solid fa-address-card "></i> ID HKI</label>
                                 <input type="text" class="form-control @error('default_id') is-invalid @enderror" id="default_id" placeholder="Masukkan default_id" value="{{session('id_user')}}">
                                 @error('default_id')
                                 <span class="invalid-feedback" role="alert">
@@ -58,7 +58,7 @@
                                 @enderror
                             </div>
                             <div class="form-group mt-3 text-start">
-                                <label for="issue_date" class="fw-bold">Issue Date</label>
+                                <label for="issue_date" class="fw-bold"><i class="fa-solid fa-calendar-days"></i> Issue Date</label>
                                 <input type="text" class="form-control @error('issue_date') is-invalid @enderror" id="issue_date" placeholder="Masukkan issue_date">
                                 @error('issue_date')
                                 <span class="invalid-feedback" role="alert">
@@ -69,7 +69,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group text-start">
-                                <label for="classname" class="fw-bold">Class</label>
+                                <label for="classname" class="fw-bold"><i class="fa-solid fa-people-group"></i> Class</label>
                                 <input type="text" class="form-control @error('class') is-invalid @enderror" id="classname" placeholder="Masukkan class">
                                 @error('classname')
                                 <span class="invalid-feedback" role="alert">
@@ -78,7 +78,7 @@
                                 @enderror
                             </div>
                             <div class="form-group mt-3 text-start">
-                                <label for="currency" class="fw-bold">Currency</label>
+                                <label for="currency" class="fw-bold"><i class="fa-solid fa-coins"></i> Currency</label>
                                 <select id="currency" class="form-control @error('currency') is-invalid @enderror">
                                     <option value="1" selected disabled>-- Pilih Currency --</option>
                                     <option>IDR</option>
@@ -103,7 +103,7 @@
             <div class="row mb-3">
                 <div class="col-md-4">
                     <div class="form-group text-start">
-                        <label for="part_no" class="fw-bold">Part No.</label>
+                        <label for="part_no" class="fw-bold"><i class="fa-solid fa-tag"></i> Part No.</label>
                         <input type="text" class="form-control @error('part_no') is-invalid @enderror" id="part_no" placeholder="Masukkan part_no">
                         @error('part_no')
                         <span class="invalid-feedback" role="alert">
@@ -112,7 +112,7 @@
                         @enderror
                     </div>
                     <div class="form-group mt-3 text-start">
-                        <label for="qty" class="fw-bold">QTY</label>
+                        <label for="qty" class="fw-bold"><i class="fa-solid fa-list-ol"></i> QTY</label>
                         <input type="text" class="form-control @error('qty') is-invalid @enderror" id="qty" placeholder="Masukkan qty">
                         @error('qty')
                         <span class="invalid-feedback" role="alert">
@@ -121,7 +121,7 @@
                         @enderror
                     </div>
                     <div class="form-group mt-3 text-start">
-                        <label for="composition" class="fw-bold">Composition</label>
+                        <label for="composition" class="fw-bold"><i class="fa-solid fa-calculator"></i> Composition</label>
                         <input type="text" class="form-control @error('composition') is-invalid @enderror" id="composition" placeholder="Masukkan composition">
                         @error('composition')
                         <span class="invalid-feedback" role="alert">
@@ -132,7 +132,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group text-start">
-                        <label for="part_name" class="fw-bold">Part Name</label>
+                        <label for="part_name" class="fw-bold"><i class="fa-solid fa-tag"></i> Part Name</label>
                         <input type="text" class="form-control @error('part_name') is-invalid @enderror" id="part_name" placeholder="Masukkan part_name">
                         @error('part_name')
                         <span class="invalid-feedback" role="alert">
@@ -141,7 +141,7 @@
                         @enderror
                     </div>
                     <div class="form-group mt-3 text-start">
-                        <label for="unit" class="fw-bold">Unit</label>
+                        <label for="unit" class="fw-bold"><i class="fa-solid fa-weight-scale"></i> Unit</label>
                         <input type="text" class="form-control @error('unit') is-invalid @enderror" id="unit" placeholder="Masukkan unit">
                         @error('unit')
                         <span class="invalid-feedback" role="alert">
@@ -150,7 +150,7 @@
                         @enderror
                     </div>
                     <div class="form-group mt-3 text-start">
-                        <label for="amount" class="fw-bold">Amount</label>
+                        <label for="amount" class="fw-bold"><i class="fa-solid fa-calculator"></i> Amount</label>
                         <input type="text" class="form-control @error('amount') is-invalid @enderror" id="amount" placeholder="Masukkan amount">
                         @error('amount')
                         <span class="invalid-feedback" role="alert">
@@ -161,7 +161,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group text-start">
-                        <label for="unit_price" class="fw-bold">Unit Price</label>
+                        <label for="unit_price" class="fw-bold"><i class="fa-solid fa-money-check-dollar"></i> Unit Price</label>
                         <input type="text" class="form-control @error('unit_price') is-invalid @enderror" id="unit_price" placeholder="Masukkan unit_price">
                         @error('unit_price')
                         <span class="invalid-feedback" role="alert">
@@ -170,7 +170,7 @@
                         @enderror
                     </div>
                     <div class="form-group mt-3 text-start">
-                        <label for="delivery_date" class="fw-bold">Delivery Date</label>
+                        <label for="delivery_date" class="fw-bold"><i class="fa-solid fa-calendar-days"></i> Delivery Date</label>
                         <input type="date" class="form-control @error('delivery_date') is-invalid @enderror" id="delivery_date" placeholder="Masukkan delivery date">
                         @error('delivery_date')
                         <span class="invalid-feedback" role="alert">
@@ -179,7 +179,7 @@
                         @enderror
                     </div>
                     <div class="form-group mt-3 text-start">
-                        <label for="order_number" class="fw-bold">Order Number</label>
+                        <label for="order_number" class="fw-bold"><i class="fa-solid fa-tag"></i> Order Number</label>
                         <input type="text" class="form-control @error('order_number') is-invalid @enderror" id="order_number" placeholder="Masukkan order_number">
                         @error('order_number')
                         <span class="invalid-feedback" role="alert">
@@ -192,7 +192,7 @@
         </form>
         </div>
     </div>
-    <a href="javascript:void(0);" id="tambah" style="margin-left: 900px" class="shadow-sm mt-3 btn btn-success disabled">+Tambah Item</a>
+    <a href="javascript:void(0);" id="tambah" style="margin-left: 900px" class="shadow-sm mt-3 btn btn-success disabled"><i class="fa-solid fa-circle-plus"></i> Tambah Item</a>
 <form id="formPO" method="POST" action="{{route('hki.po.subcon.store')}}" enctype="multipart/form-data">
         @csrf
     <div class="po">
@@ -223,7 +223,7 @@
             </tr>
         </tbody>
     </table>
-        <button style="margin-left: 900px" type="submit" id="simpan" class="btn btn-primary shadow-sm">Simpan</button>
+        <button style="margin-left: 900px" type="submit" id="simpan" class="btn btn-primary shadow-sm fw-bold"><i class="fa-solid fa-floppy-disk"></i> Simpan</button>
 </form>
     </div>
 </div>
