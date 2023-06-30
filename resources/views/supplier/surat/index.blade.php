@@ -43,13 +43,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- @foreach ($surat as $data)
+                            @foreach ($surat as $data)
                                 <tr>
-                                    <td></td>
-                                    <td>{{ $data->part_name }}</td>
-                                    <td>{{ $data->part_no }}</td>
-                                    <td>{{ $data->order_no }}</td>
-                                    <td>{{ $data->delivery_time }}</td>
+                                    <td>{{$data->no_surat}}</td>
+                                    <td>{{$data->po_number}}</td>
+                                    <td>{{$data->id_pengirim}}</td>
+                                    <td>{{$data->id_tujuan}}</td>
+                                    <td>{{$data->tanggal}}</td>
+                                    <td>{{$data->part_no}}</td>
+                                    <td>{{$data->part_name}}</td>
+                                    <td>{{$data->qty}}</td>
+                                    <<td>{{$data->unit}}</td>
                                     <td>
                                         @if ($data->status == 'On Progress')
                                             <span class="badge" style="background-color: orangered">On Progress</span>
@@ -68,7 +72,7 @@
                                             class="btn btn-primary">Download</a>
                                     </td>
                                 </tr>
-                            @endforeach -->
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

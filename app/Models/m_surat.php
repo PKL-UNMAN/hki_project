@@ -56,7 +56,11 @@ class m_surat extends Model
     // model surat dari supplier ke subcon
     public function mySuratSup_Subcon($id)
     {
-        return DB::table('surat')->join('users', 'surat.id_subcon', '=', 'users.id')->where('id_subcon', $id)->get();
+        return DB::table('surat_supplier')->join('users', 'surat_supplier.id_tujuan', '=', 'users.id')->where('id_tujuan', $id)->get();
+    }
+    public function editStatusSuratSup($no_surat, $data)
+    {
+        return DB::table('surat_supplier')->where('no_surat', $no_surat)->update($data);
     }
     //END model surat dari supplier ke subcon
 
@@ -64,7 +68,7 @@ class m_surat extends Model
 
     public function mySurat_supplier($id)
     {
-        return DB::table('surat_supplier')->join('users', 'surat_supplier.id_supplier', '=', 'users.id')->where('id_supplier', $id)->get();
+        return DB::table('surat_supplier')->join('users', 'surat_supplier.id_pengirim', '=', 'users.id')->where('id_pengirim', $id)->get();
     }
 
     public function download($no)

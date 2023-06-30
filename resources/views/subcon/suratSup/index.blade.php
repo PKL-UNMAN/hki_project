@@ -39,14 +39,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- @foreach($surat as $data)
+                        @foreach($surat as $data)
                         <tr>
-                            <td></td>
+                            <td>{{$data->no_surat}}</td>
+                            <td>{{$data->po_number}}</td>
+                            <td>{{$data->id_pengirim}}</td>
+                            <td>{{$data->id_tujuan}}</td>
+                            <td>{{$data->tanggal}}</td>
+                            <td>{{$data->part_no}}</td>
                             <td>{{$data->part_name}}</td>
-                            <td>{{$data->part_no}}</td> -->
-                            <!-- <td>{{$data->nama}}</td> -->
-                            <!-- <td>{{$data->order_no}}</td>
-                            <td>{{$data->delivery_time}}</td>
+                            <td>{{$data->qty}}</td>
+                            <<td>{{$data->unit}}</td>
                             <td>
                                 @if($data->status == "On Progress")
                                 <span class="badge" style="background-color: orangered">On Progress</span>
@@ -55,13 +58,16 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{route('subcon.surat.edit', $data->no_surat)}}" class="btn btn-warning">Edit</a>
-                                <a id="hapus" onclick="modalHapus({{$data->no_surat}})" href="#" class="btn btn-danger">Delete</a>
-                                <a href="#" onclick="modalREAD({{$data->no_surat}})" class="btn btn-warning">READ</a>
-                                <a href="{{route('subcon.surat.download', $data->no_surat)}}" class="btn btn-primary">Download</a>
+                                @if ($data->status == 'On Progress')
+                                        <a href="#" class="btn btn-success" onclick="modalACC('{{ $data->no_surat }}')">ACC</a>
+                                        @endif
+                                        <a href="#" class="btn btn-warning"
+                                            onclick="modalREAD({{$data->no_surat}})">READ</a>
+                                        <a href="{{ route('subcon.surat.download', $data->no_surat) }}"
+                                            class="btn btn-primary">Download</a>
                             </td>
                         </tr>
-                        @endforeach -->
+                        @endforeach
                     </tbody>
                 </table>
               </div>
@@ -121,19 +127,51 @@
  });
  </script>
 
-<script>
-    function tambahSurat() {
-        $.get("{{ url('subcon/surat/create') }}", {}, function(data, status) {
-            var part_name = $(this).data('part_name');
-            $("#part_name").val(part_name);
-            $("#exampleModalCenterTitle").html(`Buat Surat`)
-            $("#page").html(data);
-            $("#exampleModalCenter").modal('show');
-           })  
-    }
+ <script>
+    function modalACC(no_surat) {
+    Swal.fire({
+        title: 'Apakah Anda yakin?',
+        text: "ACC Surat?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, Setuju!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: "get",
+                url: "{{ url('subcon/suratSup/status/ ') }}" + no_surat,
+                success: function(data) {
+                    Swal.fire(
+                        'Surat Disetujui!',
+                        'Status diubah menjadi Finish.',
+                        'success',
+                        '3000'
+                    )
+                    location.reload(true);
+                },
+                error: function(xhr, status, error) {
+                    Swal.fire(
+                        'Kesalahan!',
+                        'Terjadi kesalahan dalam memproses permintaan.',
+                        'error'
+                    )
+                }
+            });
+        }
+    }).catch((error) => {
+        Swal.fire(
+            'Kesalahan!',
+            'Terjadi kesalahan dalam memproses permintaan.',
+            'error'
+        )
+    });
+}
+
 
     function modalREAD(no_surat) {
-        $.get("{{ url('subcon/surat/read') }}/"+no_surat, {}, function(data, status) {
+        $.get("{{ url('subcon/suratSup/read/ ') }}"+no_surat, {}, function(data, status) {
             $("#exampleModalCenterTitle").html(`Detail Surat`)
             $("#page").html(data);
             $("#exampleModalCenter").modal('show');
