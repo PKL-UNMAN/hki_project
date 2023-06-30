@@ -12,7 +12,7 @@
   <!-- Favicons -->
   <link href="{{asset('templateBaru')}}/assets/img/favicon.png" rel="icon">
   <link href="{{asset('templateBaru')}}/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Krub:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
@@ -38,7 +38,10 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/rowreorder/1.3.3/css/rowReorder.dataTables.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css" />
-  {{-- <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
+  
+  
+  
+    {{-- <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
 
   <!-- =======================================================
   * Template Name: Bikin
