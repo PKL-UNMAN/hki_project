@@ -6,13 +6,13 @@
         <div class="d-flex justify-content-end">
             <a href="{{ route('hki.user.create') }}" class="btn btn-primary" style="width:300px">Tambah User</a>
         </div>
-        @if (session()->has('success'))
+        @if ($message = session('success'))
             <script>
                 window.onload = function() {
-                    swal.fire("Berhasil");
+                    swal.fire("{{$message}}");
                 };
             </script>
-        @endif
+        @endif  
 
         <div class="row">
             <div class="col-12 mt-2">
@@ -21,7 +21,7 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>ID (Default Supplier)</th>
+                                <th>ID Perusahaan</th>
                                 <th>Name Perusahaan</th>
                                 <th>Role</th>
                                 <th>Class</th>
@@ -30,13 +30,16 @@
 
                         </thead>
                         <tbody>
+                            @php
+                                $no = 1
+                            @endphp
                             @foreach ($user as $data)
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{$no++}}</td>
+                                    <td>{{$data->id_perusahaan}}</td>
+                                    <td>{{$data->nama}}</td>
+                                    <td>{{$data->id.' - '.$data->role_name}}</td>
+                                    <td>{{$data->class}}</td>
                                     <td>
                                         @if ($data->role_id == '0')
                                             No Action
@@ -104,20 +107,20 @@
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
+                confirmButtonText: 'Ya, Hapus!'
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
                         type: "get",
                         url: "{{ url('hki/user/destroy') }}/" + id,
                         success: function(data) {
-                            Swal.fire(
-                                'Deleted!',
-                                'Your file has been deleted.',
-                                'success',
-                                '3000'
-                            )
                             location.reload(true);
+                            Swal.fire(
+                                'Berhasil!',
+                                'User berhasil dihapus',
+                                'success',
+                                '10000'
+                            )
                         }
                     });
 

@@ -42,16 +42,24 @@ class c_user extends Controller
     {
         $now = Carbon::now()->format('d-m-Y');
         $request->validate([
-            'nama' => 'required',
+            'company' => 'required',
             'username' => 'required|unique:users,username',
+            'email' => 'required',
             'role_id' => 'required',
+            'id_perusahaan' => 'required',
+            'class' => 'required',
+            'telepon' => 'required',
             'alamat' => 'required',
             'password' => 'required',
         ],[
-            'nama.required'=>'Nama User Wajib terisi',
+            'company.required'=>'Nama User Wajib terisi',
             'username.unique'=>'Username Sudah Ada',
+            'email.unique'=>'Username Sudah Ada',
             'role_id.required'=>'Role Name Wajib terisi',
+            'id_perusahaan.required'=>'ID Perusahaan Name Wajib terisi',
+            'class.required'=>'Class Wajib terisi',
             'alamat.required'=>'Alamat Wajib terisi',
+            'telepon.required'=>'Nomor Telepon Wajib terisi',
             'password.required'=>'Password Wajib terisi',
         ]);
 
@@ -61,18 +69,20 @@ class c_user extends Controller
             $idMax = $id+1;
             $data = [
                 'id'=> $idMax,
-                'nama' => $request->nama,
+                'nama' => $request->company,
                 'username'=> $request->username,
                 'role_id'=> $request->role_id,
                 'password'=> Hash::make($request->password),
+                'created_at' =>$now
             ];
 
             $detail = [
                 'id_user'=> $idMax,
+                'id_perusahaan'=> $request->id_perusahaan,
+                'class'=> $request->class,
                 'telepon' => $request->telepon,
                 'email' => $request->email,
                 'fax'=> $request->fax,
-                'attn'=> $request->attn,
                 'alamat' => $request->alamat,
                 'user_date'=> $now,
             ];
@@ -83,18 +93,20 @@ class c_user extends Controller
             $idBaru = $idMax + 1;
             $data = [
                 'id'=> $idBaru,
-                'nama' => $request->nama,
+                'nama' => $request->company,
                 'username'=> $request->username,
                 'role_id'=> $request->role_id,
                 'password'=> Hash::make($request->password),
+                'created_at' =>$now
             ];
 
             $detail = [
                 'id_user'=> $idBaru,
+                'id_perusahaan'=> $request->id_perusahaan,
+                'class'=> $request->class,
                 'telepon' => $request->telepon,
                 'email' => $request->email,
                 'fax'=> $request->fax,
-                'attn'=> $request->attn,
                 'alamat' => $request->alamat,
                 'user_date'=> $now,
             ];
@@ -150,6 +162,8 @@ class c_user extends Controller
 
         if($request->password <> null){
             $data = [
+                'username'=> $request->username,
+                'role_id'=> $request->role_id,
                 'password'=> Hash::make($request->password),
             ];
 
@@ -157,22 +171,20 @@ class c_user extends Controller
                 'telepon' => $request->telepon,
                 'email' => $request->email,
                 'fax'=> $request->fax,
-                'attn'=> $request->attn,
                 'alamat' => $request->alamat,
             ];
 
         }else{
             $data = [
-                'nama' => $request->nama,
                 'username'=> $request->username,
                 'role_id'=> $request->role_id,
+                'password'=> Hash::make($request->password),
             ];
 
             $detail = [
                 'telepon' => $request->telepon,
                 'email' => $request->email,
                 'fax'=> $request->fax,
-                'attn'=> $request->attn,
                 'alamat' => $request->alamat,
             ];
            

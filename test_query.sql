@@ -1,1 +1,1 @@
-SELECT *FROM purchasing order by id_po desc;
+SELECT *FROM hki.users_detail;

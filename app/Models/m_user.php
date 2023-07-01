@@ -10,7 +10,7 @@ class m_user extends Model
 {
     public function allData()
     {
-        return DB::table('users')->join('role', 'users.role_id','=','role.role_id')->get();
+        return DB::table('users')->join('users_detail', 'users.id','=','users_detail.id_user')->join('role', 'users.role_id','=','role.role_id')->get();
     }
 
     public function addData($data)

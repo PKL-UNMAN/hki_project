@@ -14,9 +14,9 @@
                                     <div class="form-group">
                                         <label for="nama_barang" style="margin-bottom: 10px;">Username</label>
                                         <input type="text" class="form-control @error('nama') is-invalid @enderror"
-                                            id="nama" name="nama" placeholder="Masukkan Username"
-                                            value="{{ old('nama') }}">
-                                        @error('nama')
+                                            id="nama" name="username" placeholder="Masukkan Username"
+                                            value="{{ old('username') }}">
+                                        @error('username')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -55,11 +55,11 @@
 
                                 <div class="col col-md-12 col-12 mt-4">
                                     <div class="form-group">
-                                        <label for="#" style="margin-bottom: 10px;">Id (Default Supplier)</label>
-                                        <input type="#" class="form-control @error('#') is-invalid @enderror"
-                                            id="#" name="#" placeholder="Masukkan ID_Supplier"
-                                            value="{{ old('#') }}">
-                                        @error('#')
+                                        <label for="#" style="margin-bottom: 10px;">Id Perusahaan</label>
+                                        <input type="number" class="form-control @error('#') is-invalid @enderror"
+                                            id="#" name="id_perusahaan" placeholder="Masukkan ID Perusahaan"
+                                            value="{{ old('id_perusahaan') }}">
+                                        @error('id_perusahaan')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -73,9 +73,9 @@
                                     <div class="form-group">
                                         <label for="#" style="margin-bottom: 10px;">Nama Perusahaan</label>
                                         <input type="#" class="form-control @error('#') is-invalid @enderror"
-                                            id="#" name="#" placeholder="Masukkan Nama Perusahaan"
-                                            value="{{ old('#') }}">
-                                        @error('#')
+                                            id="#" name="company" placeholder="Masukkan Nama Perusahaan"
+                                            value="{{ old('company') }}">
+                                        @error('company')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -104,13 +104,13 @@
                                 <div class="col col-md-12 col-12 mt-4">
                                     <div class="form-group">
                                         <label for="level" style="margin-bottom: 10px;">Class</label>
-                                        <select name="role_id" class="form-control @error('role_id') is-invalid @enderror">
+                                        <select name="class" class="form-control @error('class') is-invalid @enderror">
                                             <option value="" selected disabled>-- Pilih Class --</option>
-                                            {{-- @foreach ($class as $data) --}}
-                                            {{-- <option value="{{ $data->class_id }}">{{ $data->class_name }}</option> --}}
-                                            {{-- @endforeach --}}
+                                            <option>HKI</option>
+                                            <option>SUBCON</option>
+                                            <option>SUPPLIER</option>
                                         </select>
-                                        @error('role_id')
+                                        @error('class')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

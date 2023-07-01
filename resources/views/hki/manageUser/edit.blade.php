@@ -16,7 +16,7 @@
                                         <label for="nama_barang">Nama User</label>
                                         <input type="text" class="form-control @error('nama') is-invalid @enderror"
                                             id="nama" name="nama" placeholder="Masukkan Nama User"
-                                            value="{{ $user->nama }}">
+                                            value="{{ $user->nama }}" readonly>
                                         @error('nama')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -30,7 +30,7 @@
                                         <label for="nama_barang">Username</label>
                                         <input type="text" class="form-control @error('username') is-invalid @enderror"
                                             id="username" name="username" placeholder="Masukkan Username"
-                                            value="{{ $user->username }}" readonly>
+                                            value="{{ $user->username }}">
                                         @error('username')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -124,20 +124,6 @@
                                             id="fax" name="fax" placeholder="Masukkan fax"
                                             value="{{ $user->fax }}">
                                         @error('fax')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                        {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
-                                    </div>
-                                </div>
-                                <div class="col col-md-12 col-12 mt-2">
-                                    <div class="form-group">
-                                        <label for="nama_barang">Attn</label>
-                                        <input type="text" class="form-control @error('attn') is-invalid @enderror"
-                                            id="attn" name="attn" placeholder="Masukkan attn"
-                                            value="{{ $user->attn }}">
-                                        @error('attn')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
