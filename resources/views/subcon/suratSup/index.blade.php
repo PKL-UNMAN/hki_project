@@ -44,7 +44,7 @@
                             <td>{{$data->no_surat}}</td>
                             <td>{{$data->po_number}}</td>
                             <td>{{$data->id_pengirim}}</td>
-                            <td>{{$data->id_tujuan}}</td>
+                            <td>{{$data->nama}}</td>
                             <td>{{$data->tanggal}}</td>
                             <td>{{$data->part_no}}</td>
                             <td>{{$data->part_name}}</td>
