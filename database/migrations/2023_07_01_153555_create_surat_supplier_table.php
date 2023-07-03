@@ -15,17 +15,14 @@ return new class extends Migration
     {
         Schema::create('surat_supplier', function (Blueprint $table) {
             $table->bigInteger('no_surat')->unsigned()->autoIncrement();
-            $table->string('part_no');
-            $table->string('id_supplier')->nullable();
-            $table->string('id_tujuan')->nullable();
-            $table->string('part_name');
-            $table->integer('order_qty');
-            $table->integer('weight');
-            $table->string('order_no');
             $table->string('po_number');
-            $table->string('payment');
-            $table->string('dibuat');
-            $table->string('delivery_time');
+            $table->string('id_pengirim')->nullable();
+            $table->string('id_tujuan')->nullable();
+            $table->string('tanggal');
+            $table->string('part_no');
+            $table->string('part_name');
+            $table->string('qty');
+            $table->string('unit');
             $table->string('status')->nullable();
             
         });
