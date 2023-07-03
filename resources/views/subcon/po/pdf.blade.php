@@ -74,14 +74,12 @@
 <div class = "rangkasurat">
      <table class="header" width = "100%">
            <tr>
-                 <td> <img src="{{public_path('templateBaru')}}/logo.png" width="120px"> </td>
                  <td style="width:100%" class = "tengah">
                        <h2 style="line-height:40px;font-weight:100"><b>PT HIRUTA KOGYO INDONESIA</b></h2>
                        <h4 style="font-weight:1;line-height:20px;font-size:14px"> Jalan Maligi X Lot V-6, Margakaya</h4>
                        <h4  style="font-weight:1;line-height:10px;font-size:14px">Kec. Telukjambe Barat, Karawang. Phone : {{$hki->telepon}}, Fax : {{$hki->fax}}</h4>
                        {{-- <h4 style="font-weight:1;line-height:20px;">Telp. (0260) 417658 Laman: <span style="color:blue">https://www.polsub.ac.id</span></h4> --}}
                  </td>
-                 <td><img src="{{public_path('template')}}/dist/assets/images/logoPolsub.png" width="120px"> </td>
             </tr>
      </table>
      <div class="judul">
