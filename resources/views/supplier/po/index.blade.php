@@ -34,45 +34,33 @@
                         </tr>
                     </thead>
                     <tbody>
-
-                            <td>1</td>
-                            <td>1</td>
-                            <td>12</td>
-                            <td>Metal</td>
-                            <td>material</td>
-                            <td>Kg</td>
-                            <td>0.138</td>
-                            <td>0181818</td>
-                            <td>Miyuki</td>
-                            <td>1000</td>
-                            <td>20.000</td>
-                            <td>IDR</td>
-                            <td>200</td>
-                            <td>on Going</td>
-                            <td>actions</td>
-
-                       <!-- @foreach($PO as $data)
-                        <tr>
-                            <td></td>
-                            <td>{{$data->issue_date}}</td>
-                            <td>{{$data->part_no}}</td>
-                            <td>{{$data->order_qty}}</td>
-                            <td>{{$data->weight}}</td>
-                            <td>{{$data->order_no}}</td>
-                            <td>{{$data->po_number}}</td>
-                            <td>{{$data->delivery_time}}</td>
-                            <td> @if($data->status == "On Progress")
-                                <span class="badge" style="background-color:orangered;color:white">On Progress</span>
-                                @elseif($data->status == "Finish")
-                                <span class="badge"  style="background-color:rgb(21, 181, 0);color:white">Finish</span>
-                                @endif
-                            </td>
-                            <td style="width:15%">
-                                <a href="#" onclick="modalRead({{$data->no}})" class="btn btn-warning">Read</a>
-                                <a  href="{{route('supplier.po.download', $data->no)}}" class="btn btn-primary">Download</a>
-                            </td>
-                        </tr>
-                      @endforeach -->
+                            @foreach($PO as $data)
+                            <tr>
+                                <td></td>
+                                <td>{{$data->id_po}}</td>
+                                <td>{{$data->part_no}}</td>
+                                <td>{{$data->part_name}}</td>
+                                <td>{{$data->class}}</td>
+                                <td>{{$data->composition}}</td>
+                                <td>{{$data->unit}}</td>
+                                <td>{{$data->default_supplier_id}}</td>
+                                <td>{{$data->nama}}</td>
+                                <td>{{$data->unit_price}}</td>
+                                <td>{{$data->amount}}</td>
+                                <td>{{$data->currency_code}}</td>
+                                <td>{{$data->order_qty}}</td>
+                                <td> @if($data->status == "On Progress")
+                                    <a  class="btn" style="background-color:orangered;color:white">On Progress</a>
+                                    @elseif($data->status == "Finish")
+                                    <a class="btn" style="background-color:rgb(21, 181, 0);color:white">Finish</a>
+                                    @endif
+                                </td>
+                                <td style="width:15%">
+                                    <a href="#" onclick="modalRead({{$data->id_po}})" class="btn btn-warning">Read</a>
+                                    <a href="{{url('supplier/po/download/'.$data->po_number)}}" class="btn btn-primary">Download</a>
+                                </td>
+                            </tr>
+                          @endforeach
                     </tbody>
                 </table>
               </div>

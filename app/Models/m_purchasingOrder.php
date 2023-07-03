@@ -67,9 +67,18 @@ class m_purchasingOrder extends Model
         return DB::table('purchasing')->join('users','purchasing.id_hki','=','users.id')->where('no', $no)->first();
     }
 
-    public function download($no)
+    public function listGroup($po_num)
     {
-        return DB::table('purchasing')->join('users','purchasing.id_tujuan','=','users.id')->join('users_detail','users.id','=','users_detail.id_user')->where('no', $no)->first();
+        return DB::table('purchasing')->join('users','purchasing.id_tujuan','=','users.id')->join('users_detail','users.id','=','users_detail.id_user')->where('purchasing.po_number', $po_num)->get();
+    }
+
+    public function download($po_num)
+    {
+        return DB::table('purchasing')->join('users','purchasing.id_tujuan','=','users.id')->join('users_detail','users.id','=','users_detail.id_user')->where('purchasing.po_number', $po_num)->first();
+    }
+
+    public function sumAmount($po_num){
+        return DB::table('purchasing')->where('po_number',$po_num)->sum('amount');
     }
 
 

@@ -75,7 +75,7 @@ Route::controller(c_purchasingOrder::class)->middleware('auth')->group(function 
 Route::controller(c_subcon::class)->middleware('auth')->group(function () {
     // PO Supplier
     Route::get('subcon/po', 'myPO_Subcon')->name('subcon.po.index');
-    Route::get('subcon/po/download/{no}', 'myPO_Download')->name('subcon.po.download');
+    Route::get('subcon/po/download/{po_number}', 'myPO_Download')->name('subcon.po.download');
 
     // Surat dari Supplier
     Route::get('subcon/suratSup', 'mySuratSup_Subcon')->name('subcon.suratSup.index');

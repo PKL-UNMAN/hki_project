@@ -106,15 +106,24 @@
                                     
                               </tr>
                               <tr>
-                                    <td style="width:20%"><p>Telepon</p></td>
-                                    <td style="width:2%"><p>:</p></td>
-                                    <td style="width:78%"><p>{{$from->telepon}}</p></td>
-
+                                    <td style="width:20%"></td>
+                                    <td style="width:2%"></td>
+                                    <td style="width:28%"></td>
                                     <td></td>
 
                                     <td style="width:20%"><p>Issue Date</p></td>
                                     <td style="width:2%"><p>:</p></td>
                                     <td style="width:78%"><p>{{$from->issue_date}}</p></td>
+                              </tr>
+                              <tr>
+                                    <td style="width:20%"><p>Tel</p></td>
+                                    <td style="width:2%"><p>:</p></td>
+                                    <td style="width:78%"><p>{{$from->telepon}}</p></td>
+                                    <td></td>
+                                    <td style="width:50%"><p>Term of Payment</p></td>
+                                    <td style="width:2%"><p>:</p></td>
+                                    <td style="width:28%"></td>
+
                               </tr>
                               <tr>
                                     <td style="width:20%"><p>Fax</p></td>
@@ -123,40 +132,27 @@
 
                                     <td></td>
 
-                                    <td style="width:20%"><p>Payment</p></td>
-                                    <td style="width:2%"><p>:</p></td>
-                                    <td style="width:78%"><p>{{$from->payment}}</p></td>
-                              </tr>
-                              <tr>
-                                    <td style="width:20%"><p>Attn</p></td>
-                                    <td style="width:2%"><p>:</p></td>
-                                    <td style="width:78%"><p>{{$from->attn}}</p></td>
-
-                                    <td></td>
-
                                     <td style="width:20%"><p>Currency</p></td>
                                     <td style="width:2%"><p>:</p></td>
                                     <td style="width:78%"><p>IDR</p></td>
-   
-                              </tr>
-
-                              <tr>
-                                    <td style="width:20%"></td>
-                                    <td style="width:2%"></td>
-                                    <td style="width:78%"></td>
-
-                                   
                               </tr>
                               <tr>
                                     <td style="width:20%"></td>
                                     <td style="width:2%"></td>
-                                    <td style="width:78%"></td>
-
+                                    <td style="width:28%"></td>
                                     <td></td>
-                                    <td colspan="3" style="width:20%;height:50px;"><p>{{$hki->alamat}}</p></td>
-   
+
+                                    <td style="width:20%"><p>Delivery Destination</p></td>
+                                    <td style="width:2%"><p>:</p></td>
+                                    <td style="width:78%"></td>
                               </tr>
-                        </table>
+                              <tr>
+                                    <td style="width:20%"></td>
+                                    <td style="width:2%"></td>
+                                    <td style="width:78%"></td>
+                              </table>
+                              <p style="margin-left:50%">PT. HIRUTA KOGYO INDONESIA<br>Maligi X Lot.V-6 Kawasan Industri KIIC Desa Margakaya, Kecamatan Telukjambe Barat Kabupaten Karawang,<br>
+                              TEL: 0267 648 2020 / FAX: 0267 845 6464</p>      
                   </div>
                   {{-- <div class="col-md-6">
                         <table width="100%" class="from1 mt-2">
@@ -208,48 +204,57 @@
       <table width="90%">
       <tr>
             <th class="th"><p>No</p></th>
+            <th class="th"><p>Part No</p></th>
             <th class="th"><p>Description</p></th>
-            {{-- <th class="th"><p>Spesification</p></th> --}}
-            <th class="th"><p>UDM</p></th>
-            <th class="th"><p>Qty</p></th>
-            {{-- <th class="th"><p>Price per Unit</p></th> --}}
+            <th class="th"><p>QTY<br>pcs</p></th>
+            <th class="th"><p>QTY<br>(PC) </p></th>
+            <th class="th"><p>UOM</p></th>
+            <th class="th"><p>Price per Unit</p></th>
             <th class="th"><p>Delivery Date</p></th>
-            {{-- <th class="th"><p>Amount</p></th> --}}
-            <th class="th" colspan="3"><p>Order No</p></th>
+            <th class="th" style="width:10%"><p>Amount</p></th>
+            <th class="th"><p>Order No</p></th>
       </tr>
+      @php
+          $no=1
+      @endphp
+      @foreach ($group as $item)
+            <tr>
+                  <td style="text-align:center;width:5%" class="td"><p>{{$no++}}</p></td>
+                  <td class="td" style="width:10%"><p>{{$item->part_no}}</p></td>
+                  <td class="td" style="width:25%"><p>{{$item->part_name}}</p></td>
+                  <td class="td"><p>{{$item->order_qty}}</p></td>
+                  <td class="td"><p>{{$item->composition}}</p></td>
+                  <td class="td"><p>{{$item->unit}}</p></td>
+                  <td class="td"><p>{{$item->unit_price}}</p></td>
+                  <td class="td"><p>{{$item->delivery_time}}</p></td>
+                  <td class="td" style="width:10%"><p>{{$item->amount}}</p></td>
+                  <td class="td"><p>{{$item->order_number}}</p></td>
+            </tr>
+      @endforeach
       <tr>
-            <td style="text-align:center;width:5%" class="td"><p>1</p></td>
-            <td class="td" style="width:40%"><p>{{$from->part_name}}</p></td>
-            {{-- <td class="td"><p></p></td> --}}
-            <td class="td"><p>PC</p></td>
-            <td class="td"><p>{{$from->order_qty}}</p></td>
-            {{-- <td class="td"><p></p></td> --}}
-            <td class="td"><p>{{$from->delivery_time}}</p></td>
-            {{-- <td class="td" style="width:10%"><p>00</p></td> --}}
-            <td class="td" colspan="3"><p>{{$from->order_no}}</p></td>
-      </tr>
-      <tr>
-            <td colspan="6"></td>
-            <td colspan="1" style="border:1px solid black">Subtotal</td>
-            <td style="border:1px solid black;text-align:right;">1000</td>
+            <td colspan="7"></td>
+            <td>Subtotal</td>
+            <td style="border:1px solid black;text-align:right;" style="width:5%">{{$sum_amount}}</td>
 
       </tr>
       <tr>
-            <td colspan="6"><b>Request By </b></td>
-            <td colspan="1" style="border:1px solid black">Discount</td>
-            <td style="border:1px solid black;text-align:right;">10</td>
+            <td colspan="7"><b>Request By </b></td>
+            <td>Discount</td>
+            <td style="border:1px solid black;text-align:right;" style="width:5%">0.00</td>
 
       </tr>
       <tr>
-            <td colspan="6"></td>
-            <td colspan="1" style="border:1px solid black">Vat</td>
-            <td style="border:1px solid black;text-align:right;">0</td>
+            <td colspan="7"></td>
+            <td>Vat</td>
+            <td style="border:1px solid black;text-align:right;" style="width:5%">{{
+            $pajak = $sum_amount*11/100
+            }}</td>
 
       </tr>
       <tr>
-            <td colspan="6"></td>
-            <td colspan="1" style="border:1px solid black"><b>Grand Total</b></td>
-            <td style="border:1px solid black;text-align:right;">9000</td>
+            <td colspan="7"></td>
+            <td><b>Grand Total</b></td>
+            <td style="border:1px solid black;text-align:right;" style="width:5%">{{$sum_amount+$pajak}}</td>
 
       </tr>
      
