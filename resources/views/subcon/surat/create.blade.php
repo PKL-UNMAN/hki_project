@@ -11,39 +11,36 @@
 
             <div class="col col-md-12 col-12 mt-2">
                 <div class="form-group">
-                    <label for="password" style="margin-bottom: 5px;">PO Number</label>
-                    <input type="text" class="form-control @error('po_number') is-invalid @enderror" id="po_number"
-                        name="po_number" value="{{ old('po_number') }}">
-                    @error('po_number')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
+                    <label for="basic-usage" style="margin-bottom: 5px;">No Po</label>
+                    <select class="form-select" id="basic-usage" data-placeholder="Pilih No Po">
+                        <option></option>
+                        @foreach ($po as $data)
+                            <option value="{{$data->id_po}}">{{$data->id_po}}</option>
+                        @endforeach
+                    </select>
+                    <script>
+                        $( '#basic-usage' ).select2( {
+                        dropdownParent: $('#exampleModalCenter'),
+                        theme: "bootstrap-5",
+                        width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+                        placeholder: $( this ).data( 'placeholder' ),
+                        } );
+                    </script>
                     {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
                 </div>
             </div>
             <div class="col col-md-12 col-12 mt-2">
                 <div class="form-group">
                     <label for="password" style="margin-bottom: 5px;">Pengirim</label>
-                    <input type="text" class="form-control @error('order_no') is-invalid @enderror"
-                        {{-- id="order_no" name="order_no" value="{{ old('order_no') }}">
-                                @error('order_no')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror --}} {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}} </div>
+                    <input type="text" class="form-control" value="{{ Auth::user()->username }}">
+                        
                 </div>
 
                 <div class="col col-md-12 col-12 mt-2">
                     <div class="form-group">
-                        <label for="nama_barang" style="margin-bottom: 5px;">Tujuan Pengiriman</label>
-                        <input type="text" class="form-control @error('part_name') is-invalid @enderror"
-                            {{-- id="part_name" name="part_name" data-name="{{ old('part_name') }} ">
-                                @error('part_name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror --}} {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}} </div>
+                        <label for="tujuan" style="margin-bottom: 5px;">Tujuan Pengiriman</label>
+                        <input type="text" class="form-control"
+                                id="tujuan" name="tujuan" value="{{$tujuan[0]->username;}}">
                     </div>
 
                     <div class="col col-md-12 col-12 mt-2">
@@ -153,3 +150,4 @@
         });
     });
 </script>
+
