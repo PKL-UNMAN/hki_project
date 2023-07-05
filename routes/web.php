@@ -84,7 +84,6 @@ Route::controller(c_subcon::class)->middleware('auth')->group(function () {
    // Read Surat di subcon
    Route::get('subcon/suratSup/read/{no_surat}', 'subcon_lihatSurat')->name('subcon.suratSup.read');
 
-
     // Surat Subcon ke HKI
     Route::get('subcon/surat', 'mySurat_Subcon')->name('subcon.surat.index');
     Route::get('subcon/surat/download/{no}', 'mySurat_Download')->name('subcon.surat.download');
@@ -127,9 +126,11 @@ Route::controller(c_surat::class)->middleware('auth')->group(function () {
     // Surat Subcon
     Route::get('subcon/surat', 'tampilSurat_subcon')->name('subcon.surat.index');
     Route::get('subcon/surat/create', 'createSurat_subcon')->name('subcon.surat.create');
+    Route::get('subcon/surat/create/{selectedValue}', 'ambilData')->name('ambil.data');
     Route::post('subcon/surat/store', 'storeSurat_subcon')->name('subcon.surat.store');
     Route::get('subcon/surat/edit/{no}', 'editSurat_Subcon')->name('subcon.surat.edit');
     Route::post('subcon/surat/update/{no}', 'updateSurat_Subcon')->name('subcon.surat.update');
+    Route::get('subcon/surat/read/{no}', 'readSurat_Subcon')->name('subcon.surat.read');
     Route::get('subcon/surat/delete/{no}', 'destroySurat_Subcon')->name('subcon.surat.delete');
 
     // Surat Supplier

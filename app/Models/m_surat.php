@@ -17,7 +17,11 @@ class m_surat extends Model
 
     public function detailSurat($no_surat)
     {
-        return DB::table('surat')->join('users', 'surat.id_subcon', '=', 'users.id')->join('users_detail', 'users.id', '=', 'users_detail.id_user')->first();
+        return DB::table('surat')->where('no_surat',$no_surat)->first();
+    }
+    public function detailPengirim($no_surat)
+    {
+        return DB::table('surat')->join('users', 'surat.pengirim', '=', 'users.nama')->join('users_detail', 'users.id', '=', 'users_detail.id_user')->where('no_surat',$no_surat)->first();
     }
 
     public function detailSuratInSubcon($no_surat)
@@ -47,9 +51,9 @@ class m_surat extends Model
     }
 
 
-    public function mySurat_Subcon($id)
+    public function mySurat_Subcon($nama)
     {
-        return DB::table('surat')->join('users', 'surat.id_subcon', '=', 'users.id')->where('id_subcon', $id)->get();
+        return DB::table('surat')->join('users', 'surat.pengirim', '=', 'users.nama')->where('pengirim', $nama)->get();
     }
 
 

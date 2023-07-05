@@ -42,7 +42,7 @@
                        @foreach($PO as $data)
                         <tr>
                             <td></td>
-                            <td>{{$data->id_po}}</td>
+                            <td>{{$data->po_number}}</td>
                             <td>{{$data->part_no}}</td>
                             <td>{{$data->part_name}}</td>
                             <td>{{$data->class}}</td>

@@ -32,8 +32,7 @@
                                 <th>PO Number</th>
                                 <th>Pengirim</th>
                                 <th>Tujuan Pengiriman</th>
-                                <th>Tanggal</th>
-                                <!-- <th>Surat Tujuan</th> -->
+                                <th>Tanggal Pengiriman</th>
                                 <th>Part No</th>
                                 <th>Part Name</th>
                                 <th>QTY</th>
@@ -43,31 +42,38 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- @foreach ($surat as $data)
-    <tr>
-                                        <td></td>
-                                        <td>{{ $data->part_name }}</td>
-                                        <td>{{ $data->part_no }}</td> -->
-                            <!-- <td>{{ $data->nama }}</td> -->
-                            <!-- <td>{{ $data->order_no }}</td>
-                                        <td>{{ $data->delivery_time }}</td>
-                                        <td>
-                                            @if ($data->status == 'On Progress')
-    <span class="badge" style="background-color: orangered">On Progress</span>
-@elseif($data->status == 'Finish')
-    <span class="badge" style="background-color: rgb(0, 193, 55)">Accepted</span>
-    @endif
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('subcon.surat.edit', $data->no_surat) }}" class="btn btn-warning">Edit</a>
-                                            <a id="hapus" onclick="modalHapus({{ $data->no_surat }})" href="#" class="btn btn-danger">Delete</a>
-                                            <a href="#" onclick="modalREAD({{ $data->no_surat }})" class="btn btn-warning">READ</a>
-                                            <a href="{{ route('subcon.surat.download', $data->no_surat) }}" class="btn btn-primary">Download</a>
-                                        </td>
-                                    </tr>
-    @endforeach -->
-                        </tbody>
-                    </table>
+                            @foreach ($surat as $data)
+                                <tr>
+                                    <td></td>
+                                    <td>{{ $data->po_number }}</td>
+                                    <td>{{ $data->pengirim }}</td>
+                                    <td>{{ $data->penerima }}</td>
+                                    <td>{{ $data->tanggal }}</td>
+                                    <td>{{ $data->part_no }}</td>
+                                    <td>{{ $data->part_name }}</td>
+                                    <td>{{ $data->qty }}</td>
+                                    <td>{{ $data->unit }}</td>
+                                    <td>
+                                        @if ($data->status == 'On Progress')
+                                        <span class="badge" style="background-color: orangered">On Progress</span>
+                                        @elseif($data->status == 'Finish')
+                                        <span class="badge" style="background-color: rgb(0, 193, 55)">Accepted</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('subcon.surat.edit', $data->no_surat) }}"
+                                            class="btn btn-warning">Edit</a>
+                                        <a id="hapus" onclick="modalHapus({{ $data->no_surat }})" href="#"
+                                            class="btn btn-danger">Delete</a>
+                                        <a href="#" onclick="modalREAD({{ $data->no_surat }})"
+                                            class="btn btn-warning">READ</a>
+                                        <a href="{{ route('subcon.surat.download', $data->no_surat) }}"
+                                            class="btn btn-primary">Download</a>
+                                    </td>
+                                </tr>
+                                @endforeach
+                                </tbody>
+                                </table>
                 </div>
             </div>
 

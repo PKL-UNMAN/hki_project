@@ -80,6 +80,10 @@ class m_purchasingOrder extends Model
     public function sumAmount($po_num){
         return DB::table('purchasing')->where('po_number',$po_num)->sum('amount');
     }
+    // bantu isi data tambah surat jalan
+    public function ambilData($selectedValue,$id){
+        return DB::table('purchasing')->where('po_number', $selectedValue)->where('id_tujuan', $id)->first();
+    }
 
 
 
