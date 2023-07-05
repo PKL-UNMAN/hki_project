@@ -152,54 +152,14 @@
                               <p style="margin-left:50%">PT. HIRUTA KOGYO INDONESIA<br>Maligi X Lot.V-6 Kawasan Industri KIIC Desa Margakaya, Kecamatan Telukjambe Barat Kabupaten Karawang,<br>
                               TEL: 0267 648 2020 / FAX: 0267 845 6464</p>      
                   </div>
-                  {{-- <div class="col-md-6">
-                        <table width="100%" class="from1 mt-2">
-                              <tr>
-                                    <td style="width:20%"><p>PO No</p></td>
-                                    <td style="width:2%"><p>:</p></td>
-                                    <td style="width:78%"><p>{{$from->po_number}}</p></td>
-                              </tr>
-                              <tr>
-                                    <td style="width:20%"><p>Issue Date</p></td>
-                                    <td style="width:2%"><p>:</p></td>
-                                    <td style="width:78%"><p>{{$from->issue_date}}</p></td>
-                              </tr>
-                              <tr>
-                                    <td style="width:20%"><p>Terms of Payment</p></td>
-                                    <td style="width:2%"><p>:</p></td>
-                                    <td style="width:78%"><p>{{$from->payment}}</p></td>
-                              </tr>
-                              <tr>
-                                    <td style="width:20%"><p>Currency</p></td>
-                                    <td style="width:2%"><p>:</p></td>
-                                    <td style="width:78%"><p>IDR</p></td>
-                              </tr>
-                              <tr style="vertical-align:top;">
-                                    <td style="width:22%"><p>Delivery Destination</p></td>
-                                    <td style="width:2%"><p>:</p></td>
-                              </tr>
-                              <tr style="height:10px">
-                                    <td></td>
-                              </tr>
-                              <tr style="word-break: keep-all">
-                                    <td colspan="3"><p>PT. HIRUTA KOGYO INDONESIA</p></td>
-                              </tr>
-                              <tr style="line-height:1;">
-                                    <td colspan="3"><p>{{$hki->alamat}}</p></td>
-                              </tr>
-                              <tr>
-                                    <td colspan="3"><p>TEL : {{$hki->telepon}}/FAX : {{$hki->fax}}</p></td>
-                              </tr>
-                              
-                        </table>
-                  </div> --}}
+
             </div>
       </div>
 
       <div class="isi" style="font-size:14px">
       
 
-      <table width="90%">
+      <table width="90%" class="text-center">
       <tr>
             <th class="th"><p>No</p></th>
             <th class="th"><p>Part No</p></th>
@@ -210,7 +170,7 @@
             <th class="th"><p>Price per Unit</p></th>
             <th class="th"><p>Delivery Date</p></th>
             <th class="th" style="width:10%"><p>Amount</p></th>
-            <th class="th"><p>Order No</p></th>
+            <th class="th" style="width:10%"><p>Order No</p></th>
       </tr>
       @php
           $no=1
@@ -219,40 +179,41 @@
             <tr>
                   <td style="text-align:center;width:5%" class="td"><p>{{$no++}}</p></td>
                   <td class="td" style="width:10%"><p>{{$item->part_no}}</p></td>
-                  <td class="td" style="width:25%"><p>{{$item->part_name}}</p></td>
+                  <td class="td" style="width:20%"><p>{{$item->part_name}}</p></td>
                   <td class="td"><p>{{$item->order_qty}}</p></td>
-                  <td class="td"><p>{{$item->composition}}</p></td>
+                  <td class="td"><p>@currency($item->composition)</p></td>
                   <td class="td"><p>{{$item->unit}}</p></td>
-                  <td class="td"><p>{{$item->unit_price}}</p></td>
-                  <td class="td"><p>{{$item->delivery_time}}</p></td>
-                  <td class="td" style="width:10%"><p>{{$item->amount}}</p></td>
+                  <td class="td"><p>@currency($item->unit_price)</p></td>
+                  <td class="td" style="width:10%"><p>{{$item->delivery_time}}</p></td>
+                  <td class="td" style="width:10%"><p>@currency($item->amount)</p></td>
                   <td class="td"><p>{{$item->order_number}}</p></td>
             </tr>
       @endforeach
       <tr>
-            <td colspan="7"></td>
-            <td>Subtotal</td>
-            <td style="border:1px solid black;text-align:right;" style="width:5%">{{$sum_amount}}</td>
+            <td colspan="6"></td>
+            <td colspan="2" class="text-left">Subtotal</td>
+            <td style="border:1px solid black;text-align:right;">@currency($sum_amount)</td>
+            <td></td>
 
       </tr>
       <tr>
-            <td colspan="7"><b>Request By </b></td>
-            <td>Discount</td>
-            <td style="border:1px solid black;text-align:right;" style="width:5%">0.00</td>
-
+            <td colspan="6"></td>
+            <td colspan="2" class="text-left">Discount</td>
+            <td style="border:1px solid black;text-align:right;">0.00</td>
+            <td></td>   
       </tr>
       <tr>
-            <td colspan="7"></td>
-            <td>Vat</td>
-            <td style="border:1px solid black;text-align:right;" style="width:5%">{{
-            $pajak = $sum_amount*11/100
-            }}</td>
-
+            <td colspan="6"></td>
+            <td colspan="2" class="text-left">Vat 11.00%</td>
+            <td style="border:1px solid black;text-align:right;">
+            @currency($pajak = $sum_amount*11/100)</td>
+            <td></td>
       </tr>
       <tr>
-            <td colspan="7"></td>
-            <td><b>Grand Total</b></td>
-            <td style="border:1px solid black;text-align:right;" style="width:5%">{{$sum_amount+$pajak}}</td>
+            <td colspan="6"></td>
+            <td colspan="2" class="text-left"><b>Grand Total</b></td>
+            <td style="border:1px solid black;text-align:right;">@currency($sum_amount+$pajak)</td>
+            <td></td>
 
       </tr>
      

@@ -76,7 +76,7 @@
                                         <a href="{{url('hki/po/supplier/edit/'.$data->id_po.'/'.$data->id_destination.'/'.$data->default_supplier_id)}}" class="btn btn-warning">Edit</a>
                                         <a id="hapus" onclick="modalHapus({{$data->id_po}})" href="#" class="btn btn-danger">Delete</a>
                                         <a href="#" onclick="modalRead({{$data->id_po}})" class="btn btn-info">Read</a>
-                                        <a href="{{route('supplier.po.download', $data->id_po)}}" class="btn btn-primary">Download</a>
+                                        <a href="{{url('supplier/po/download/'.$data->po_number)}}" class="btn btn-primary">Download</a>
                             </td>
                         </tr>
                       @endforeach

@@ -43,7 +43,7 @@ class c_subcon extends Controller
             'hki'=> $this->user->detailHKI(),
         ];
         $pdf = PDF::loadview('subcon.po.pdf', $data)->setPaper('legal', 'potrait');;
-	    return $pdf->download('laporan-PO.pdf');
+	    return $pdf->download('laporan-PO-Subcon.pdf');
     }
 
 

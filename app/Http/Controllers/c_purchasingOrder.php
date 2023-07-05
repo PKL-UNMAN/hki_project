@@ -278,15 +278,6 @@ class c_purchasingOrder extends Controller
 
     }
 
-    public function myPO_Download($no)
-    {
-        $data =[
-            'from'=> $this->PO->download($no),
-            'hki'=> $this->user->detailHKI(),
-        ];
-        // return view('subcon.po.pdf', $data);
-        $pdf = PDF::loadview('po.supplier.download', $data)->setPaper('legal', 'potrait');;
-	    return $pdf->download('laporan-PO.pdf');
-    }
+
     
 }
