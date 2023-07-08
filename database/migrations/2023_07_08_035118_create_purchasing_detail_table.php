@@ -13,14 +13,20 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('surat', function (Blueprint $table) {
-            $table->bigIncrements('no_surat');
+        Schema::create('purchasing_details', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('id_po');
-            $table->string('pengirim', 255);
-            $table->string('penerima', 255);
-            $table->string('status', 255);
+            $table->string('part_no', 255);
+            $table->string('part_name', 255);
+            $table->integer('unit_price');
+            $table->integer('order_qty');
+            $table->string('unit', 50);
+            $table->string('composition', 128);
+            $table->integer('amount');
+            $table->string('order_number', 128);
 
             $table->foreign('id_po')->references('id_po')->on('purchasing');
+
         });
     }
 
@@ -31,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('surat');
+        Schema::dropIfExists('purchasing_details');
     }
 };

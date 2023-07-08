@@ -13,23 +13,21 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('surat_supplier', function (Blueprint $table) {
-            $table->bigInteger('no_surat')->unsigned()->autoIncrement();
-            $table->string('po_number');
-            $table->string('id_pengirim')->nullable();
-            $table->string('id_tujuan')->nullable();
-            $table->string('tanggal');
-            $table->string('part_no');
-            $table->string('part_name');
-            $table->string('qty');
-            $table->string('unit');
-            $table->string('status')->nullable();
+        Schema::create('surat_details', function (Blueprint $table) {
+            $table->bigInteger('id_detail_surat')->unsigned()->autoIncrement();
+            $table->unsignedBigInteger('no_surat');
+            $table->dateTime('tanggal');
+            $table->string('part_no', 225);
+            $table->string('part_name', 225);
+            $table->string('qty', 225);
+            $table->string('unit', 225);
+
             
         });
 
         // Tambahkan kunci pada kolom 'po_number'
-        Schema::table('surat_supplier', function (Blueprint $table) {
-            $table->index('po_number');
+        Schema::table('surat_details', function (Blueprint $table) {
+            $table->index('no_surat');
         });
 
    
@@ -44,15 +42,15 @@ return new class extends Migration
     public function down()
     {
         // Hapus kunci utama pada kolom 'no_surat'
-        Schema::table('surat_supplier', function (Blueprint $table) {
-            $table->dropPrimary('surat_supplier_no_surat_primary');
+        Schema::table('surat_details', function (Blueprint $table) {
+            $table->dropPrimary('surat_details_no_surat_primary');
         });
 
         // Hapus kunci pada kolom 'po_number'
-        Schema::table('surat_supplier', function (Blueprint $table) {
-            $table->dropIndex('surat_supplier_po_number_index');
+        Schema::table('surat_details', function (Blueprint $table) {
+            $table->dropIndex('surat_details_no_surat_index');
         });
 
-        Schema::dropIfExists('surat_supplier');
+        Schema::dropIfExists('surat_details');
     }
 };

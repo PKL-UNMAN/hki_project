@@ -14,26 +14,16 @@ class CreatePurchasingTable extends Migration
     public function up()
     {
         Schema::create('purchasing', function (Blueprint $table) {
-            $table->increments('id_po');
-            $table->string('part_no', 255);
-            $table->unsignedBigInteger('default_supplier_id')->nullable();
-            $table->string('part_name', 255);
-            $table->integer('order_qty');
-            $table->string('unit', 50);
+            $table->id('id_po');
+            $table->integer('po_number');
+            $table->integer('id_tujuan_po');
+            $table->unsignedBigInteger('default_id')->nullable();
             $table->string('class', 30);
-            $table->string('po_number', 255);
-            $table->integer('unit_price');
-            $table->integer('amount');
-            $table->string('currency_code', 20);
-            $table->dateTime('delivery_time');
             $table->string('issue_date', 30);
-            $table->string('order_number', 128);
-            $table->string('composition', 128);
-            $table->integer('id_tujuan');
-            $table->integer('id_destination');
+            $table->string('currency_code', 20);
+            $table->integer('id_delivery');
+            $table->dateTime('delivery_time');
             $table->string('status')->nullable();
-        
-            $table->foreign('default_supplier_id')->references('id')->on('users');
         });
      
     
