@@ -26,7 +26,6 @@ return new class extends Migration
             $table->string('order_number', 128);
 
             $table->foreign('id_po')->references('id_po')->on('purchasing');
-
         });
     }
 

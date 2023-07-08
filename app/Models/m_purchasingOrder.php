@@ -18,7 +18,11 @@ class m_purchasingOrder extends Model
 
     public function tampilPO_Supplier()
     {
-        return DB::table('purchasing')->join('users','purchasing.default_supplier_id','=','users.id')->where('users.role_id', '3')->get();
+        return DB::table('purchasing')->join('users','purchasing.default_supplier_id','=','users.id')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->where('users.role_id', '3')->get();
+    }
+
+    public function getIdPO(){
+        return DB::table('purchasing')->max('id_po');
     }
 
     public function tampilPO_Subcon()
@@ -26,24 +30,24 @@ class m_purchasingOrder extends Model
         return DB::table('purchasing')->join('users','purchasing.id_tujuan','=','users.id')->where('users.role_id', '2')->get();
     }
 
-    public function addData($data)
+    public function addData($table,$data)
     {
-        DB::table('purchasing')->insert($data);
+        DB::table($table)->insert($data);
     }
     
-    public function editData($id, $data)
+    public function editData($table,$id, $data)
     {
-        return DB::table('purchasing')->where('id_po', $id)->update($data);
+        return DB::table($table)->where('id_po', $id)->update($data);
     }
 
     public function detailData($id)
     {
-        return DB::table('purchasing')->join('users','purchasing.id_tujuan','=','users.id')->where('id_po', $id)->first();
+        return DB::table('purchasing')->join('users','purchasing.id_tujuan_po','=','users.id')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->where('purchasing.id_po', $id)->first();
     }
 
-    public function deleteData($no)
+    public function deleteData($table,$no)
     {
-        return DB::table('purchasing')->where('id_po', $no)->delete();
+        return DB::table($table)->where('id_po', $no)->delete();
     }
 
     public function checkID()

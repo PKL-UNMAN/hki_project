@@ -145,9 +145,9 @@
                     'Berhasil!',
                     'PO Subcon Berhasil Dihapus.',
                     'success',
-                    '5000'
+                    '10000'
                     )
-                    // location.reload(true);
+                    location.reload(true);
                 }
             });
             

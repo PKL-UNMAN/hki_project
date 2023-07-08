@@ -19,8 +19,8 @@
                         <div class="col-md-4">
                             <div class="form-group text-start">
                                 <label for="id_tujuan" class="text-left fw-bold">Tujuan Supplier (Nama Perusahaan)</label>
-                                <select name="id_tujuan" id="id_tujuan" class="form-control @error('id_tujuan') is-invalid @enderror">
-                                <option data-class="SUPPLIER" data-id="{{$supplierBy->id}}" value="{{$PO->id_tujuan}}"> {{$PO->id_tujuan}} - {{$PO->nama}} </option>
+                                <select id="id_tujuan" class="form-control @error('id_tujuan') is-invalid @enderror">
+                                <option data-class="SUPPLIER" data-id="{{$supplierBy->id}}" value="{{$PO->id_tujuan_po}}"> {{$PO->id_tujuan_po}} - {{$PO->nama}} (Dipilih)</option>
                                     @foreach($supplier as $data)
                                     <option data-id="{{$data->id}}" data-class="SUPPLIER" value="{{$data->id}}">{{$data->id}} - {{$data->nama}}</option>
                                     @endforeach
@@ -74,6 +74,15 @@
                                 </span>
                                 @enderror
                             </div>
+                            <div class="form-group mt-3 text-start">
+                                <label for="delivery_date" class="fw-bold"><i class="fa-solid fa-calendar-days"></i> Delivery Date</label>
+                                <input type="datetime" class="form-control @error('delivery_date') is-invalid @enderror" id="delivery_date" value="{{$PO->delivery_time}}">
+                                @error('delivery_date')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group text-start">
@@ -90,6 +99,7 @@
                                 <select id="currency" class="form-control @error('currency') is-invalid @enderror">
                                     <option value="{{$PO->currency_code}}">-- {{$PO->currency_code}} --</option>
                                     <option>IDR</option>
+                                    <option>EUR</option>
                                 </select>
                                 @error('currency')
                                 <span class="invalid-feedback" role="alert">
@@ -178,15 +188,7 @@
                         </span>
                         @enderror
                     </div>
-                    <div class="form-group mt-3 text-start">
-                        <label for="" class="fw-bold">Delivery Date</label>
-                        <input type="datetime" class="form-control @error('delivery_date') is-invalid @enderror" name="delivery_date" placeholder="Masukkan delivery date" value="{{$PO->delivery_time}}">
-                        @error('delivery_date')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
+
                     <div class="form-group mt-3 text-start">
                         <label for="" class="fw-bold">Order Number</label>
                         <input type="text" class="form-control @error('order_number') is-invalid @enderror" name="order_number" placeholder="Masukkan order_number" value="{{$PO->order_number}}">
@@ -202,6 +204,7 @@
                         <input type="hidden" name="destination" value="">
                         <input type="hidden" name="default_id" value="">
                         <input type="hidden" name="issue_date" value="">
+                        <input type="hidden" name="delivery_date" value="">
                         <input type="hidden" name="classname" value="">
                         <input type="hidden" name="currency" value="">
                     </div>
@@ -215,31 +218,63 @@
 </div>
 <script>
     $(document).ready(function(){
-        $('#id_tujuan').on('change', function(){
+        $('#id_tujuan,#destination,#currency').on('change', function(){
             const default_id = $('#id_tujuan option:selected').data('id');
             $('#default_id').val(default_id);
             const class_name = $('#id_tujuan option:selected').data('class');
             $('#classname').val(class_name);
+            let currency = $('select#currency').val()
+            $('[name="currency"]').val(currency)
+            //edit tujuan
+            let id_tujuan = $('#id_tujuan').val()
+            $('[name="id_tujuan"]').val(id_tujuan)
+            //edit default id
+            let id_default = $('#default_id').val()
+            $('[name="default_id"]').val(id_default)
+            //edit class
+            let classname = $('#classname').val()
+            $('[name="classname"]').val(classname)
+            //edit destination
+            let destination = $('#destination').val()
+            $('[name="destination"]').val(destination)
+            let delivery_date = $('#delivery_date').val()
+            $('[name="delivery_date"]').val(delivery_date)
+
         });
+
+        let id_tujuan = $('#id_tujuan').val()
+        $('[name="id_tujuan"]').val(id_tujuan)
+        let id_default = $('#default_id').val()
+        $('[name="default_id"]').val(id_default)
+
+        let classname = $('#classname').val()
+        $('[name="classname"]').val(classname)
+
+        let destination = $('#destination').val()
+        $('[name="destination"]').val(destination)
+
+        let issue_date = $('#issue_date').val()
+        $('[name="issue_date"]').val(issue_date)
+        // console.log(issue_date)
+        let po_num = $('#po_number').val()
+        $('[name="po_number"]').val(po_num)
+
+        let currency = $('select#currency').val()
+        $('[name="currency"]').val(currency)
+
+        let delivery_date = $('#delivery_date').val()
+        $('[name="delivery_date"]').val(delivery_date)
+
         $('#po_number').keyup(function(){
             date = new Date();
-            const issue_date = $('#issue_date').val(date.toLocaleDateString('id-ID')+' - '+date.toLocaleTimeString('id-ID'))
+            $('[name="issue_date"]').val(date.toLocaleDateString('id-ID')+' - '+date.toLocaleTimeString('id-ID'))
+            // console.log(date_issue[0])
+
+            //edit po number
+            let po_num = $('#po_number').val()
+            $('[name="po_number"]').val(po_num)
         });
         //Ketika tambah item saja!!!!
-            let id_tujuan = $('#id_tujuan').val()
-            let po_num = $('#po_number').val()
-            let destination = $('#destination').val()
-            let default_id = $('#default_id').val()
-            let issue_date = $('#issue_date').val()
-            let classname = $('#classname').val()
-            let currency = $('select#currency').val()
-            $('[name="id_tujuan"]').val(id_tujuan)
-            $('[name="po_number"]').val(po_num)
-            $('[name="destination"]').val(destination)
-            $('[name="default_id"]').val(default_id)
-            $('[name="issue_date"]').val(issue_date)
-            $('[name="classname"]').val(classname)
-            $('[name="currency"]').val(currency)
 
         $('#unit_price').keyup(function(){
             let amount = ($('#unit_price').val()*$('#composition').val())*$('#qty').val()

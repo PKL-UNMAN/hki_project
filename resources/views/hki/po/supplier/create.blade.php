@@ -72,6 +72,15 @@
                                 </span>
                                 @enderror
                             </div>
+                            <div class="form-group mt-3 text-start">
+                                <label for="delivery_date" class="fw-bold"><i class="fa-solid fa-calendar-days"></i> Delivery Date</label>
+                                <input type="date" class="form-control @error('delivery_date') is-invalid @enderror" id="delivery_date">
+                                @error('delivery_date')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group text-start">
@@ -176,15 +185,6 @@
                         @enderror
                     </div>
                     <div class="form-group mt-3 text-start">
-                        <label for="delivery_date" class="fw-bold"><i class="fa-solid fa-calendar-days"></i> Delivery Date</label>
-                        <input type="date" class="form-control @error('delivery_date') is-invalid @enderror" id="delivery_date" placeholder="Masukkan delivery date">
-                        @error('delivery_date')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div class="form-group mt-3 text-start">
                         <label for="order_number" class="fw-bold"><i class="fa-solid fa-tag"></i> Order Number</label>
                         <input type="text" class="form-control @error('order_number') is-invalid @enderror" id="order_number" placeholder="Masukkan order_number">
                         @error('order_number')
@@ -207,6 +207,7 @@
         <input type="hidden" name="destination" value="">
         <input type="hidden" name="default_id" value="">
         <input type="hidden" name="issue_date" value="">
+        <input type="hidden" name="delivery_date" value="">
         <input type="hidden" name="classname" value="">
         <input type="hidden" name="currency" value="">
     </div>
@@ -221,7 +222,6 @@
             <th>QTY</th>
             <th>Unit</th>
             <th>Amount</th>
-            <th>Delivery Date</th>
             <th>Order Number</th>
             <th>Action</th>
         </tr>
@@ -252,6 +252,7 @@
             let destination = $('#destination').val()
             let default_id = $('#default_id').val()
             let issue_date = $('#issue_date').val()
+            let delivery_date = $('#delivery_date').val()
             let classname = $('#classname').val()
             let currency = $('#currency').val()
             $('[name="id_tujuan"]').val(id_tujuan)
@@ -259,6 +260,7 @@
             $('[name="destination"]').val(destination)
             $('[name="default_id"]').val(default_id)
             $('[name="issue_date"]').val(issue_date)
+            $('[name="delivery_date"]').val(delivery_date)
             $('[name="classname"]').val(classname)
             $('[name="currency"]').val(currency)
         });
@@ -293,7 +295,6 @@
         '<td><input class="form-control" name="qty[]" value='+$('#qty').val()+'></td>'+
         '<td><input class="form-control" name="unit[]" value='+$('#unit').val()+'></td>'+
         '<td><input class="form-control" name="amount[]" value='+$('#amount').val()+'></td>'+
-        '<td><input class="form-control" name="delivery_date[]" value='+$('#delivery_date').val()+'></td>'+
         '<td><input class="form-control" name="order_number[]" value='+$('#order_number').val()+'></td>'+
         '<td><a href="javascript:void(0)" id=delete'+no+' class="btn btn-danger">Hapus</a></td>'+
         '</tr>');
@@ -304,7 +305,6 @@
         $('#qty').val('')
         $('#unit').val('')
         $('#amount').val('')
-        $('#delivery_date').val('')
         $('#order_number').val('')
         $('#delete'+no).click(function() {
             $('#row'+no).remove()
