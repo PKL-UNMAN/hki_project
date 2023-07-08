@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('surat', function (Blueprint $table) {
             $table->bigIncrements('no_surat');
-            $table->unsignedBigInteger('id_po');
+            $table->dateTime('tanggal');
+            $table->string('po_number',225);
             $table->string('pengirim', 255);
             $table->string('penerima', 255);
             $table->string('status', 255);
 
-            $table->foreign('id_po')->references('id_po')->on('purchasing');
         });
     }
 
