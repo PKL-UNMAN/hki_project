@@ -14,15 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('surat_details', function (Blueprint $table) {
-            $table->bigInteger('id_detail_surat')->unsigned()->autoIncrement();
             $table->unsignedBigInteger('no_surat');
-            $table->dateTime('tanggal');
             $table->string('part_no', 225);
             $table->string('part_name', 225);
             $table->string('qty', 225);
             $table->string('unit', 225);
-
-            
+            $table->foreign('no_surat')->references('no_surat')->on('surat');
         });
 
         // Tambahkan kunci pada kolom 'po_number'

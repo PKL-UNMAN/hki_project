@@ -17,11 +17,11 @@ class CreatePurchasingTable extends Migration
             $table->id('id_po');
             $table->integer('po_number');
             $table->integer('id_tujuan_po');
-            $table->unsignedBigInteger('default_id')->nullable();
+            $table->unsignedBigInteger('default_supplier_id')->nullable();
             $table->string('class', 30);
             $table->string('issue_date', 30);
             $table->string('currency_code', 20);
-            $table->integer('id_delivery');
+            $table->integer('id_destination');
             $table->dateTime('delivery_time');
             $table->string('status')->nullable();
         });
