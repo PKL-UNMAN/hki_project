@@ -15,13 +15,18 @@ class m_surat extends Model
         return DB::table('surat')->join('users', 'surat.id_subcon', '=', 'users.id')->get();
     }
 
-    public function detailSurat($no_surat)
+    public function headSurat($no_surat)
     {
         return DB::table('surat')->where('no_surat',$no_surat)->first();
     }
+    public function detailSurat($no_surat)
+    {
+        return DB::table('surat_details')->where('no_surat',$no_surat)->get();
+    }
+    
     public function detailPengirim($no_surat)
     {
-        return DB::table('surat')->join('users', 'surat.pengirim', '=', 'users.nama')->join('users_detail', 'users.id', '=', 'users_detail.id_user')->where('no_surat',$no_surat)->first();
+        return DB::table('surat')->join('users', 'surat.pengirim','=','users.nama')->join('users_detail', 'users.id', '=', 'users_detail.id_user')->where('surat.no_surat',$no_surat)->first();
     }
 
     public function detailSuratInSubcon($no_surat)
@@ -29,10 +34,32 @@ class m_surat extends Model
         return DB::table('surat')->join('users', 'surat.id_tujuan', '=', 'users.id')->join('users_detail', 'users.id', '=', 'users_detail.id_user')->first();
     }
 
+    protected $table = 'surat';
+    public $timestamps = false;
+    protected $fillable = [
+        'po_number',
+        'pengirim',
+        'penerima',
+        'tanggal',
+    ];
+    protected $primaryKey = 'no_surat';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
 
     public function addData($data)
     {
-        DB::table('surat')->insert($data);
+        $surat = new m_surat();
+        $surat->po_number = $data['po_number'];
+        $surat->tanggal = $data['tanggal'];
+        $surat->pengirim = $data['pengirim'];
+        $surat->penerima = $data['penerima'];
+        $surat->part_no = $data['part_no'];
+        $surat->part_name = $data['part_name'];
+        $surat->qty = $data['qty'];
+        $surat->unit = $data['unit'];
+        $surat->save();
+        return $surat;
     }
 
     public function editData($no_surat, $data)
@@ -53,7 +80,7 @@ class m_surat extends Model
 
     public function mySurat_Subcon($nama)
     {
-        return DB::table('surat')->join('users', 'surat.pengirim', '=', 'users.nama')->where('pengirim', $nama)->get();
+        return DB::table('surat')->where('pengirim', $nama)->get();
     }
 
 

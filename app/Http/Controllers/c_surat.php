@@ -8,6 +8,8 @@ use App\Models\m_user;
 use App\Models\m_role;
 use App\Models\m_purchasingOrder;
 use App\Models\m_surat;
+use App\Models\m_detail_surat;
+
 use DB;
 use File;
 use Auth;
@@ -65,64 +67,79 @@ class c_surat extends Controller
         return response()->json(['data' => $data]);
     }
 
-    public function storeSurat_subcon(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'po_number' => 'required',
-            'pengirim' => 'required',
-            'penerima' => 'required',
-            'tanggal' => 'required',
-            'part_no' => 'required',
-            'part_name' => 'required',
-            'qty' => 'required',
-            'unit' => 'required',
-        ]);
+    public function storeSurat_subcon(Request $request) {
+        // Validasi input jika diperlukan
+        $request->validate([ 
+            'po_number'=> 'required',
+            'tanggal'=> 'required|date',
+            'partNoInput'=> 'required|array',
+            'partNameInput'=> 'required|array',
+            'qtyInput'=> 'required|array',
+            'unitInput'=> 'required|array',
+            ]);
 
-        if ($validator->fails()) {
-            session()->flash('error', 'error');
-            return redirect()->back();
-        } else {
-            $id = $this->surat->checkID();
-            if ($id == null) {
-                $id_baru = $id + 1;
-                $data = [
-                    'no_surat' => $id_baru,
-                    'po_number' => $request->po_number,
-                    'pengirim' => $request->pengirim,
-                    'penerima' => $request->penerima,
-                    'tanggal' => $request->tanggal,
-                    'part_no' => $request->part_no,
-                    'part_name' => $request->part_name,
-                    'qty' => $request->qty,
-                    'unit' => $request->unit,
-                    'status' => "On Progress",
-                ];
-            } else {
-                $idMax = $this->surat->maxIditem();
-                $id_baru = $idMax + 1;
-                $data = [
-                    'no_surat' => $id_baru,
-                    'po_number' => $request->po_number,
-                    'pengirim' => $request->pengirim,
-                    'penerima' => $request->penerima,
-                    'tanggal' => $request->tanggal,
-                    'part_no' => $request->part_no,
-                    'part_name' => $request->part_name,
-                    'qty' => $request->qty,
-                    'unit' => $request->unit,
-                    'status' => "On Progress",
-                ];
+        // Mengambil data dari input utama
+        $poNumber=$request->input('po_number');
+        $pengirim=$request->input('pengirim');
+        $penerima=$request->input('penerima');
+        $tanggal=$request->input('tanggal');
+        $partNoInputs=$request->input('partNoInput');
+        $partNameInputs=$request->input('partNameInput');
+        $qtyInputs=$request->input('qtyInput');
+        $unitInputs=$request->input('unitInput');
+        $id=$this->surat->checkID();
+
+        if ($id==null) {
+            $id_baru=$id+1;
+            $Surat=new m_surat();
+            $Surat->no_surat=$id_baru;
+            $Surat->po_number=$poNumber;
+            $Surat->pengirim=$pengirim;
+            $Surat->penerima=$penerima;
+            $Surat->tanggal=$tanggal;
+            $Surat->status="On Progress";
+            $Surat->save();
+
+            foreach ($partNoInputs as $index=> $partNoInputs) {
+                $detailSurat=new m_detail_surat();
+                $detailSurat->no_surat=$id_baru;
+                $detailSurat->part_no=$partNoInputs;
+                $detailSurat->part_name=$partNameInputs[$index];
+                $detailSurat->qty=$qtyInputs[$index];
+                $detailSurat->unit=$unitInputs[$index];
+                $detailSurat->save();
             }
-
-            $this->surat->addData($data);
-            return redirect()->route('subcon.surat.index')->with('success', 'success');
         }
+        else {
+            $idMax=$this->surat->maxIditem();
+            $id_baru=$idMax+1;
+            $Surat=new m_surat();
+            $Surat->no_surat=$id_baru;
+            $Surat->po_number=$poNumber;
+            $Surat->pengirim=$pengirim;
+            $Surat->penerima=$penerima;
+            $Surat->tanggal=$tanggal;
+            $Surat->status="On Progress";
+            $Surat->save();
+
+            foreach ($partNoInputs as $index=> $partNoInputs) {
+                $detailSurat=new m_detail_surat();
+                $detailSurat->no_surat=$id_baru;
+                $detailSurat->part_no=$partNoInputs;
+                $detailSurat->part_name=$partNameInputs[$index];
+                $detailSurat->qty=$qtyInputs[$index];
+                $detailSurat->unit=$unitInputs[$index];
+                $detailSurat->save();
+            }
+        }
+        return redirect()->route('subcon.surat.index')->with('success', 'success');
     }
 
     public function editSurat_Subcon($no)
     {
         $data = [
-            'surat' => $this->surat->detailSurat($no),
+            'surat' => $this->surat->headSurat($no),
+            'detail'=> $this->surat->detailSurat($no)
         ];
         return view('subcon.surat.edit', $data);
     }
@@ -131,38 +148,28 @@ class c_surat extends Controller
     {
         $data = [
             'perusahaan' => $this->surat->detailPengirim($no),
-            'surat' => $this->surat->detailSurat($no),
+            'surat' => $this->surat->headSurat($no),
+            'detail'=> $this->surat->detailSurat($no)
         ];
         return view('subcon.surat.read', $data);
     }
 
-    public function updateSurat_Subcon(Request $request, $no)
+    public function updateSurat_Subcon(Request $request, $no_surat)
     {
-
+        // Validasi data yang diinputkan
         $request->validate([
-            'po_number' => 'required',
-            'pengirim' => 'required',
-            'penerima' => 'required',
-            'tanggal' => 'required',
-            'part_no' => 'required',
-            'part_name' => 'required',
-            'qty' => 'required',
-            'unit' => 'required',
+            'tanggal' => 'required|date',
         ]);
-        $data = [
-            'po_number' => $request->po_number,
-            'pengirim' => $request->pengirim,
-            'penerima' => $request->penerima,
-            'tanggal' => $request->tanggal,
-            'part_no' => $request->part_no,
-            'part_name' => $request->part_name,
-            'qty' => $request->qty,
-            'unit' => $request->unit,
-        ];
 
+        // Mengambil data surat jalan berdasarkan nomor surat
+        $surat = m_surat::where('no_surat', $no_surat)->first();
 
-        $this->surat->editData($no, $data);
-        return redirect()->route('subcon.surat.index')->with('success', 'Surat Berhasil diupdate.');
+        // Mengupdate tanggal pengiriman
+        $surat->tanggal = $request->tanggal;
+        $surat->save();
+
+        // Mengembalikan pengguna ke halaman sebelumnya dengan pesan sukses
+        return redirect()->route('subcon.surat.index')->with('success', 'Surat jalan berhasil diperbarui.');
     }
 
     public function destroySurat_Subcon($no)

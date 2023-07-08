@@ -33,11 +33,60 @@
                                 url: '/subcon/surat/create/' + selectedValue,
                                 method: 'GET',
                                 success: function (response) {
-                                    $('#part_no').val(response.data.part_no);
-                                    $('#part_name').val(response.data.part_name);
-                                    $('#order_qty').val(response.data.order_qty);
-                                    $('#unit').val(response.data.unit);
+                                    response.data.forEach(function (item, index) {
+                                        var labelPartNo = $('<label>').attr('for', 'partNoInput' + (
+                                            index + 1)).text('Part No ' + (index + 1));
+                                        var inputPartNo = $('<input>').attr({
+                                            type: 'text',
+                                            class: 'dynamic-input form-control disabled-input',
+                                            name: 'partNoInput[]',
+                                            id: 'partNoInput' + (index + 1),
+                                            value: item.part_no,
+                                            readonly: 'readonly'
+                                        });
 
+                                        var labelPartName = $('<label>').attr('for',
+                                            'partNameInput' + (index + 1)).text('Part Name ' + (
+                                            index + 1));
+                                        var inputPartName = $('<input>').attr({
+                                            type: 'text',
+                                            class: 'dynamic-input form-control disabled-input',
+                                            name: 'partNameInput[]',
+                                            id: 'partNameInput' + (index + 1),
+                                            value: item.part_name,
+                                            readonly: 'readonly'
+                                        });
+
+                                        var labelQty = $('<label>').attr('for', 'qtyInput' + (
+                                            index + 1)).text('Qty ' + (index + 1));
+                                        var inputQty = $('<input>').attr({
+                                            type: 'text',
+                                            class: 'dynamic-input form-control disabled-input',
+                                            name: 'qtyInput[]',
+                                            id: 'qtyInput' + (index + 1),
+                                            value: item.order_qty,
+                                            readonly: 'readonly'
+                                        });
+
+                                        var labelUnit = $('<label>').attr('for', 'unitInput' + (
+                                            index + 1)).text('Unit ' + (index + 1));
+                                        var inputUnit = $('<input>').attr({
+                                            type: 'text',
+                                            class: 'dynamic-input form-control disabled-input',
+                                            name: 'unitInput[]',
+                                            id: 'unitInput' + (index + 1),
+                                            value: item.unit,
+                                            readonly: 'readonly'
+                                        });
+                                        $('#dynamicInputsContainer').append(labelPartNo);
+                                        $('#dynamicInputsContainer').append(inputPartNo);
+                                        $('#dynamicInputsContainer').append(labelPartName);
+                                        $('#dynamicInputsContainer').append(inputPartName);
+                                        $('#dynamicInputsContainer').append(labelQty);
+                                        $('#dynamicInputsContainer').append(inputQty);
+                                        $('#dynamicInputsContainer').append(labelUnit);
+                                        $('#dynamicInputsContainer').append(inputUnit);
+                                    });
                                     // Lanjutkan mengatur nilai untuk input lainnya sesuai dengan kolom yang ada di database
                                 },
                                 error: function () {
@@ -49,10 +98,9 @@
                     {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
                 </div>
             </div>
-
             <div class="col col-md-12 col-12 mt-2">
                 <div class="form-group">
-                    <label for="password" style="margin-bottom: 5px;">Tanggal Pengiriman</label>
+                    <label for="password" style="margin-bottom: 5px;">Tanggal Pengiriman </label>
                     <input type="date" class="form-control" id="Tanggal" name="tanggal" required>
                 </div>
             </div>
@@ -60,7 +108,8 @@
             <div class="col col-md-12 col-12 mt-2">
                 <div class="form-group">
                     <label for="password" style="margin-bottom: 5px;">Pengirim</label>
-                    <input type="text" class="form-control disabled-input" value="{{ Auth::user()->nama }}" name="pengirim" readonly>
+                    <input type="text" class="form-control disabled-input" value="{{ Auth::user()->nama }}"
+                        name="pengirim" readonly>
 
                 </div>
 
@@ -72,39 +121,10 @@
                     </div>
 
                     <div class="col col-md-12 col-12 mt-2">
-                        <div class="form-group">
-                            <label for="part_no" style="margin-bottom: 5px;">Part No</label>
-                            <input type="text" class="form-control disabled-input" id="part_no" name="part_no" readonly>
-                        </div>
-                    </div>
-
-                    <div class="col col-md-12 col-12 mt-2">
-                        <div class="form-group">
-                            <label for="nama_barang" style="margin-bottom: 5px;">Part Name</label>
-                            <input type="text" class="form-control disabled-input"
-                                id="part_name" name="part_name" readonly>
+                        <div class="form-group" id="dynamicInputsContainer">
 
                         </div>
                     </div>
-
-                    <div class="col col-md-12 col-12 mt-2">
-                        <div class="form-group">
-                            <label for="password" style="margin-bottom: 5px;">Order QTY</label>
-                            <input type="number" class="form-control disabled-input" id="order_qty" name="qty" readonly>
-                            {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
-                        </div>
-                    </div>
-
-                    <div class="col col-md-12 col-12 mt-2">
-                        <div class="form-group">
-                            <label for="unit" style="margin-bottom: 5px;">Unit (Kg/Pc)</label>
-                            <input type="text" class="form-control disabled-input" id="unit" name="unit" readonly>
-                        </div>
-                    </div>
-
-
-
-
                 </div>
 
                 <div class="text-center mt-4">
@@ -137,10 +157,11 @@
         color: #fff;
         background-color: #888;
     }
+
     .disabled-input {
-    background-color: #f5f5f5;
-    cursor: not-allowed;
-  }
+        background-color: #f5f5f5;
+        cursor: not-allowed;
+    }
 </style>
 
 <script>
