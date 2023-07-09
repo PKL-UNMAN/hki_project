@@ -18,7 +18,7 @@ class m_purchasingOrder extends Model
 
     public function tampilPO_Supplier()
     {
-        return DB::table('purchasing')->join('users','purchasing.default_supplier_id','=','users.id')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->where('users.role_id', '3')->get();
+        return DB::table('purchasing')->join('users','purchasing.default_supplier_id','=','users.id')->where('users.role_id', '3')->get();
     }
 
     public function getIdPO(){
@@ -35,14 +35,23 @@ class m_purchasingOrder extends Model
         DB::table($table)->insert($data);
     }
     
-    public function editData($table,$id, $data)
+    public function editData($table,$key,$id,$data)
     {
-        return DB::table($table)->where('id_po', $id)->update($data);
+        // dd($data);
+        return DB::table($table)->where($key,$id)->update($data);
     }
 
     public function detailData($id)
     {
-        return DB::table('purchasing')->join('users','purchasing.id_tujuan_po','=','users.id')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->where('purchasing.id_po', $id)->first();
+        return DB::table('purchasing')->join('users','purchasing.id_tujuan_po','=','users.id')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->where('purchasing_details.id_po', $id)->get();
+    }
+
+    public function getPOById($table,$id){
+        return DB::table('purchasing')->join('users','purchasing.id_tujuan_po','=','users.id')->where('id_po',$id)->first();
+    }
+
+    public function getDetailsByIdPO($id){
+        return DB::table('purchasing_details')->where('id_po',$id)->get();
     }
 
     public function deleteData($table,$no)
@@ -73,16 +82,16 @@ class m_purchasingOrder extends Model
 
     public function listGroup($po_num)
     {
-        return DB::table('purchasing')->join('users','purchasing.id_tujuan','=','users.id')->join('users_detail','users.id','=','users_detail.id_user')->where('purchasing.po_number', $po_num)->get();
+        return DB::table('purchasing')->join('users','purchasing.id_tujuan_po','=','users.id')->join('users_detail','users.id','=','users_detail.id_user')->where('purchasing.po_number', $po_num)->get();
     }
 
     public function download($po_num)
     {
-        return DB::table('purchasing')->join('users','purchasing.id_tujuan','=','users.id')->join('users_detail','users.id','=','users_detail.id_user')->where('purchasing.po_number', $po_num)->first();
+        return DB::table('purchasing')->join('users','purchasing.id_tujuan_po','=','users.id')->join('users_detail','users.id','=','users_detail.id_user')->where('purchasing.po_number', $po_num)->first();
     }
 
-    public function sumAmount($po_num){
-        return DB::table('purchasing')->where('po_number',$po_num)->sum('amount');
+    public function sumAmount($id_po){
+        return DB::table('purchasing')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->where('purchasing.id_po',$id_po)->sum('amount');
     }
     // bantu isi data tambah surat jalan
     public function ambilData($selectedValue,$id){

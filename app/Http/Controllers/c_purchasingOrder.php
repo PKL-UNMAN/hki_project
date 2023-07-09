@@ -26,7 +26,7 @@ class c_purchasingOrder extends Controller
     public function tampilPO_Supplier()
     {
         $data =[
-            'PO' => $this->PO->tampilPO_Supplier(),
+            'PO' => $this->PO->tampilPO_Supplier()
         ];
         return view ('hki.po.supplier.index', $data);
     }
@@ -86,6 +86,7 @@ class c_purchasingOrder extends Controller
     {
         $data =[
             'PO' => $this->PO->detailData($id),
+            'POById'=> $this->PO->getPOById('purchasing',$id),
             'subcon' => $this->user->subconData(),
             'subconBy' => $this->user->subconDataById($id_subcon),
             'supplier' => $this->user->supplierData(),
@@ -96,36 +97,39 @@ class c_purchasingOrder extends Controller
 
     public function updatePO_Supplier(Request $request, $id_po)
     {
-        $part_no = $request->part_no;
-
-        if($part_no == NULL){
+        $id_details = $this->PO->getDetailsByIdPO($id_po);
+        $no = 0;
+        if($id_details == NULL){
             return redirect()->route('hki.po.supplier.index')->with('fail','Silakan lengkapi data terlebih dahulu!');
         }else{
-                $po = [
-                    "po_number" => $request->po_number,
-                    "id_tujuan_po" => $request->id_tujuan,
-                    "default_supplier_id" => $request->default_id,
-                    "class" => $request->classname,
-                    "issue_date" => $request->issue_date,
-                    "currency_code" => $request->currency,
-                    "id_destination" => $request->destination,
-                    "delivery_time" => $request->delivery_date
+            $po = [
+                "po_number" => $request->po_number,
+                "id_tujuan_po" => $request->id_tujuan,
+                "default_supplier_id" => $request->default_id,
+                "class" => $request->classname,
+                "issue_date" => $request->issue_date,
+                "currency_code" => $request->currency,
+                "id_destination" => $request->destination,
+                "delivery_time" => $request->delivery_date
+            ];
+            $this->PO->editData('purchasing','id_po',$id_po, $po);
+            $parts = [];
+            foreach ($id_details as $items) {
+                $parts= [
+                    "part_no" => $request->part_no[$no],
+                    "part_name" => $request->part_name[$no],
+                    "unit_price" => $request->unit_price[$no],
+                    "order_qty" => $request->qty[$no],
+                    "unit" => $request->unit[$no],
+                    "composition" => $request->composition[$no],
+                    "amount" => $request->amount[$no],
+                    "order_number" => $request->order_number[$no],
                 ];
-
-                $part = [
-                    "id_po" => $id_po,
-                    "part_no" => $request->part_no,
-                    "part_name" => $request->part_name,
-                    "unit_price" => $request->unit_price,
-                    "order_qty" => $request->qty,
-                    "unit" => $request->unit,
-                    "composition" => $request->composition,
-                    "amount" => $request->amount,
-                    "order_number" => $request->order_number,
-                ];
+                $no++;
+                $this->PO->editData('purchasing_details','id',$items->id,$parts);
             }
-        $this->PO->editData('purchasing',$id_po, $po);
-        $this->PO->editData('purchasing_details',$id_po, $part);
+            
+        }
         return redirect()->route('hki.po.supplier.index')->with('success', 'User Berhasil diupdate.');
            
         }
@@ -280,9 +284,9 @@ class c_purchasingOrder extends Controller
     function detailPO_Supplier($no)
     {
         $data = [
-            'PO'=> $this->PO->detailData($no)
+            'detail_PO'=> $this->PO->detailData($no),
+            'PO'=> $this->PO->getPOById('purchasing',$no)
         ];
-        
         return view('hki.po.supplier.detail', $data);
 
     }

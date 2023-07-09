@@ -13,6 +13,7 @@
         "laravel/sanctum": "^2.14",
         "laravel/tinker": "^2.7",
         "maatwebsite/excel": "^1.1",
+        "mavinoo/laravel-batch": "^2.3",
         "phpoffice/phpspreadsheet": "^1.29"
     },
     "require-dev": {

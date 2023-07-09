@@ -164,6 +164,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        Mavinoo\Batch\BatchServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -194,6 +195,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // ...
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Batch' => Mavinoo\Batch\BatchFacade::class,
     ])->toArray(),
 
 ];

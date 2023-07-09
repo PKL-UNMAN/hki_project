@@ -31,17 +31,11 @@
                         <tr>
                             <th>No</th>
                             <th>PO No</th>
-                            <th>Part No</th>
-                            <th>Part Name</th>
+                            <th>Issue Date</th>
                             <th>Class</th>
-                            <th>Composition</th>
-                            <th>Unit</th>
                             <th style="text-align: center">ID<br>(Default Supplier)</th>
-                            <th>Nama Perusahaan</th>
-                            <th>Unit Price</th>
-                            <th>Amount</th>
                             <th>Currency</th>
-                            <th>QTY</th>
+                            <th>Nama Perusahaan</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -54,17 +48,11 @@
                         <tr>
                             <td>{{$no++}}</td>
                             <td>{{$data->po_number}}</td>
-                            <td>{{$data->part_no}}</td>
-                            <td>{{$data->part_name}}</td>
+                            <td>{{$data->issue_date}}</td>
                             <td>{{$data->class}}</td>
-                            <td>{{$data->composition}}</td>
-                            <td>{{$data->unit}}</td>
                             <td>{{$data->default_supplier_id}}</td>
-                            <td>{{$data->nama}}</td>
-                            <td>{{$data->unit_price}}</td>
-                            <td>{{$data->amount}}</td>
                             <td>{{$data->currency_code}}</td>
-                            <td>{{$data->order_qty}}</td>
+                            <td>{{$data->nama}}</td>
                             <td>
                                 <select name="status" class="form-select" id="status{{$data->id_po}}" onchange="ubahStatus({{$data->id}})" >
                                     <option value="" @if($data->status == "") selected @endif>--Status --</option>
