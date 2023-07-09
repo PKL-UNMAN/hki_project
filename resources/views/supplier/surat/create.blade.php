@@ -11,91 +11,6 @@
                         <option value="{{$data->po_number}}">{{$data->po_number}}</option>
                         @endforeach
                     </select>
-                    <script>
-                        $('#basic-usage').select2({
-                            dropdownParent: $('#exampleModalCenter'),
-                            theme: "bootstrap-5",
-                            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ?
-                                '100%' : 'style',
-                            placeholder: $(this).data('placeholder'),
-                        });
-
-                        $('#basic-usage').on('change', function () {
-                            handleSelectChange();
-                        });
-
-                        function handleSelectChange() {
-                            // Mendapatkan nilai dari tag <select>
-                            var selectedValue = $('#basic-usage').val();
-                            // Menghapus elemen-elemen input yang sudah ada sebelumnya
-                            $('#dynamicInputsContainer').empty();
-                            // Melakukan permintaan AJAX
-                            $.ajax({
-                                url: '/supplier/surat/create/' + selectedValue,
-                                method: 'GET',
-                                success: function (response) {
-                                    response.data.forEach(function (item, index) {
-                                        var labelPartNo = $('<label>').attr('for', 'partNoInput' + (
-                                            index + 1)).text('Part No ' + (index + 1));
-                                        var inputPartNo = $('<input>').attr({
-                                            type: 'text',
-                                            class: 'dynamic-input form-control disabled-input',
-                                            name: 'partNoInput[]',
-                                            id: 'partNoInput' + (index + 1),
-                                            value: item.part_no,
-                                            readonly: 'readonly'
-                                        });
-
-                                        var labelPartName = $('<label>').attr('for',
-                                            'partNameInput' + (index + 1)).text('Part Name ' + (
-                                            index + 1));
-                                        var inputPartName = $('<input>').attr({
-                                            type: 'text',
-                                            class: 'dynamic-input form-control disabled-input',
-                                            name: 'partNameInput[]',
-                                            id: 'partNameInput' + (index + 1),
-                                            value: item.part_name,
-                                            readonly: 'readonly'
-                                        });
-
-                                        var labelQty = $('<label>').attr('for', 'qtyInput' + (
-                                            index + 1)).text('Qty ' + (index + 1));
-                                        var inputQty = $('<input>').attr({
-                                            type: 'text',
-                                            class: 'dynamic-input form-control disabled-input',
-                                            name: 'qtyInput[]',
-                                            id: 'qtyInput' + (index + 1),
-                                            value: item.order_qty,
-                                            readonly: 'readonly'
-                                        });
-
-                                        var labelUnit = $('<label>').attr('for', 'unitInput' + (
-                                            index + 1)).text('Unit ' + (index + 1));
-                                        var inputUnit = $('<input>').attr({
-                                            type: 'text',
-                                            class: 'dynamic-input form-control disabled-input',
-                                            name: 'unitInput[]',
-                                            id: 'unitInput' + (index + 1),
-                                            value: item.unit,
-                                            readonly: 'readonly'
-                                        });
-                                        $('#dynamicInputsContainer').append(labelPartNo);
-                                        $('#dynamicInputsContainer').append(inputPartNo);
-                                        $('#dynamicInputsContainer').append(labelPartName);
-                                        $('#dynamicInputsContainer').append(inputPartName);
-                                        $('#dynamicInputsContainer').append(labelQty);
-                                        $('#dynamicInputsContainer').append(inputQty);
-                                        $('#dynamicInputsContainer').append(labelUnit);
-                                        $('#dynamicInputsContainer').append(inputUnit);
-                                    });
-                                    // Lanjutkan mengatur nilai untuk input lainnya sesuai dengan kolom yang ada di database
-                                },
-                                error: function () {
-                                    console.log('Terjadi kesalahan dalam permintaan AJAX.');
-                                }
-                            });
-                        }
-                    </script>
                     {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
                 </div>
             </div>
@@ -164,6 +79,92 @@
         cursor: not-allowed;
     }
 </style>
+{{-- alat bantu isi field tambah data --}}
+<script>
+    $('#basic-usage').select2({
+        dropdownParent: $('#exampleModalCenter'),
+        theme: "bootstrap-5",
+        width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ?
+            '100%' : 'style',
+        placeholder: $(this).data('placeholder'),
+    });
+
+    $('#basic-usage').on('change', function () {
+        handleSelectChange();
+    });
+
+    function handleSelectChange() {
+        // Mendapatkan nilai dari tag <select>
+        var selectedValue = $('#basic-usage').val();
+        // Menghapus elemen-elemen input yang sudah ada sebelumnya
+        $('#dynamicInputsContainer').empty();
+        // Melakukan permintaan AJAX
+        $.ajax({
+            url: '/supplier/surat/create/' + selectedValue,
+            method: 'GET',
+            success: function (response) {
+                response.data.forEach(function (item, index) {
+                    var labelPartNo = $('<label>').attr('for', 'partNoInput' + (
+                        index + 1)).text('Part No ' + (index + 1));
+                    var inputPartNo = $('<input>').attr({
+                        type: 'text',
+                        class: 'dynamic-input form-control disabled-input',
+                        name: 'partNoInput[]',
+                        id: 'partNoInput' + (index + 1),
+                        value: item.part_no,
+                        readonly: 'readonly'
+                    });
+
+                    var labelPartName = $('<label>').attr('for',
+                        'partNameInput' + (index + 1)).text('Part Name ' + (
+                        index + 1));
+                    var inputPartName = $('<input>').attr({
+                        type: 'text',
+                        class: 'dynamic-input form-control disabled-input',
+                        name: 'partNameInput[]',
+                        id: 'partNameInput' + (index + 1),
+                        value: item.part_name,
+                        readonly: 'readonly'
+                    });
+
+                    var labelQty = $('<label>').attr('for', 'qtyInput' + (
+                        index + 1)).text('Qty ' + (index + 1));
+                    var inputQty = $('<input>').attr({
+                        type: 'text',
+                        class: 'dynamic-input form-control disabled-input',
+                        name: 'qtyInput[]',
+                        id: 'qtyInput' + (index + 1),
+                        value: item.order_qty,
+                        readonly: 'readonly'
+                    });
+
+                    var labelUnit = $('<label>').attr('for', 'unitInput' + (
+                        index + 1)).text('Unit ' + (index + 1));
+                    var inputUnit = $('<input>').attr({
+                        type: 'text',
+                        class: 'dynamic-input form-control disabled-input',
+                        name: 'unitInput[]',
+                        id: 'unitInput' + (index + 1),
+                        value: item.unit,
+                        readonly: 'readonly'
+                    });
+                    $('#dynamicInputsContainer').append(labelPartNo);
+                    $('#dynamicInputsContainer').append(inputPartNo);
+                    $('#dynamicInputsContainer').append(labelPartName);
+                    $('#dynamicInputsContainer').append(inputPartName);
+                    $('#dynamicInputsContainer').append(labelQty);
+                    $('#dynamicInputsContainer').append(inputQty);
+                    $('#dynamicInputsContainer').append(labelUnit);
+                    $('#dynamicInputsContainer').append(inputUnit);
+                });
+                // Lanjutkan mengatur nilai untuk input lainnya sesuai dengan kolom yang ada di database
+            },
+            error: function () {
+                console.log('Terjadi kesalahan dalam permintaan AJAX.');
+            }
+        });
+    }
+</script>
 
 <script>
     // Script untuk menambahkan kelas 'active' pada label saat input diberi fokus

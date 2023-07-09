@@ -27,7 +27,8 @@
                         function handleSelectChange() {
                             // Mendapatkan nilai dari tag <select>
                             var selectedValue = $('#basic-usage').val();
-
+                            // Menghapus elemen-elemen input yang sudah ada sebelumnya
+                             $('#dynamicInputsContainer').empty();
                             // Melakukan permintaan AJAX
                             $.ajax({
                                 url: '/subcon/surat/create/' + selectedValue,
