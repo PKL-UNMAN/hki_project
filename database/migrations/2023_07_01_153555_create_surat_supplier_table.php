@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('part_name', 225);
             $table->string('qty', 225);
             $table->string('unit', 225);
-            $table->foreign('no_surat')->references('no_surat')->on('surat');
+            $table->foreign('no_surat')->references('no_surat')->on('surat')->onDelete('cascade')->onUpdate('cascade');
         });
 
         // Tambahkan kunci pada kolom 'po_number'

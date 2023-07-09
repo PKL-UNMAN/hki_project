@@ -24,8 +24,8 @@ return new class extends Migration
             $table->string('composition', 128);
             $table->integer('amount');
             $table->string('order_number', 128);
+            $table->foreign('id_po')->references('id_po')->on('purchasing')->onDelete('cascade')->onUpdate('cascade');
 
-            $table->foreign('id_po')->references('id_po')->on('purchasing');
         });
     }
 

@@ -33,10 +33,6 @@
                                 <th>Pengirim</th>
                                 <th>Tujuan Pengiriman</th>
                                 <th>Tanggal Pengiriman</th>
-                                <th>Part No</th>
-                                <th>Part Name</th>
-                                <th>QTY</th>
-                                <th>Unit(Kg/Pc)</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -48,11 +44,7 @@
                                     <td>{{ $data->po_number }}</td>
                                     <td>{{ $data->pengirim }}</td>
                                     <td>{{ $data->penerima }}</td>
-                                    <td>{{ $data->tanggal }}</td>
-                                    <td>{{ $data->part_no }}</td>
-                                    <td>{{ $data->part_name }}</td>
-                                    <td>{{ $data->qty }}</td>
-                                    <td>{{ $data->unit }}</td>
+                                    <td> {{$data->tanggal}} </td>
                                     <td>
                                         @if ($data->status == 'On Progress')
                                         <span class="badge" style="background-color: orangered">On Progress</span>

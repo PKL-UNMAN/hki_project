@@ -27,55 +27,57 @@
                             </div>
                             <div class="col col-md-12 col-12 mt-2">
                                 <div class="form-group">
-                                    <label for="password" style="margin-bottom: 5px;">Tanggal Pengiriman</label>
+                                    <label for="password" style="margin-bottom: 5px;">Tanggal Pengiriman </label>
                                     <input type="date" class="form-control" id="Tanggal" name="tanggal" value="{{$surat->tanggal}}" required>
                                 </div>
                             </div>
-                
                             <div class="col col-md-12 col-12 mt-2">
                                 <div class="form-group">
                                     <label for="password" style="margin-bottom: 5px;">Pengirim</label>
                                     <input type="text" class="form-control disabled-input" value="{{ $surat->pengirim }}" name="pengirim" readonly>
-                
                                 </div>
+                            </div>
                 
                                 <div class="col col-md-12 col-12 mt-2">
                                     <div class="form-group">
                                         <label for="tujuan" style="margin-bottom: 5px;">Tujuan Pengiriman</label>
                                         <input type="text" class="form-control disabled-input" id="tujuan" name="penerima"
-                                            value="{{$surat->penerima;}}" readonly>
+                                            value="{{$surat->penerima}}" readonly>
                                     </div>
+                                </div>
                 
+                            @foreach ($detail as $index => $item)
                                     <div class="col col-md-12 col-12 mt-2">
                                         <div class="form-group">
-                                            <label for="part_no" style="margin-bottom: 5px;">Part No</label>
-                                            <input type="text" class="form-control disabled-input" id="part_no" name="part_no" value="{{$surat->part_no}}" readonly>
+                                            <label for="part_no" style="margin-bottom: 5px;">Part No {{ $index + 1}}</label>
+                                            <input type="text" class="form-control disabled-input" id="part_no" name="part_no[]" value="{{$item->part_no}}" readonly>
                                         </div>
                                     </div>
                 
                                     <div class="col col-md-12 col-12 mt-2">
                                         <div class="form-group">
-                                            <label for="nama_barang" style="margin-bottom: 5px;">Part Name</label>
+                                            <label for="nama_barang" style="margin-bottom: 5px;">Part Name {{ $index + 1}}</label>
                                             <input type="text" class="form-control disabled-input"
-                                                id="part_name" name="part_name" readonly value="{{$surat->part_name}}">
+                                                id="part_name" name="part_name[]" readonly value="{{$item->part_name}}">
                 
                                         </div>
                                     </div>
                 
                                     <div class="col col-md-12 col-12 mt-2">
                                         <div class="form-group">
-                                            <label for="password" style="margin-bottom: 5px;">Order QTY</label>
-                                            <input type="number" class="form-control disabled-input" id="order_qty" name="qty" value="{{$surat->qty}}" readonly>
+                                            <label for="password" style="margin-bottom: 5px;">Order QTY {{ $index + 1}} </label>
+                                            <input type="number" class="form-control disabled-input" id="order_qty" name="qty[]" value="{{$item->qty}}" readonly>
                                             {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
                                         </div>
                                     </div>
                 
                                     <div class="col col-md-12 col-12 mt-2">
                                         <div class="form-group">
-                                            <label for="unit" style="margin-bottom: 5px;">Unit (Kg/Pc)</label>
-                                            <input type="text" class="form-control disabled-input" id="unit" name="unit" value="{{$surat->unit}}" readonly>
+                                            <label for="unit" style="margin-bottom: 5px;">Unit (Kg/Pc) {{ $index + 1}} </label>
+                                            <input type="text" class="form-control disabled-input" id="unit" name="unit[]" value="{{$item->unit}}" readonly>
                                         </div>
                                     </div>
+                            @endforeach
                         </div>
 
                         <div class="text-center mt-4">
@@ -88,14 +90,4 @@
 
         </div>
     </div>
-    <script>
-        $(document).ready(function() {
-            $("#order_qty,#weight").keyup(function() {
-                let qty = $("#order_qty").val();
-                let weigth = qty;
-                console.log(qty)
-                $("#weight").val(`${qty}`);
-            });
-        })
-    </script>
 @endsection
