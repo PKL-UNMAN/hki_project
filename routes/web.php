@@ -53,7 +53,7 @@ Route::controller(c_purchasingOrder::class)->middleware('auth')->group(function 
     Route::get('hki/po/supplier/edit/{id}/{id_subcon}/{id_supplier}', 'editPO_Supplier')->name('hki.po.supplier.edit');
     Route::post('hki/po/supplier/update/{no}', 'updatePO_Supplier')->name('hki.po.supplier.update');
     Route::get('hki/po/supplier/destroy/{no}', 'destroyPO_Supplier')->name('hki.po.supplier.destroy');
-    // Modal Detail PO di Subcon
+    // Modal Detail PO di Supplier
     Route::get('hki/supplier/po/detailpo/{no}', 'detailPO_Supplier')->name('hki.supplier.po.detailpo');
     Route::get('hki/po/supplier/download/{no}', 'myPO_Download')->name('supplier.po.download');
 
@@ -65,6 +65,10 @@ Route::controller(c_purchasingOrder::class)->middleware('auth')->group(function 
     Route::get('hki/po/subcon/edit/{id_po}/{id_subcon}', 'editPO_Subcon')->name('hki.po.subcon.edit');
     Route::post('hki/po/subcon/update/{no}', 'updatePO_Subcon')->name('hki.po.subcon.update');
     Route::get('hki/po/subcon/destroy/{no}', 'destroyPO_Subcon')->name('hki.po.subcon.destroy');
+
+    //Modal Detail PO di Subcon
+    Route::get('hki/subcon/po/detailpo/{no}', 'detailPO_Subcon')->name('hki.subcon.po.detailpo');
+
 
     // Ajax Hki PO
     // Ubah Status PO
