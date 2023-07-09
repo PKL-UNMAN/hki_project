@@ -106,7 +106,7 @@ class m_purchasingOrder extends Model
 
      public function myPO_Supplier($id)
      {
-         return DB::table('purchasing')->join('users','purchasing.id_tujuan','=','users.id')->where('id_tujuan', $id)->get();
+        return DB::table('purchasing')->join('users','purchasing.id_tujuan_po','=','users.id')->where('id_tujuan_po', $id)->get();
      }
       // END PO DI HALAMAN SUBCON
 

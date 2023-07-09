@@ -16,39 +16,30 @@
                 <table id="supplierPO" class="display nowrap" style="width:100%">
                     <thead>
                         <tr>
-                        <th>No</th>
+                            <th>No</th>
                             <th>PO No</th>
-                            <th>Part No</th>
-                            <th>Part Name</th>
+                            <th>Issue Date</th>
                             <th>Class</th>
-                            <th>Composition</th>
-                            <th>Unit</th>
-                            <th>ID (default Supplier)</th>
-                            <th>Nama Perusahaan</th>
-                            <th>Unit Price</th>
-                            <th>Amount</th>
+                            <th style="text-align: center">ID<br>(Default Supplier)</th>
                             <th>Currency</th>
-                            <th>QTY</th>
+                            <th>Nama Perusahaan</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                            @foreach($PO as $data)
-                            <tr>
-                                <td></td>
-                                <td>{{$data->id_po}}</td>
-                                <td>{{$data->part_no}}</td>
-                                <td>{{$data->part_name}}</td>
-                                <td>{{$data->class}}</td>
-                                <td>{{$data->composition}}</td>
-                                <td>{{$data->unit}}</td>
-                                <td>{{$data->default_supplier_id}}</td>
-                                <td>{{$data->nama}}</td>
-                                <td>{{$data->unit_price}}</td>
-                                <td>{{$data->amount}}</td>
-                                <td>{{$data->currency_code}}</td>
-                                <td>{{$data->order_qty}}</td>
+                        @php
+                            $no=1;    
+                        @endphp
+                       @foreach($PO as $data)
+                        <tr>
+                            <td>{{$no++}}</td>
+                            <td>{{$data->po_number}}</td>
+                            <td>{{$data->issue_date}}</td>
+                            <td>{{$data->class}}</td>
+                            <td>{{$data->default_supplier_id}}</td>
+                            <td>{{$data->currency_code}}</td>
+                            <td>{{$data->nama}}</td>
                                 <td> @if($data->status == "On Progress")
                                     <a  class="btn" style="background-color:orangered;color:white">On Progress</a>
                                     @elseif($data->status == "Finish")

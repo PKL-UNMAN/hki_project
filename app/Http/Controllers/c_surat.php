@@ -193,8 +193,8 @@ class c_surat extends Controller
     {
         $id = Auth::user()->id;
         $data = [
-            'po' => $this->PO->myPO_Subcon($id),
-            'tujuan'=> $this->user->hkiData(),
+            'po' => $this->PO->myPO_Supplier($id),
+            'tujuan'=> $this->surat->hkiData(),
         ];
         return view('supplier.surat.create', $data);
     }
