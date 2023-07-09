@@ -31,8 +31,9 @@ class c_surat extends Controller
 
     public function tampilSurat_HKI()
     {
+        $nama = Auth::user()->nama;
         $data = [
-            'surat' => $this->surat->allData(),
+            'surat' => $this->surat->allData( $nama),
         ];
         return view('hki.surat.index', $data);
     }
@@ -193,8 +194,8 @@ class c_surat extends Controller
     {
         $id = Auth::user()->id;
         $data = [
-            'po' => $this->PO->myPO_Supplier($id),
-            'tujuan'=> $this->surat->hkiData(),
+            'po' => $this->PO->myPO_Subcon($id),
+            'tujuan'=> $this->user->hkiData(),
         ];
         return view('supplier.surat.create', $data);
     }
@@ -289,21 +290,13 @@ class c_surat extends Controller
         $this->surat->editData($no_surat, $data);
     }
 
-    public function hki_lihatSurat(Request $request)
+    public function hki_lihatSurat($no)
     {
-        $no_surat = $request->no_surat;
         $data = [
-            'surat' => $this->surat->detailSurat($request->no_surat),
+            'perusahaan' => $this->surat->detailPengirim($no),
+            'surat' => $this->surat->headSurat($no),
+            'detail'=> $this->surat->detailSurat($no)
         ];
         return view('hki.surat.read', $data);
-    }
-
-    public function subcon_lihatSurat(Request $request)
-    {
-        $no_surat = $request->no_surat;
-        $data = [
-            'surat' => $this->surat->detailSuratInSubcon($request->no_surat),
-        ];
-        return view('subcon.surat.read', $data);
     }
 }
