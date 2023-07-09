@@ -78,6 +78,10 @@
         background-color: #f5f5f5;
         cursor: not-allowed;
     }
+    .modal-content {
+    max-height: 500px; /* Ubah nilai sesuai dengan kebutuhan Anda */
+    overflow-y: auto;
+    }
 </style>
 
 <script>

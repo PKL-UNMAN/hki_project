@@ -81,6 +81,10 @@
     #dynamicInputsContainer {
         overflow-y: auto;
     }
+    .modal-content {
+    max-height: 500px; /* Ubah nilai sesuai dengan kebutuhan Anda */
+    overflow-y: auto;
+    }
 </style>
 {{-- alat bantu isi field tambah data --}}
 <script>
