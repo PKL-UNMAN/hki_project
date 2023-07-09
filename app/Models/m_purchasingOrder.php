@@ -80,18 +80,18 @@ class m_purchasingOrder extends Model
         return DB::table('purchasing')->join('users','purchasing.id_hki','=','users.id')->where('no', $no)->first();
     }
 
-    public function listGroup($po_num)
+    public function listGroup($id_po)
     {
-        return DB::table('purchasing')->join('users','purchasing.id_tujuan_po','=','users.id')->join('users_detail','users.id','=','users_detail.id_user')->where('purchasing.po_number', $po_num)->get();
+        return DB::table('purchasing')->join('users','purchasing.id_tujuan_po','=','users.id')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->join('users_detail','users.id','=','users_detail.id_user')->where('purchasing.id_po', $id_po)->get();
     }
 
-    public function download($po_num)
+    public function download($id_po)
     {
-        return DB::table('purchasing')->join('users','purchasing.id_tujuan_po','=','users.id')->join('users_detail','users.id','=','users_detail.id_user')->where('purchasing.po_number', $po_num)->first();
+        return DB::table('purchasing')->join('users','purchasing.id_tujuan_po','=','users.id')->join('users_detail','users.id','=','users_detail.id_user')->where('purchasing.id_po', $id_po)->first();
     }
 
     public function sumAmount($id_po){
-        return DB::table('purchasing')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->where('purchasing.id_po',$id_po)->sum('amount');
+        return DB::table('purchasing_details')->where('purchasing_details.id_po',$id_po)->sum('purchasing_details.amount');
     }
     // bantu isi data tambah surat jalan
     public function ambilData($selectedValue,$id){
