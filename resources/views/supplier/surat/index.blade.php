@@ -1,7 +1,7 @@
 @extends('layouts.templateBaru', ['title' => 'Surat Jalan'])
 @section('content')
     <div class="container">
-        <h3>Surat Jalan HKI {{ Auth::user()->name }}</h3>
+        <h3>Surat Jalan {{ Auth::user()->name }}</h3>
         @if (session()->has('success'))
             <script>
                 window.onload = function() {
