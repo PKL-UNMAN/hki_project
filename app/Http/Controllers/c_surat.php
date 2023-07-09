@@ -62,10 +62,16 @@ class c_surat extends Controller
         return view('subcon.surat.create', $data);
     }
 
-    public function ambilData($selectedValue){
+    public function ambilData_po_subcon($selectedValue){
         $id = Auth::user()->id;
-        $data = $this->PO->ambilData($selectedValue,$id);
+        $data = $this->PO->ambilData_posubcon($selectedValue,$id);
         return response()->json(['data' => $data]);
+    }
+    public function ambilData_po_supplier($selectedValue){
+        $id = Auth::user()->id;
+        $data = $this->PO->ambilData_posupp($selectedValue,$id);
+        $tujuan =  $this->PO->ambilData_posupp_tujuan($selectedValue,$id);
+        return response()->json(['data' => $data,'tujuan' => $tujuan]);
     }
 
     public function storeSurat_subcon(Request $request) {

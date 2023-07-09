@@ -33,7 +33,7 @@
                     <div class="form-group">
                         <label for="tujuan" style="margin-bottom: 5px;">Tujuan Pengiriman</label>
                         <input type="text" class="form-control disabled-input" id="tujuan" name="penerima"
-                            value="{{$tujuan[0]->username;}}" readonly>
+                            readonly>
                     </div>
 
                     <div class="col col-md-12 col-12 mt-2">
@@ -110,6 +110,7 @@
             url: '/supplier/surat/create/' + selectedValue,
             method: 'GET',
             success: function (response) {
+                $('#tujuan').val(response.tujuan.nama);
                 response.data.forEach(function (item, index) {
                     var labelPartNo = $('<label>').attr('for', 'partNoInput' + (
                         index + 1)).text('Part No ' + (index + 1));

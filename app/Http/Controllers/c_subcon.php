@@ -77,9 +77,9 @@ class c_subcon extends Controller
      // SURAT DARI SUPPLIER
      public function mySuratSup_Subcon()
      {
-         $id = Auth::user()->id;
+         $nama = Auth::user()->nama;
          $data =[
-             'surat' => $this->surat->mySuratSup_Subcon($id)
+             'surat' => $this->surat->mySuratSup_Subcon($nama)
          ];
          return view ('subcon.suratSup.index', $data);
      }
@@ -94,11 +94,12 @@ class c_subcon extends Controller
     }
     // end surat dari supplier ke subcon di subcon
     // read surat
-    public function subcon_lihatSurat(Request $request)
+    public function subcon_lihatSurat($no)
     {
-        $no_surat = $request->no_surat;
         $data = [
-            'surat' => $this->surat->detailSurat_supInSubcon($request->no_surat),
+            'perusahaan' => $this->surat->detailPengirim($no),
+            'surat' => $this->surat->headSurat($no),
+            'detail'=> $this->surat->detailSurat($no)
         ];
         return view('subcon.suratSup.read', $data);
     }
