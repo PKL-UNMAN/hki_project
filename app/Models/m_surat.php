@@ -10,9 +10,9 @@ class m_surat extends Model
 {
     use HasFactory;
     // tampil surat dari subcon di hki
-    public function allData()
+    public function suratdarisub($nama)
     {
-        return DB::table('surat')->join('users', 'surat.penerima', '=', 'users.nama')->get();
+        return DB::table('surat')->join('users', 'surat.penerima', '=', 'users.nama')->where('penerima', $nama)->get();
     }
     // end tampil surat dari subcon di hki
 

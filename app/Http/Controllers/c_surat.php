@@ -33,7 +33,7 @@ class c_surat extends Controller
     {
         $nama = Auth::user()->nama;
         $data = [
-            'surat' => $this->surat->allData( $nama),
+            'surat' => $this->surat->suratdarisub( $nama),
         ];
         return view('hki.surat.index', $data);
     }
