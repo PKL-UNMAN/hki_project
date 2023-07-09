@@ -1,7 +1,7 @@
 @extends('layouts.templateBaru', ['title' => 'Surat Jalan'])
 @section('content')
     <div class="container">
-        <h3>Surat Jalan {{ Auth::user()->name }}</h3>
+        <h3>Surat Jalan HKI {{ Auth::user()->name }}</h3>
         @if (session()->has('success'))
             <script>
                 window.onload = function() {
@@ -17,48 +17,39 @@
                 };
             </script>
         @endif
-
         <div class="row">
-        <div class="col col-md-2 col-12 mt-2 mb-4">
-                <a href="#" onclick="tambahSurat()" class="btn btn-primary" style="width:150px">Buat Surat</a>
+            <div class="col-2  mt-2 mb-4">
+                <a href="#" onclick="tambahSurat()" class="btn btn-primary" style="width:150px">Tambah Surat</a>
             </div>
         </div>
         <div class="row">
             <div class="col col-md-12 col-12 mt-2">
                 <div class="ss" data-aos="fade-up">
-                    <table id="surat" class="display nowrap" style="width:100%">
+                    <table id="suratsupp" class="display nowrap" style="width:100%">
                         <thead>
                             <tr>
-                            <th>No</th>
-                            <th>PO Number</th>
-                            <th>Pengirim</th>
-                            <th>Tujuan Pengiriman</th>
-                            <th>Tanggal</th>
-                            <th>Part No</th>
-                            <th>Part Name</th>
-                            <th>QTY</th>
-                            <th>Unit(Kg/Pc)</th>
-                            <th>Status</th>
-                            <th>Action</th>
+                                <th>No</th>
+                                <th>PO Number</th>
+                                <th>Pengirim</th>
+                                <th>Tujuan Pengiriman</th>
+                                <th>Tanggal Pengiriman</th>
+                                <th>Status</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($surat as $data)
                                 <tr>
-                                    <td>{{$data->no_surat}}</td>
-                                    <td>{{$data->po_number}}</td>
-                                    <td>{{$data->id_pengirim}}</td>
-                                    <td>{{$data->id_tujuan}}</td>
-                                    <td>{{$data->tanggal}}</td>
-                                    <td>{{$data->part_no}}</td>
-                                    <td>{{$data->part_name}}</td>
-                                    <td>{{$data->qty}}</td>
-                                    <<td>{{$data->unit}}</td>
+                                    <td></td>
+                                    <td>{{ $data->po_number }}</td>
+                                    <td>{{ $data->pengirim }}</td>
+                                    <td>{{ $data->penerima }}</td>
+                                    <td> {{$data->tanggal}} </td>
                                     <td>
                                         @if ($data->status == 'On Progress')
-                                            <span class="badge" style="background-color: orangered">On Progress</span>
+                                        <span class="badge" style="background-color: orangered">On Progress</span>
                                         @elseif($data->status == 'Finish')
-                                            <span class="badge" style="background-color: rgb(0, 193, 55)">Accepted</span>
+                                        <span class="badge" style="background-color: rgb(0, 193, 55)">Accepted</span>
                                         @endif
                                     </td>
                                     <td>
@@ -72,12 +63,12 @@
                                             class="btn btn-primary">Download</a>
                                     </td>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                                @endforeach
+                                </tbody>
+                                </table>
                 </div>
             </div>
-          
+
         </div>
 
 
@@ -106,7 +97,7 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            var t = $('#surat').DataTable({
+            var t = $('#suratsupp').DataTable({
                 rowReorder: {
                     selector: 'td:nth-child(2)'
                 },

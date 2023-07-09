@@ -182,7 +182,7 @@ class c_surat extends Controller
     // surat supplier
     public function tampilSurat_supplier()
     {
-        $id = Auth::user()->nama;
+        $nama = Auth::user()->nama;
         $data = [
             'surat' => $this->surat->mySurat_supplier($nama),
         ];
@@ -191,8 +191,10 @@ class c_surat extends Controller
 
     public function createSurat_supplier()
     {
+        $id = Auth::user()->id;
         $data = [
-            'supplier' => $this->user->supplierData(),
+            'po' => $this->PO->myPO_Subcon($id),
+            'tujuan'=> $this->user->hkiData(),
         ];
         return view('supplier.surat.create', $data);
     }

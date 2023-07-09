@@ -105,9 +105,9 @@ class m_surat extends Model
 
 
 
-    public function mySurat_supplier($id)
+    public function mySurat_supplier($nama)
     {
-        return DB::table('surat_supplier')->join('users', 'surat_supplier.id_pengirim', '=', 'users.id')->where('id_pengirim', $id)->get();
+        return DB::table('surat')->where('pengirim', $nama)->get();
     }
 
     public function download($no)

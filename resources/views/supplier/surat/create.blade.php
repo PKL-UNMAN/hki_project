@@ -1,150 +1,183 @@
-            <div class="form mt-4">
-                <form enctype="multipart/form-data" action="{{ route('supplier.surat.store') }}" method="POST">
-                    @csrf
-                    <div style="text-align: left" class="row">
-                        {{-- sementara --}}
-                        <input type="text" name="id_tujuan">
-                        @error('id_tujuan')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+<div class="form mt-4">
+    <form enctype="multipart/form-data" action="{{ route('subcon.surat.store') }}" method="POST">
+        @csrf
+        <div style="text-align: left" class="row">
+            <div class="col col-md-12 col-12 mt-2">
+                <div class="form-group">
+                    <label for="basic-usage" style="margin-bottom: 5px;">No Po</label>
+                    <select class="form-select" id="basic-usage" data-placeholder="Pilih No Po" name="po_number">
+                        <option></option>
+                        @foreach ($po as $data)
+                        <option value="{{$data->po_number}}">{{$data->po_number}}</option>
+                        @endforeach
+                    </select>
+                    <script>
+                        $('#basic-usage').select2({
+                            dropdownParent: $('#exampleModalCenter'),
+                            theme: "bootstrap-5",
+                            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ?
+                                '100%' : 'style',
+                            placeholder: $(this).data('placeholder'),
+                        });
 
-                        <div class="col col-md-12 col-12 mt-2">
-                            <div class="form-group">
-                                <label for="nama_barang">Part No</label>
-                                <input type="text" class="form-control @error('part_no') is-invalid @enderror"
-                                    id="part_no" name="part_no" placeholder="Masukkan part_no User"
-                                    value="{{ old('part_no') }}">
-                                @error('part_no')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }} ss</strong>
-                                    </span>
-                                @enderror
-                                {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
-                            </div>
-                        </div>
-                        <div class="col col-md-12 col-12 mt-2">
-                            <div class="form-group">
-                                <label for="nama_barang">Part Name</label>
-                                <input type="text" class="form-control @error('part_name') is-invalid @enderror"
-                                    id="part_name" name="part_name" placeholder="Masukkan part_name"
-                                    data-name="{{ old('part_name') }} ">
-                                @error('part_name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                                {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
-                            </div>
-                        </div>
-                        <div class="col col-md-12 col-12 mt-2">
-                            <div class="form-group">
-                                <label for="password">Order QTY</label>
-                                <input type="number" class="form-control @error('order_qty') is-invalid @enderror"
-                                    id="order_qty" name="order_qty" placeholder="Masukkan order_qty"
-                                    value="{{ old('order_qty') }}">
-                                @error('order_qty')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                                {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
-                            </div>
-                        </div>
+                        $('#basic-usage').on('change', function () {
+                            handleSelectChange();
+                        });
 
-                        <div class="col col-md-12 col-12 mt-2">
-                            <div class="form-group">
-                                <label for="password">Weight</label>
-                                <input type="number" class="form-control @error('weight') is-invalid @enderror"
-                                    id="weight" name="weight" placeholder="Masukkan weight"
-                                    value="{{ old('weight') }}">
-                                @error('weight')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                                {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
-                            </div>
-                        </div>
+                        function handleSelectChange() {
+                            // Mendapatkan nilai dari tag <select>
+                            var selectedValue = $('#basic-usage').val();
+                            // Menghapus elemen-elemen input yang sudah ada sebelumnya
+                            $('#dynamicInputsContainer').empty();
+                            // Melakukan permintaan AJAX
+                            $.ajax({
+                                url: '/supplier/surat/create/' + selectedValue,
+                                method: 'GET',
+                                success: function (response) {
+                                    response.data.forEach(function (item, index) {
+                                        var labelPartNo = $('<label>').attr('for', 'partNoInput' + (
+                                            index + 1)).text('Part No ' + (index + 1));
+                                        var inputPartNo = $('<input>').attr({
+                                            type: 'text',
+                                            class: 'dynamic-input form-control disabled-input',
+                                            name: 'partNoInput[]',
+                                            id: 'partNoInput' + (index + 1),
+                                            value: item.part_no,
+                                            readonly: 'readonly'
+                                        });
 
-                        <div class="col col-md-12 col-12 mt-2">
-                            <div class="form-group">
-                                <label for="password">Order No</label>
-                                <input type="text" class="form-control @error('order_no') is-invalid @enderror"
-                                    id="order_no" name="order_no" placeholder="Masukkan order_no"
-                                    value="{{ old('order_no') }}">
-                                @error('order_no')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                                {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
-                            </div>
-                        </div>
+                                        var labelPartName = $('<label>').attr('for',
+                                            'partNameInput' + (index + 1)).text('Part Name ' + (
+                                            index + 1));
+                                        var inputPartName = $('<input>').attr({
+                                            type: 'text',
+                                            class: 'dynamic-input form-control disabled-input',
+                                            name: 'partNameInput[]',
+                                            id: 'partNameInput' + (index + 1),
+                                            value: item.part_name,
+                                            readonly: 'readonly'
+                                        });
 
-                        <div class="col col-md-12 col-12 mt-2">
-                            <div class="form-group">
-                                <label for="password">PO Number</label>
-                                <input type="text" class="form-control @error('po_number') is-invalid @enderror"
-                                    id="po_number" name="po_number" placeholder="Masukkan po_number"
-                                    value="{{ old('po_number') }}">
-                                @error('po_number')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                                {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
-                            </div>
-                        </div>
-                        <div class="col col-md-12 col-12 mt-2">
-                            <div class="form-group">
-                                <label for="password">Delivery Time</label>
-                                <input type="date" class="form-control @error('delivery_time') is-invalid @enderror"
-                                    id="delivery_time" name="delivery_time" placeholder="Masukkan delivery_time"
-                                    value="{{ old('delivery_time') }}">
-                                @error('delivery_time')
-                                    <span class="invalid-feedback" id="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                                {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
-                            </div>
-                        </div>
+                                        var labelQty = $('<label>').attr('for', 'qtyInput' + (
+                                            index + 1)).text('Qty ' + (index + 1));
+                                        var inputQty = $('<input>').attr({
+                                            type: 'text',
+                                            class: 'dynamic-input form-control disabled-input',
+                                            name: 'qtyInput[]',
+                                            id: 'qtyInput' + (index + 1),
+                                            value: item.order_qty,
+                                            readonly: 'readonly'
+                                        });
 
-                        <div class="col col-md-12 col-12 mt-2">
-                            <div class="form-group">
-                                <label for="password">Terms of Payments</label>
-                                <input type="text" class="form-control @error('payment') is-invalid @enderror"
-                                    id="payment" name="payment" placeholder="Masukkan payment"
-                                    value="{{ old('payment') }}">
-                                @error('payment')
-                                    <span class="invalid-feedback" id="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                                {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
-                            </div>
-                        </div>
-
-
-
-
-                    </div>
-
-                    <div class="text-center mt-4">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                </form>
+                                        var labelUnit = $('<label>').attr('for', 'unitInput' + (
+                                            index + 1)).text('Unit ' + (index + 1));
+                                        var inputUnit = $('<input>').attr({
+                                            type: 'text',
+                                            class: 'dynamic-input form-control disabled-input',
+                                            name: 'unitInput[]',
+                                            id: 'unitInput' + (index + 1),
+                                            value: item.unit,
+                                            readonly: 'readonly'
+                                        });
+                                        $('#dynamicInputsContainer').append(labelPartNo);
+                                        $('#dynamicInputsContainer').append(inputPartNo);
+                                        $('#dynamicInputsContainer').append(labelPartName);
+                                        $('#dynamicInputsContainer').append(inputPartName);
+                                        $('#dynamicInputsContainer').append(labelQty);
+                                        $('#dynamicInputsContainer').append(inputQty);
+                                        $('#dynamicInputsContainer').append(labelUnit);
+                                        $('#dynamicInputsContainer').append(inputUnit);
+                                    });
+                                    // Lanjutkan mengatur nilai untuk input lainnya sesuai dengan kolom yang ada di database
+                                },
+                                error: function () {
+                                    console.log('Terjadi kesalahan dalam permintaan AJAX.');
+                                }
+                            });
+                        }
+                    </script>
+                    {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
+                </div>
+            </div>
+            <div class="col col-md-12 col-12 mt-2">
+                <div class="form-group">
+                    <label for="password" style="margin-bottom: 5px;">Tanggal Pengiriman </label>
+                    <input type="date" class="form-control" id="Tanggal" name="tanggal" required>
+                </div>
             </div>
 
-            <script>
-                $(document).ready(function() {
-                    $("#order_qty,#weight").keyup(function() {
-                        let qty = $("#order_qty").val();
-                        let weigth = qty;
-                        console.log(qty)
-                        $("#weight").val(`${qty}`);
-                    });
-                })
-            </script>
+            <div class="col col-md-12 col-12 mt-2">
+                <div class="form-group">
+                    <label for="password" style="margin-bottom: 5px;">Pengirim</label>
+                    <input type="text" class="form-control disabled-input" value="{{ Auth::user()->nama }}"
+                        name="pengirim" readonly>
+
+                </div>
+
+                <div class="col col-md-12 col-12 mt-2">
+                    <div class="form-group">
+                        <label for="tujuan" style="margin-bottom: 5px;">Tujuan Pengiriman</label>
+                        <input type="text" class="form-control disabled-input" id="tujuan" name="penerima"
+                            value="{{$tujuan[0]->username;}}" readonly>
+                    </div>
+
+                    <div class="col col-md-12 col-12 mt-2">
+                        <div class="form-group" id="dynamicInputsContainer">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+    </form>
+</div>
+
+{{-- <script>
+    $(document).ready(function() {
+        $("#order_qty,#weight").keyup(function() {
+            let qty = $("#order_qty").val();
+            let weigth = qty;
+            console.log(qty)
+            $("#weight").val(`${qty}`);
+        });
+    })
+</script> --}}
+
+<style>
+    /* Warna label/kolom saat normal */
+    .form-group label,
+    .form-control {
+        background-color: #fff;
+    }
+
+    /* Warna label/kolom ketika disentuh */
+    .form-group label:hover,
+    .form-control:focus {
+        color: #fff;
+        background-color: #888;
+    }
+
+    .disabled-input {
+        background-color: #f5f5f5;
+        cursor: not-allowed;
+    }
+</style>
+
+<script>
+    // Script untuk menambahkan kelas 'active' pada label saat input diberi fokus
+    document.addEventListener('DOMContentLoaded', function () {
+        let formControls = document.querySelectorAll('.form-control');
+
+        formControls.forEach(function (control) {
+            control.addEventListener('focus', function () {
+                this.previousElementSibling.classList.add('active');
+            });
+
+            control.addEventListener('blur', function () {
+                this.previousElementSibling.classList.remove('active');
+            });
+        });
+    });
+</script>

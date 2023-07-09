@@ -72,7 +72,7 @@ class m_purchasingOrder extends Model
     // PO DI HALAMAN SUBCON
     public function myPO_Subcon($id)
     {
-        return DB::table('purchasing')->join('users','purchasing.id_tujuan','=','users.id')->where('id_tujuan', $id)->get();
+        return DB::table('purchasing')->join('users','purchasing.id_tujuan_po','=','users.id')->where('id_tujuan_po', $id)->get();
     }
 
     public function fromPO($no)
@@ -95,7 +95,7 @@ class m_purchasingOrder extends Model
     }
     // bantu isi data tambah surat jalan
     public function ambilData($selectedValue,$id){
-        return DB::table('purchasing')->where('po_number', $selectedValue)->where('id_tujuan', $id)->get();
+        return DB::table('purchasing')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->where('po_number', $selectedValue)->where('id_tujuan_po', $id)->get();
     }
 
 
