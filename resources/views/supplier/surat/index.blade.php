@@ -53,13 +53,13 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="{{ route('subcon.surat.edit', $data->no_surat) }}"
+                                        <a href="{{ route('supplier.surat.edit', $data->no_surat) }}"
                                             class="btn btn-warning">Edit</a>
                                         <a id="hapus" onclick="modalHapus({{ $data->no_surat }})" href="#"
                                             class="btn btn-danger">Delete</a>
                                         <a href="#" onclick="modalREAD({{ $data->no_surat }})"
                                             class="btn btn-warning">READ</a>
-                                        <a href="{{ route('subcon.surat.download', $data->no_surat) }}"
+                                        <a href="{{ route('supplier.surat.download', $data->no_surat) }}"
                                             class="btn btn-primary">Download</a>
                                     </td>
                                 </tr>
@@ -160,7 +160,7 @@
                 if (result.isConfirmed) {
                     $.ajax({
                         type: "get",
-                        url: "{{ url('subcon/surat/delete') }}/" + no,
+                        url: "{{ url('supplier/surat/delete') }}/" + no,
                         success: function(data) {
                             console.log(data)
                             Swal.fire(

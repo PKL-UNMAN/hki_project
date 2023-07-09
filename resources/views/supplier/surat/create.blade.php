@@ -1,5 +1,5 @@
 <div class="form mt-4">
-    <form enctype="multipart/form-data" action="{{ route('subcon.surat.store') }}" method="POST">
+    <form enctype="multipart/form-data" action="{{ route('supplier.surat.store') }}" method="POST">
         @csrf
         <div style="text-align: left" class="row">
             <div class="col col-md-12 col-12 mt-2">

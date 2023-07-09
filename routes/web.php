@@ -91,6 +91,7 @@ Route::controller(c_subcon::class)->middleware('auth')->group(function () {
     // Surat Subcon ke HKI
     Route::get('subcon/surat', 'mySurat_Subcon')->name('subcon.surat.index');
     Route::get('subcon/surat/download/{no}', 'mySurat_Download')->name('subcon.surat.download');
+    Route::get('supplier/surat/download/{no}', 'mySurat_Download')->name('supplier.surat.download');
 
 
     // Monitoring Sisa

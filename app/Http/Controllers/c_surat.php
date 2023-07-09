@@ -67,13 +67,6 @@ class c_surat extends Controller
         $data = $this->PO->ambilData_posubcon($selectedValue,$id);
         return response()->json(['data' => $data]);
     }
-    public function ambilData_po_supplier($selectedValue){
-        $id = Auth::user()->id;
-        $data = $this->PO->ambilData_posupp($selectedValue,$id);
-        $tujuan =  $this->PO->ambilData_posupp_tujuan($selectedValue,$id);
-        return response()->json(['data' => $data,'tujuan' => $tujuan]);
-    }
-
     public function storeSurat_subcon(Request $request) {
         // Validasi input jika diperlukan
         $request->validate([ 
@@ -208,66 +201,109 @@ class c_surat extends Controller
 
 
     // tambah surat supplier
+    public function ambilData_po_supplier($selectedValue){
+        $id = Auth::user()->id;
+        $data = $this->PO->ambilData_posupp($selectedValue,$id);
+        $tujuan =  $this->PO->ambilData_posupp_tujuan($selectedValue,$id);
+        return response()->json(['data' => $data,'tujuan' => $tujuan]);
+    }
     public function storeSurat_supplier(Request $request)
     {
-        $now = Carbon::now()->format('d-m-Y');
-        $validator = Validator::make($request->all(), [
-            'part_no' => 'required',
-            'id_tujuan' => 'required',
-            'part_name' => 'required',
-            'order_qty' => 'required',
-            'weight' => 'required',
-            'order_no' => 'required',
-            'po_number' => 'required',
-            'delivery_time' => 'required',
-            'payment' => 'required',
+        // Validasi input jika diperlukan
+        $request->validate([ 
+            'po_number'=> 'required',
+            'tanggal'=> 'required|date',
+            'partNoInput'=> 'required|array',
+            'partNameInput'=> 'required|array',
+            'qtyInput'=> 'required|array',
+            'unitInput'=> 'required|array',
+            ]);
+
+        // Mengambil data dari input utama
+        $poNumber=$request->input('po_number');
+        $pengirim=$request->input('pengirim');
+        $penerima=$request->input('penerima');
+        $tanggal=$request->input('tanggal');
+        $partNoInputs=$request->input('partNoInput');
+        $partNameInputs=$request->input('partNameInput');
+        $qtyInputs=$request->input('qtyInput');
+        $unitInputs=$request->input('unitInput');
+        $id=$this->surat->checkID();
+
+        if ($id==null) {
+            $id_baru=$id+1;
+            $Surat=new m_surat();
+            $Surat->no_surat=$id_baru;
+            $Surat->po_number=$poNumber;
+            $Surat->pengirim=$pengirim;
+            $Surat->penerima=$penerima;
+            $Surat->tanggal=$tanggal;
+            $Surat->status="On Progress";
+            $Surat->save();
+
+            foreach ($partNoInputs as $index=> $partNoInputs) {
+                $detailSurat=new m_detail_surat();
+                $detailSurat->no_surat=$id_baru;
+                $detailSurat->part_no=$partNoInputs;
+                $detailSurat->part_name=$partNameInputs[$index];
+                $detailSurat->qty=$qtyInputs[$index];
+                $detailSurat->unit=$unitInputs[$index];
+                $detailSurat->save();
+            }
+        }
+        else {
+            $idMax=$this->surat->maxIditem();
+            $id_baru=$idMax+1;
+            $Surat=new m_surat();
+            $Surat->no_surat=$id_baru;
+            $Surat->po_number=$poNumber;
+            $Surat->pengirim=$pengirim;
+            $Surat->penerima=$penerima;
+            $Surat->tanggal=$tanggal;
+            $Surat->status="On Progress";
+            $Surat->save();
+
+            foreach ($partNoInputs as $index=> $partNoInputs) {
+                $detailSurat=new m_detail_surat();
+                $detailSurat->no_surat=$id_baru;
+                $detailSurat->part_no=$partNoInputs;
+                $detailSurat->part_name=$partNameInputs[$index];
+                $detailSurat->qty=$qtyInputs[$index];
+                $detailSurat->unit=$unitInputs[$index];
+                $detailSurat->save();
+            }
+        }
+        return redirect()->route('supplier.surat.index')->with('success', 'success');
+    }
+    public function destroySurat_supplier($no)
+    {
+        $this->surat->deleteData($no);
+        return redirect()->route('subcon.surat.index')->with('success', 'Berhasil Dihapus');
+    }
+    public function editSurat_supplier($no)
+    {
+        $data = [
+            'surat' => $this->surat->headSurat($no),
+            'detail'=> $this->surat->detailSurat($no)
+        ];
+        return view('supplier.surat.edit', $data);
+    }
+    public function updateSurat_supplier(Request $request, $no_surat)
+    {
+        // Validasi data yang diinputkan
+        $request->validate([
+            'tanggal' => 'required|date',
         ]);
 
-        if ($validator->fails()) {
-            session()->flash('error', 'error');
-            return redirect()->back();
-        } else {
-            $id = $this->surat->checkID();
-            if ($id == null) {
-                $id_baru = $id + 1;
-                $data = [
-                    'no_surat' => $id_baru,
-                    'part_no' => $request->part_no,
-                    'id_tujuan' => $request->id_tujuan,
-                    'id_supplier' => Auth::user()->id,
-                    'part_name' => $request->part_name,
-                    'order_qty' => $request->order_qty,
-                    'weight' => $request->weight,
-                    'order_no' => $request->order_no,
-                    'po_number' => $request->po_number,
-                    'delivery_time' => $request->delivery_time,
-                    'payment' => $request->payment,
-                    'dibuat' => $now,
-                    'status' => "On Progress",
-                ];
-            } else {
-                $idMax = $this->surat->maxIditem();
-                $id_baru = $idMax + 1;
-                $data = [
-                    'no_surat' => $id_baru,
-                    'part_no' => $request->part_no,
-                    'id_tujuan' => $request->id_tujuan,
-                    'id_supplier' => Auth::user()->id,
-                    'part_name' => $request->part_name,
-                    'order_qty' => $request->order_qty,
-                    'weight' => $request->weight,
-                    'order_no' => $request->order_no,
-                    'po_number' => $request->po_number,
-                    'delivery_time' => $request->delivery_time,
-                    'payment' => $request->payment,
-                    'dibuat' => $now,
-                    'status' => "On Progress",
-                ];
-            }
+        // Mengambil data surat jalan berdasarkan nomor surat
+        $surat = m_surat::where('no_surat', $no_surat)->first();
 
-            $this->surat->addDo($data);
-            return redirect()->route('supplier.surat.index')->with('success', 'success');
-        }
+        // Mengupdate tanggal pengiriman
+        $surat->tanggal = $request->tanggal;
+        $surat->save();
+
+        // Mengembalikan pengguna ke halaman sebelumnya dengan pesan sukses
+        return redirect()->route('supplier.surat.index')->with('success', 'Surat jalan berhasil diperbarui.');
     }
 
 
