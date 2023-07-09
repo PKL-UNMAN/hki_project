@@ -34,15 +34,15 @@ class c_subcon extends Controller
         return view ('subcon.po.index', $data);
     }
 
-    public function myPO_Download($po_num)
+    public function myPO_Download($id_po)
     {
         $data =[
-            'from'=> $this->PO->download($po_num),
-            'group'=> $this->PO->listGroup($po_num),
-            'sum_amount'=> $this->PO->sumAmount($po_num),
+            'from'=> $this->PO->download($id_po),
+            'group'=> $this->PO->listGroup($id_po),
+            'sum_amount'=> $this->PO->sumAmount($id_po),
             'hki'=> $this->user->detailHKI(),
         ];
-        $pdf = PDF::loadview('subcon.po.pdf', $data)->setPaper('legal', 'potrait');;
+        $pdf = PDF::loadview('subcon.po.pdf', $data)->setPaper('legal', 'potrait');
 	    return $pdf->download('laporan-PO-Subcon.pdf');
     }
 

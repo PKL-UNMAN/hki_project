@@ -118,6 +118,9 @@
     <div class="card mt-3 shadow-sm">
         <form id="formPO" method="POST" action="{{url('hki/po/supplier/update/'.$POById->id_po)}}" enctype="multipart/form-data">
             @csrf
+        @php
+            $no = 1;
+        @endphp
         @foreach ($PO as $item)
         <div class="container">
             <div class="row mb-3">
@@ -133,7 +136,7 @@
                     </div>
                     <div class="form-group mt-3 text-start">
                         <label for="qty" class="fw-bold">QTY</label>
-                        <input type="text" class="form-control @error('qty') is-invalid @enderror" name="qty[]" placeholder="Masukkan qty" value="{{$item->order_qty}}">
+                        <input type="text" class="form-control @error('qty') is-invalid @enderror" id="qty{{$no}}" name="qty[]" placeholder="Masukkan qty" value="{{$item->order_qty}}">
                         @error('qty')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -142,7 +145,7 @@
                     </div>
                     <div class="form-group mt-3 text-start">
                         <label for="composition" class="fw-bold">Composition</label>
-                        <input type="text" class="form-control @error('composition') is-invalid @enderror" name="composition[]" placeholder="Masukkan composition" value="{{$item->composition}}">
+                        <input type="text" class="form-control @error('composition') is-invalid @enderror" id="composition{{$no}}" name="composition[]" placeholder="Masukkan composition" value="{{$item->composition}}">
                         @error('composition')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -171,7 +174,7 @@
                     </div>
                     <div class="form-group mt-3 text-start">
                         <label for="" class="fw-bold">Amount</label>
-                        <input type="text" class="form-control @error('amount') is-invalid @enderror" name="amount[]" placeholder="Masukkan amount" value="{{$item->amount}}">
+                        <input type="text" class="form-control @error('amount') is-invalid @enderror" id="amount{{$no}}" name="amount[]" placeholder="Masukkan amount" value="{{$item->amount}}">
                         @error('amount')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -180,9 +183,9 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="form-group text-start">
+                    <div class="form-group text-start" data-index="{{$no}}">
                         <label for="" class="fw-bold">Unit Price</label>
-                        <input type="text" class="form-control @error('unit_price') is-invalid @enderror" name="unit_price[]" placeholder="Masukkan unit_price" value="{{$item->unit_price}}">
+                        <input type="text" class="form-control @error('unit_price') is-invalid @enderror" id="unit_price{{$no}}" name="unit_price[]" placeholder="Masukkan unit_price" value="{{$item->unit_price}}">
                         @error('unit_price')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -213,6 +216,9 @@
             </div>
         </div>
         <hr>
+        @php
+            $no++;
+        @endphp
         @endforeach
     </div>
     <button style="margin-left: 900px; margin-top:20px" type="submit" id="simpan" class="btn btn-primary shadow">Simpan</button>
@@ -277,13 +283,14 @@
             $('[name="po_number"]').val(po_num)
         });
 
-        // $('#part_no').keyup(function(){
-        //     $('[name="part_no"]').val($('#part_no').val())
-        // })
 
-        $('#unit_price').keyup(function(){
-            let amount = ($('#unit_price').val()*$('#composition').val())*$('#qty').val()
-            $('#amount').val(amount)
+        $('[name="unit_price[]"],[name="composition[]"],[name="qty[]"],[name="amount[]"]').keyup(function(){
+            const update = $('#formPO').find("input[type=text]");
+            update.each(function(i) {
+                let amount = ($('#unit_price'+i+'').val()*$('#composition'+i+'').val())*$('#qty'+i+'').val()
+                console.log(amount)
+                $('#amount'+i+'').val(amount)
+            })
         })
 
     })

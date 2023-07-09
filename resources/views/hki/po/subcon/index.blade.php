@@ -31,17 +31,11 @@
                         <tr>
                             <th>No</th>
                             <th>PO No</th>
-                            <th>Part No</th>
-                            <th>Part Name</th>
+                            <th>Issue Date</th>
                             <th>Class</th>
-                            <th>Composition</th>
-                            <th>Unit</th>
                             <th style="text-align: center">ID<br>(Default Supplier)</th>
-                            <th>Nama Perusahaan</th>
-                            <th>Unit Price</th>
-                            <th>Amount</th>
                             <th>Currency</th>
-                            <th>QTY</th>
+                            <th>Nama Perusahaan</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -54,17 +48,11 @@
                         <tr>
                             <td>{{$no++}}</td>
                             <td>{{$data->po_number}}</td>
-                            <td>{{$data->part_no}}</td>
-                            <td>{{$data->part_name}}</td>
+                            <td>{{$data->issue_date}}</td>
                             <td>{{$data->class}}</td>
-                            <td>{{$data->composition}}</td>
-                            <td>{{$data->unit}}</td>
                             <td>{{$data->default_supplier_id}}</td>
-                            <td>{{$data->nama}}</td>
-                            <td>{{$data->unit_price}}</td>
-                            <td>{{$data->amount}}</td>
                             <td>{{$data->currency_code}}</td>
-                            <td>{{$data->order_qty}}</td>
+                            <td>{{$data->nama}}</td>
                             <td>
                                 <select name="status" class="form-select" id="status{{$data->id_po}}" onchange="ubahStatus({{$data->id}})" >
                                     <option value="" @if($data->status == "") selected @endif>--Status --</option>
@@ -73,11 +61,10 @@
                                 </select>
                             </td>
                             <td style="width:40%">
-                                        <a href="{{url('hki/po/subcon/edit/'.$data->id_po.'/'.$data->default_supplier_id)}}" class="btn btn-warning">Edit</a>
+                                        <a href="{{url('hki/po/subcon/edit/'.$data->id_po.'/'.$data->id_tujuan_po)}}" class="btn btn-warning">Edit</a>
                                         <a id="hapus" onclick="modalHapus({{$data->id_po}})" href="#" class="btn btn-danger">Delete</a>
-                                        <a href="#" onclick="modalRead({{$data->id_po}})" class="btn btn-info">Read</a>
-                                        <a href="{{url('subcon/po/download/'.$data->po_number)}}" class="btn btn-primary">Download</a>
-
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal{{$data->id_po}}" class="btn btn-info">Read</a>
+                                        <a href="{{url('subcon/po/download/'.$data->id_po)}}" class="btn btn-primary">Download</a>
                             </td>
                         </tr>
                       @endforeach
@@ -86,9 +73,74 @@
               </div>
         </div>
     </div>
-	
+  @foreach ($PO as $item)
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal{{$item->id_po}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Detail Purchase Order</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          
+<div class="xformdm">
+    <div style="text-align: left" class="row">
+                        <div class="col col-md-12 col-12 mt-2">
+                            <div class="form-group">
+                                <label for="password">PO Number</label>
+                                <input type="number" class="form-control @error('po_number') is-invalid @enderror" id="po_number" name="po_number" placeholder="Masukkan po_number" value="{{$item->po_number}}" readonly>
+                                @error('po_number')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                                {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
+                            </div>
+                        </div>
+
+                        <div class="col col-md-12 col-12 mt-2">
+                            <div class="form-group">
+                                <label for="password">Delivery Time</label>
+                                <input type="text" class="form-control @error('delivery_time') is-invalid @enderror" id="delivery_time" name="delivery_time" placeholder="Masukkan delivery_time" value="{{$item->delivery_time}}" readonly>
+                                @error('delivery_time')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <table class="table mt-3">
+                            <tr>
+                                <th>No. Part</th>
+                                <th>Part Name</th>
+                                <th>QTY</th>
+                                <th>Unit</th>
+                                <th>Tanggal Pengiriman</th>
+                            </tr>
+                            @foreach ($detail_PO as $item1)
+                            <tr>
+                                <td>{{$item1->part_no}}</td>
+                                <td>{{$item1->part_name}}</td>
+                                <td>{{$item1->order_qty}}</td>
+                                <td>{{$item1->unit}}</td>
+                                <td>{{$item1->delivery_time}}</td>
+                            </tr>
+                            @endforeach
+                        </table>
+                    </div>
+              
+                </div>
+            </div>
+                
+        </div>
+      </div>
+    </div>
+  </div>
   
-</div>
+</div>      
+  @endforeach
+
 @endsection
 
 @section('script')
@@ -178,6 +230,14 @@
              
           });
      }
+
+    //  function modalRead(no) {
+    //     $.get("{{ url('hki/subcon/po/detailpo') }}/" + no, {}, function(data, status) {
+    //         $("#exampleModalCenterTitle").html(`Detail Purchase Order`)
+    //         $("#page").html(data);
+    //         $("#exampleModalCenter").modal('show');
+    //        })  
+    // }
 
  </script>
 
