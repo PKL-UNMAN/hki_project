@@ -78,6 +78,9 @@
         background-color: #f5f5f5;
         cursor: not-allowed;
     }
+    #dynamicInputsContainer {
+        overflow-y: auto;
+    }
 </style>
 {{-- alat bantu isi field tambah data --}}
 <script>
