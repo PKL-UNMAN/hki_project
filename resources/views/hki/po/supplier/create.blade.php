@@ -269,7 +269,7 @@
             $('#amount').val(amount)
         })
 
-        $('form.temp .form-group .text-start input#unit_price').keyup(function(){
+        $('form.temp .form-group input').keyup(function(){
             $(this).each(function() {
                 let val =$(this).val().length
                 if (val == 0) {
