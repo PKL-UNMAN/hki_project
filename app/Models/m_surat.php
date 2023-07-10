@@ -9,12 +9,14 @@ use Illuminate\Support\Facades\DB;
 class m_surat extends Model
 {
     use HasFactory;
-
-    public function allData()
+    // tampil surat dari subcon di hki
+    public function suratdarisub($nama)
     {
-        return DB::table('surat')->join('users', 'surat.id_subcon', '=', 'users.id')->get();
+        return DB::table('surat')->join('users', 'surat.penerima', '=', 'users.nama')->where('penerima', $nama)->get();
     }
+    // end tampil surat dari subcon di hki
 
+    // buat tampilan read surat
     public function headSurat($no_surat)
     {
         return DB::table('surat')->where('no_surat',$no_surat)->first();
@@ -28,11 +30,7 @@ class m_surat extends Model
     {
         return DB::table('surat')->join('users', 'surat.pengirim','=','users.nama')->join('users_detail', 'users.id', '=', 'users_detail.id_user')->where('surat.no_surat',$no_surat)->first();
     }
-
-    public function detailSuratInSubcon($no_surat)
-    {
-        return DB::table('surat')->join('users', 'surat.id_tujuan', '=', 'users.id')->join('users_detail', 'users.id', '=', 'users_detail.id_user')->first();
-    }
+    // end tampilan read surat
 
     protected $table = 'surat';
     public $timestamps = false;
@@ -45,22 +43,6 @@ class m_surat extends Model
     protected $primaryKey = 'no_surat';
     public $incrementing = false;
     protected $keyType = 'string';
-
-
-    public function addData($data)
-    {
-        $surat = new m_surat();
-        $surat->po_number = $data['po_number'];
-        $surat->tanggal = $data['tanggal'];
-        $surat->pengirim = $data['pengirim'];
-        $surat->penerima = $data['penerima'];
-        $surat->part_no = $data['part_no'];
-        $surat->part_name = $data['part_name'];
-        $surat->qty = $data['qty'];
-        $surat->unit = $data['unit'];
-        $surat->save();
-        return $surat;
-    }
 
     public function editData($no_surat, $data)
     {
@@ -85,22 +67,15 @@ class m_surat extends Model
 
 
     // model surat dari supplier ke subcon
-    public function mySuratSup_Subcon($id)
+    public function mySuratSup_Subcon($nama)
     {
-        return DB::table('surat_supplier')->join('users', 'surat_supplier.id_tujuan', '=', 'users.id')->where('id_tujuan', $id)->get();
+        return DB::table('surat')->where('penerima', $nama)->get();
     }
     public function editStatusSuratSup($no_surat, $data)
     {
-        return DB::table('surat_supplier')->where('no_surat', $no_surat)->update($data);
+        return DB::table('surat')->where('no_surat', $no_surat)->update($data);
     }
-    public function detailSurat_sup($no_surat)
-    {
-        return DB::table('surat_supplier')->join('users', 'surat_supplier.id_tujuan', '=', 'users.id')->join('users_detail', 'users.id', '=', 'users_detail.id_user')->first();
-    }
-    public function detailSurat_supInSubcon($no_surat)
-    {
-        return DB::table('surat_supplier')->join('users', 'surat_supplier.id_tujuan', '=', 'users.id')->join('users_detail', 'users.id', '=', 'users_detail.id_user')->first();
-    }
+   
     //END model surat dari supplier ke subcon
 
 
@@ -118,12 +93,6 @@ class m_surat extends Model
     public function deleteData($no)
     {
         return DB::table('surat')->where('no_surat', $no)->delete();
-    }
-
-    //table surat do suppsubcon
-    public function addDo($data)
-    {
-        DB::table('surat_supplier')->insert($data);
     }
 
 

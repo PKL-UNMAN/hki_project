@@ -33,7 +33,7 @@
                     <div class="form-group">
                         <label for="tujuan" style="margin-bottom: 5px;">Tujuan Pengiriman</label>
                         <input type="text" class="form-control disabled-input" id="tujuan" name="penerima"
-                            value="{{$tujuan[0]->username;}}" readonly>
+                            value="{{$tujuan[0]->nama;}}" readonly>
                     </div>
 
                     <div class="col col-md-12 col-12 mt-2">

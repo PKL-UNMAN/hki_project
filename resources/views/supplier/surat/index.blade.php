@@ -1,7 +1,7 @@
 @extends('layouts.templateBaru', ['title' => 'Surat Jalan'])
 @section('content')
     <div class="container">
-        <h3>Surat Jalan HKI {{ Auth::user()->name }}</h3>
+        <h3>Surat Jalan {{ Auth::user()->name }}</h3>
         @if (session()->has('success'))
             <script>
                 window.onload = function() {
@@ -53,13 +53,13 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="{{ route('subcon.surat.edit', $data->no_surat) }}"
+                                        <a href="{{ route('supplier.surat.edit', $data->no_surat) }}"
                                             class="btn btn-warning">Edit</a>
                                         <a id="hapus" onclick="modalHapus({{ $data->no_surat }})" href="#"
                                             class="btn btn-danger">Delete</a>
                                         <a href="#" onclick="modalREAD({{ $data->no_surat }})"
                                             class="btn btn-warning">READ</a>
-                                        <a href="{{ route('subcon.surat.download', $data->no_surat) }}"
+                                        <a href="{{ route('supplier.surat.download', $data->no_surat) }}"
                                             class="btn btn-primary">Download</a>
                                     </td>
                                 </tr>
@@ -160,7 +160,7 @@
                 if (result.isConfirmed) {
                     $.ajax({
                         type: "get",
-                        url: "{{ url('subcon/surat/delete') }}/" + no,
+                        url: "{{ url('supplier/surat/delete') }}/" + no,
                         success: function(data) {
                             console.log(data)
                             Swal.fire(

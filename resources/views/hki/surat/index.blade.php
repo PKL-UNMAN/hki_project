@@ -28,11 +28,7 @@
                                 <th>PO Number</th>
                                 <th>Pengirim</th>
                                 <th>Tujuan Pengiriman</th>
-                                <th>Tanggal</th>
-                                <th>Part No</th>
-                                <th>Part Name</th>
-                                <th>QTY</th>
-                                <th>Unit(KG/PC)</th>
+                                <th>Tanggal Pengiriman</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -41,16 +37,10 @@
                             @foreach ($surat as $data)
                                 <tr>
                                     <td></td>
-                                    <td>{{ $data->part_name }}</td>
-                                    <td>{{ $data->part_no }}</td>
-                                    <td>{{ $data->nama }}</td>
-                                    <td>{{ $data->order_no }}</td>
-                                    <td>{{ $data->delivery_time }}</td>
-                                    <td>{{ $data->order_no }}</td>
-                                    <td>{{ $data->order_no }}</td>
-                                    <td>{{ $data->order_no }}</td>
-                                    <td>{{ $data->order_no }}</td>
-
+                                    <td>{{ $data->po_number }}</td>
+                                    <td>{{ $data->pengirim }}</td>
+                                    <td>{{ $data->penerima }}</td>
+                                    <td> {{$data->tanggal}} </td>
                                     <td>
                                         @if ($data->status == 'On Progress')
                                             <span class="badge" style="background-color: orangered">On Progress</span>

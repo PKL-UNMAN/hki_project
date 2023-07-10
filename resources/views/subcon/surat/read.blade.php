@@ -1,7 +1,7 @@
 <div class="head">
     <center>
         <div class="col col-md-6">
-            <h6>{{$perusahaan->username}}</h6>
+            <h6>{{$perusahaan->nama}}</h6>
             <h6>{{$perusahaan->alamat}}</h6>
             <h6>Telepon : @if($perusahaan->telepon == null) - @else {{$perusahaan->telepon}}@endif
                 <br>Fax : @if($perusahaan->fax == null) - @else{{$perusahaan->fax}}@endif</h6>

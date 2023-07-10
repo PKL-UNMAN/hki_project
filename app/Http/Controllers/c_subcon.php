@@ -34,15 +34,15 @@ class c_subcon extends Controller
         return view ('subcon.po.index', $data);
     }
 
-    public function myPO_Download($id_po)
+    public function myPO_Download($po_num)
     {
         $data =[
-            'from'=> $this->PO->download($id_po),
-            'group'=> $this->PO->listGroup($id_po),
-            'sum_amount'=> $this->PO->sumAmount($id_po),
+            'from'=> $this->PO->download($po_num),
+            'group'=> $this->PO->listGroup($po_num),
+            'sum_amount'=> $this->PO->sumAmount($po_num),
             'hki'=> $this->user->detailHKI(),
         ];
-        $pdf = PDF::loadview('subcon.po.pdf', $data)->setPaper('legal', 'potrait');
+        $pdf = PDF::loadview('subcon.po.pdf', $data)->setPaper('legal', 'potrait');;
 	    return $pdf->download('laporan-PO-Subcon.pdf');
     }
 
@@ -77,9 +77,9 @@ class c_subcon extends Controller
      // SURAT DARI SUPPLIER
      public function mySuratSup_Subcon()
      {
-         $id = Auth::user()->id;
+         $nama = Auth::user()->nama;
          $data =[
-             'surat' => $this->surat->mySuratSup_Subcon($id)
+             'surat' => $this->surat->mySuratSup_Subcon($nama)
          ];
          return view ('subcon.suratSup.index', $data);
      }
@@ -94,11 +94,12 @@ class c_subcon extends Controller
     }
     // end surat dari supplier ke subcon di subcon
     // read surat
-    public function subcon_lihatSurat(Request $request)
+    public function subcon_lihatSurat($no)
     {
-        $no_surat = $request->no_surat;
         $data = [
-            'surat' => $this->surat->detailSurat_supInSubcon($request->no_surat),
+            'perusahaan' => $this->surat->detailPengirim($no),
+            'surat' => $this->surat->headSurat($no),
+            'detail'=> $this->surat->detailSurat($no)
         ];
         return view('subcon.suratSup.read', $data);
     }
