@@ -14,10 +14,10 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group text-start">
-                                <label for="" class=" fw-bold "><i class="fa-solid fa-location-dot"></i> Tujuan Subcon (Nama Perusahaan)</label>
+                                <label for="" class=" fw-bold "><i class="fa-solid fa-location-dot"></i> Tujuan Supplierphp  (Nama Perusahaan)</label>
                                 <select name="id_tujuan" id="id_tujuan" class="form-control @error('id_tujuan') is-invalid @enderror">
-                                <option value="1" selected disabled>-- Pilih Subcon --</option>
-                                    @foreach($subcon as $data)
+                                <option value="1" selected disabled>-- Pilih Supplier --</option>
+                                    @foreach($supplier as $data)
                                     <option data-id="{{$data->id}}" data-class="SUBCON" value="{{$data->id}}">{{$data->id}} - {{$data->nama}}</option>
                                     @endforeach
                                 </select>
@@ -38,7 +38,7 @@
                             </div>
                             <div class="form-group mt-3 text-start">
                                 <label for="" class="fw-bold"><i class="fa-solid fa-truck"></i> Tujuan Pengiriman (Delivery Destination)</label>
-                                <input type="text" class="form-control @error('destination') is-invalid @enderror" id="destination" placeholder="Masukkan destination" value="{{session('id_user')}}">
+                                <input type="text" class="form-control @error('destination') is-invalid @enderror" id="destination" placeholder="Masukkan destination" value="{{session('id_user')}}" readonly>
                                 @error('destination')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -50,7 +50,7 @@
                         <div class="col-md-4">    
                             <div class="form-group text-start">
                                 <label for="default_id" class="fw-bold"><i class="fa-solid fa-address-card "></i> ID HKI</label>
-                                <input type="text" class="form-control @error('default_id') is-invalid @enderror" id="default_id" placeholder="Masukkan default_id" value="{{session('id_user')}}">
+                                <input type="text" class="form-control @error('default_id') is-invalid @enderror" id="default_id" placeholder="Masukkan default_id" value="{{session('id_user')}}" readonly>
                                 @error('default_id')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

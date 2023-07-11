@@ -41,6 +41,13 @@ class c_surat extends Controller
     // END Surat HKI
 
 
+    public function monitorSurat(){
+        $data =[
+            'surat' => $this->surat->monitorSurat()
+        ];
+        return view('hki.monitorSurat.index', $data);
+    }
+
     // Surat Subcon
 
     public function tampilSurat_subcon()

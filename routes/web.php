@@ -69,7 +69,6 @@ Route::controller(c_purchasingOrder::class)->middleware('auth')->group(function 
     //Modal Detail PO di Subcon
     Route::get('hki/subcon/po/detailpo/{no}', 'detailPO_Subcon')->name('hki.subcon.po.detailpo');
 
-
     // Ajax Hki PO
     // Ubah Status PO
     Route::get('ubahstatus', 'ubahStatus')->name('ubahstatus');
@@ -80,33 +79,33 @@ Route::controller(c_subcon::class)->middleware('auth')->group(function () {
     // PO Supplier
     Route::get('subcon/po', 'myPO_Subcon')->name('subcon.po.index');
     Route::get('subcon/po/download/{po_number}', 'myPO_Download')->name('subcon.po.download');
-
+    
     // Surat dari Supplier
     Route::get('subcon/suratSup', 'mySuratSup_Subcon')->name('subcon.suratSup.index');
     // ubah status surat dari supplier
     Route::get('subcon/suratSup/status/{no_surat}', 'ubahStatus_suratSup')->name('subcon.suratSup.ubahstatus');
-   // Read Surat di subcon
-   Route::get('subcon/suratSup/read/{no_surat}', 'subcon_lihatSurat')->name('subcon.suratSup.read');
-
+    // Read Surat di subcon
+    Route::get('subcon/suratSup/read/{no_surat}', 'subcon_lihatSurat')->name('subcon.suratSup.read');
+    
     // Surat Subcon ke HKI
     Route::get('subcon/surat', 'mySurat_Subcon')->name('subcon.surat.index');
     Route::get('subcon/surat/download/{no}', 'mySurat_Download')->name('subcon.surat.download');
     Route::get('supplier/surat/download/{no}', 'mySurat_Download')->name('supplier.surat.download');
-
-
+    
+    
     // Monitoring Sisa
     Route::get('subcon/sisa', 'mySisa_Subcon')->name('subcon.sisa.index');
-   
-
+    
+    
 
     // Modal Detail PO di Subcon
     Route::get('subcon/po/detailpo/{no}', 'detailPO_Subcon')->name('subcon.po.detailpo');
-
-
+    
+    
     //  //  pdf
     //  Route::get('subcon/po/download/{no}', 'downloadpo')->name('subcon.po.download');
-
-
+    
+    
 });
 
 Route::controller(c_supplier::class)->middleware('auth')->group(function () {
@@ -123,11 +122,11 @@ Route::controller(c_surat::class)->middleware('auth')->group(function () {
     Route::get('hki/surat', 'tampilSurat_HKI')->name('hki.surat.index');
     // Ubah Status Surat 
     Route::get('hki/surat/status/{no_surat}', 'ubahStatus')->name('hki.surat.ubahstatus');
-
+    
     // Read Surat di HKI
     Route::get('hki/surat/read/{no_surat}', 'hki_lihatSurat')->name('hki.surat.read');
-
-
+    
+    
     // Surat Subcon
     Route::get('subcon/surat', 'tampilSurat_subcon')->name('subcon.surat.index');
     Route::get('subcon/surat/create', 'createSurat_subcon')->name('subcon.surat.create');
@@ -137,7 +136,7 @@ Route::controller(c_surat::class)->middleware('auth')->group(function () {
     Route::post('subcon/surat/update/{no}', 'updateSurat_Subcon')->name('subcon.surat.update');
     Route::get('subcon/surat/read/{no}', 'readSurat_Subcon')->name('subcon.surat.read');
     Route::get('subcon/surat/delete/{no}', 'destroySurat_Subcon')->name('subcon.surat.delete');
-
+    
     // Surat Supplier
     Route::get('supplier/surat', 'tampilSurat_supplier')->name('supplier.surat.index');
     Route::get('supplier/surat/create', 'createSurat_supplier')->name('supplier.surat.create');
@@ -146,9 +145,10 @@ Route::controller(c_surat::class)->middleware('auth')->group(function () {
     Route::get('supplier/surat/edit/{no}', 'editSurat_supplier')->name('supplier.surat.edit');
     Route::post('supplier/surat/update/{no}', 'updateSurat_supplier')->name('supplier.surat.update');
     Route::get('supplier/surat/delete/{no}', 'destroySurat_supplier')->name('supplier.surat.delete');
-
-
-
+    Route::get('/hki/monitorsurat', 'monitorSurat')->name('hki.monitorsurat.index');
+    
+    
+    
     // Ajax Surat PO
     // Ubah Status PO
     Route::get('supplier/surat/detailpo/{no}', 'detailPO')->name('supplier.surat.detailpo');
@@ -156,9 +156,7 @@ Route::controller(c_surat::class)->middleware('auth')->group(function () {
 
 // sementara 
     // monitor surat hki
-    Route::get('/hki/monitorsurat', function () {
-        return view('hki.monitorSurat.index');
-    })->name('hki.monitorsurat.index');
+
     
  // Sisa Barang hki
  Route::get('/hki/sisabarang', function () {

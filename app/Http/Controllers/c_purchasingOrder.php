@@ -148,7 +148,7 @@ class c_purchasingOrder extends Controller
     public function createPO_Subcon()
     {
         $data =[
-            'subcon' => $this->user->subconData(),
+            'supplier' => $this->user->supplierData()
         ];
         return view ('hki.po.subcon.create', $data);
     }

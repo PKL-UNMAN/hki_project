@@ -16,6 +16,10 @@ class m_surat extends Model
     }
     // end tampil surat dari subcon di hki
 
+    public function monitorSurat(){
+        return DB::table('surat')->join('users', 'surat.penerima', '=', 'users.nama')->where('pengirim','LIKE','%Supplier%')->get();
+    }
+
     // buat tampilan read surat
     public function headSurat($no_surat)
     {
