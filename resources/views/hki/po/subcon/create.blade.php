@@ -14,10 +14,10 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group text-start">
-                                <label for="" class=" fw-bold "><i class="fa-solid fa-location-dot"></i> Tujuan Supplierphp  (Nama Perusahaan)</label>
+                                <label for="" class=" fw-bold "><i class="fa-solid fa-location-dot"></i> Tujuan Subcon (Nama Perusahaan)</label>
                                 <select name="id_tujuan" id="id_tujuan" class="form-control @error('id_tujuan') is-invalid @enderror">
-                                <option value="1" selected disabled>-- Pilih Supplier --</option>
-                                    @foreach($supplier as $data)
+                                <option value="1" selected disabled>-- Pilih Subcon --</option>
+                                    @foreach($subcon as $data)
                                     <option data-id="{{$data->id}}" data-class="SUBCON" value="{{$data->id}}">{{$data->id}} - {{$data->nama}}</option>
                                     @endforeach
                                 </select>
