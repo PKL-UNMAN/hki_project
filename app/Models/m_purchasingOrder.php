@@ -51,6 +51,11 @@ class m_purchasingOrder extends Model
         return DB::table('purchasing')->join('users','purchasing.id_tujuan_po','=','users.id')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->where('users.role_id', '2')->get();
     }
 
+    public function detailPOSupplier()
+    {
+        return DB::table('purchasing')->join('users','purchasing.id_tujuan_po','=','users.id')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->where('users.role_id', '3')->get();
+    }
+
     public function getPOById($table,$id){
         return DB::table('purchasing')->join('users','purchasing.id_tujuan_po','=','users.id')->where('id_po',$id)->first();
     }

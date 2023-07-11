@@ -28,7 +28,9 @@ class c_supplier extends Controller
         $id = Auth::user()->id;
         $data = [
             'PO' => $this->PO->myPO_Supplier($id),
+            'detail_PO'=> $this->PO->detailPOSupplier(),
         ];
+        // dd($data['detail_PO']);
         return view('supplier.po.index', $data);
     }
 
@@ -62,7 +64,8 @@ class c_supplier extends Controller
     function detailPO_Supplier($no)
     {
         $data = [
-            'PO' => $this->PO->detailData($no)
+            'detail_PO' => $this->PO->detailData($no),
+            'PO'=> $this->PO->getPOById('purchasing',$no)
         ];
 
         return view('supplier.po.detail', $data);
