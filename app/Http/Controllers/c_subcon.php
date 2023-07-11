@@ -128,7 +128,8 @@ class c_subcon extends Controller
     function detailPO_Subcon($no)
     {
         $data = [
-            'PO'=> $this->PO->detailData($no)
+            'detail_PO'=> $this->PO->detailData($no),
+            'PO'=> $this->PO->getPOById('purchasing',$no)
         ];
         
         return view('subcon.po.detail', $data);
