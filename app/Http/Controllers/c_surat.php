@@ -285,7 +285,7 @@ class c_surat extends Controller
     public function destroySurat_supplier($no)
     {
         $this->surat->deleteData($no);
-        return redirect()->route('subcon.surat.index')->with('success', 'Berhasil Dihapus');
+        return redirect()->route('supplier.surat.index')->with('success', 'Berhasil Dihapus');
     }
     public function editSurat_supplier($no)
     {

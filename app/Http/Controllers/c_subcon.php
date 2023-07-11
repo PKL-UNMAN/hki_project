@@ -116,8 +116,8 @@ class c_subcon extends Controller
             'from'=> $this->surat->download($no),
             'hki'=> $this->user->detailHKI(),
         ];
-        // return view('subcon.po.pdf', $data);
-        $pdf = PDF::loadview('subcon.surat.pdf', $data)->setPaper('legal', 'potrait');;
+        // dd($data);
+        $pdf = PDF::loadview('subcon.surat.pdf', $data)->setPaper('a4', 'potrait');
 	    return $pdf->download('laporan-Surat-Jalan.pdf');
     }
 

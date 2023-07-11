@@ -91,12 +91,13 @@ class m_surat extends Model
 
     public function download($no)
     {
-        return DB::table('surat')->join('users', 'surat.id_tujuan', '=', 'users.id')->join('users_detail', 'users.id', '=', 'users_detail.id_user')->where('no_surat', $no)->first();
+        return DB::table('surat')->join('users', 'surat.penerima', '=', 'users.nama')->join('users_detail', 'users.id', '=', 'users_detail.id_user')->join('purchasing', 'surat.po_number', '=', 'purchasing.po_number')->join('surat_details','surat.no_surat','=','surat_details.no_surat')->where('surat.no_surat', $no)->first();
     }
 
     public function deleteData($no)
     {
-        return DB::table('surat')->where('no_surat', $no)->delete();
+        DB::table('surat_details')->where('no_surat', $no)->delete();
+        DB::table('surat')->where('no_surat', $no)->delete();
     }
 
 
