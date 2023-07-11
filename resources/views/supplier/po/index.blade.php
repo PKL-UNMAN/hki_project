@@ -48,7 +48,7 @@
                                 </td>
                                 <td style="width:15%">
                                     <a href="#" onclick="modalRead({{$data->id_po}})" class="btn btn-warning">Read</a>
-                                    <a href="{{url('supplier/po/download/'.$data->po_number)}}" class="btn btn-primary">Download</a>
+                                    <a href="{{url('supplier/po/download/'.$data->id_po)}}" class="btn btn-primary">Download</a>
                                 </td>
                             </tr>
                           @endforeach
