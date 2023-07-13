@@ -186,11 +186,28 @@ class c_purchasingOrder extends Controller
                     "amount" => $request->amount[$no],
                     "order_number" => $request->order_number[$no],
                 ];
+                $this->sisaBarang($parts);
                 $no++;
             }
             $this->PO->addData('purchasing_details',$parts);
+
             return redirect()->route('hki.po.subcon.index')->with('success','PO berhasil ditambahkan');
         }
+    }
+
+    public function sisaBarang($parts){
+        $sum_qty=0;
+        $sum_comp=0;
+        foreach ($parts as $part) {
+            $sum_qty+= $part['order_qty'];
+            $sum_comp+= $part['composition'];
+        }
+        $sisa = [
+            'id_po'=>$this->PO->getIdPo(),
+            'qty_sub'=>$sum_qty,
+            'comp_sub'=>$sum_comp
+        ];
+        $this->PO->addData('stocks',$sisa);
     }
 
     public function editPO_Subcon($id_po,$id_subcon)
@@ -281,6 +298,7 @@ class c_purchasingOrder extends Controller
         return view('hki.po.supplier.detail', $data);
 
     }
+
 
 
 

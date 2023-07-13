@@ -115,6 +115,27 @@ class m_purchasingOrder extends Model
     }
 
 
+    public function sisaData(){
+        return DB::table('purchasing')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->join('users','purchasing.id_destination','=','users.id')->get();
+    }
+
+    public function sumSisa(){
+        return DB::table('purchasing')
+        ->select('po_number',DB::raw('COUNT(*) as `count`'))
+        ->groupBy('po_number')
+        ->havingRaw('COUNT(*) > 1')
+        ->get();
+    }
+
+    public function qtyPO(){
+        return DB::table('purchasing')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')
+        ->where('purchasing.class','=','SUBCON')
+        ->where('purchasing.class','=','SUPPLIER')
+        ->select('purchasing.po_number')
+        ->groupBy('purchasing.po_number')
+        ->get();
+    }
+
 
 
 

@@ -33,35 +33,25 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- @foreach ($surat as $data)
+                            @php
+                                $no=1;
+                            @endphp
+                        @foreach ($sisa as $data)
                         <tr>
-                            <td></td>
+                            <td>{{$no++}}</td>
+                            <td>{{$data->default_supplier_id}}</td>
+                            <td>{{$data->nama}}</td>
                             <td>{{$data->part_name}}</td>
                             <td>{{$data->part_no}}</td>
-                            <td>{{$data->nama}}</td>
-                            <td>{{$data->order_no}}</td>
-                            <td>{{$data->delivery_time}}</td>
-                            <td>{{$data->order_no}}</td>
-                            <td>{{$data->order_no}}</td>
-                            <td>{{$data->order_no}}</td>
-                            <td>{{$data->order_no}}</td>
-
-                            <td>
-                                @if ($data->status == 'On Progress')
-                                <span class="badge" style="background-color: orangered">On Progress</span>
-                                @elseif($data->status == "Finish")
-                                <span class="badge" style="background-color: rgb(0, 193, 55)">Accepted</span>
+                            @foreach ($count as $item)
+                                @if ($data->po_number === $item->po_number)
+                                    <td></td>
+                                @else
+                                    <td>Sisa tidak diketahui</td>
                                 @endif
-                            </td>
-                            <td>
-                                @if ($data->status == 'On Progress')
-                                <a href="#" class="btn btn-success" onclick="modalACC({{$data->no_surat}})">ACC</a>
-                                @endif
-                                <a href="#" class="btn btn-warning" onclick="modalREAD({{$data->no_surat}})">READ</a>
-                                <a href="{{route('subcon.surat.download', $data->no_surat)}}" class="btn btn-primary">Download</a>
-                            </td>
+                            @endforeach
                         </tr>
-                        @endforeach --}}
+                        @endforeach
                         </tbody>
                     </table>
                 </div>

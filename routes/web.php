@@ -56,10 +56,11 @@ Route::controller(c_purchasingOrder::class)->middleware('auth')->group(function 
     // Modal Detail PO di Supplier
     Route::get('hki/supplier/po/detailpo/{no}', 'detailPO_Supplier')->name('hki.supplier.po.detailpo');
     Route::get('hki/po/supplier/download/{no}', 'myPO_Download')->name('supplier.po.download');
-
+    
 
     // PO Subcon
     Route::get('hki/po/subcon', 'tampilPO_Subcon')->name('hki.po.subcon.index');
+    Route::get('/hki/sisabarang', 'sisaBarang')->name('hki.sisabarang.index');
     Route::get('hki/po/subcon/create', 'createPO_Subcon')->name('hki.po.subcon.create');
     Route::post('hki/po/subcon/store', 'storePO_Subcon')->name('hki.po.subcon.store');
     Route::get('hki/po/subcon/edit/{id_po}/{id_subcon}', 'editPO_Subcon')->name('hki.po.subcon.edit');
@@ -157,8 +158,3 @@ Route::controller(c_surat::class)->middleware('auth')->group(function () {
 // sementara 
     // monitor surat hki
 
-    
- // Sisa Barang hki
- Route::get('/hki/sisabarang', function () {
-    return view('hki.sisabarang.index');
-})->name('hki.sisabarang.index');
