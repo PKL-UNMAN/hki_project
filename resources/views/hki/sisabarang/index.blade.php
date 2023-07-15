@@ -43,13 +43,7 @@
                             <td>{{$data->nama}}</td>
                             <td>{{$data->part_name}}</td>
                             <td>{{$data->part_no}}</td>
-                            @foreach ($count as $item)
-                                @if ($data->po_number === $item->po_number)
-                                    <td></td>
-                                @else
-                                    <td>Sisa tidak diketahui</td>
-                                @endif
-                            @endforeach
+                            <td>{{$data->total}}</td>
                         </tr>
                         @endforeach
                         </tbody>

@@ -15,6 +15,18 @@ class m_purchasingOrder extends Model
         return DB::table('purchasing')->get();
     }
 
+    public function getData($table){
+        return DB::table($table)->get();
+    }
+
+    public function getSisaBarang(){
+        return DB::table('purchasing')
+        ->join('stocks','purchasing.id_po','=','stocks.id_po')
+        ->join('users','purchasing.id_tujuan_po','=','users.id')
+        ->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')
+        ->get();
+    }
+
 
     public function tampilPO_Supplier()
     {
@@ -157,5 +169,11 @@ class m_purchasingOrder extends Model
         return DB::table('purchasing')->where('id_tujuan', $id)->update($data);
     }
     
+    public function validatePO($po_num,$class){
+        return DB::table('purchasing')
+        ->where('purchasing.po_number',$po_num)
+        ->where('purchasing.class',$class)
+        ->first();
+    }
     // END Kondisi
 }

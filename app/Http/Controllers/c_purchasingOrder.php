@@ -73,6 +73,8 @@ class c_purchasingOrder extends Controller
                     "amount" => $request->amount[$no],
                     "order_number" => $request->order_number[$no],
                 ];
+
+                $this->sisaBarang($parts,$request->classname,$po);
                 $no++;
             }
             $this->PO->addData('purchasing_details',$parts);
@@ -174,7 +176,7 @@ class c_purchasingOrder extends Controller
             $this->PO->addData('purchasing',$po);
             $parts = [];
             foreach ($part_no as $index) {
-
+                
                 $parts[] = [
                     "id_po" => $this->PO->getIdPo(),
                     "part_no" => $request->part_no[$no],
@@ -186,7 +188,8 @@ class c_purchasingOrder extends Controller
                     "amount" => $request->amount[$no],
                     "order_number" => $request->order_number[$no],
                 ];
-                $this->sisaBarang($parts);
+                $this->sisaBarang($parts,$request->classname,$po);
+                $this->countSisaBarang($this->PO->getIdPo()-1);
                 $no++;
             }
             $this->PO->addData('purchasing_details',$parts);
@@ -195,19 +198,52 @@ class c_purchasingOrder extends Controller
         }
     }
 
-    public function sisaBarang($parts){
+    public function sisa(){
+       $data = [
+            'sisa' => $this->PO->getSisaBarang()
+        ];
+       return view ('hki.sisabarang.index', $data);
+    }
+
+    public function sisaBarang($parts,$classname,$po){
         $sum_qty=0;
         $sum_comp=0;
         foreach ($parts as $part) {
             $sum_qty+= $part['order_qty'];
             $sum_comp+= $part['composition'];
         }
-        $sisa = [
-            'id_po'=>$this->PO->getIdPo(),
-            'qty_sub'=>$sum_qty,
-            'comp_sub'=>$sum_comp
-        ];
-        $this->PO->addData('stocks',$sisa);
+        if($classname==='SUPPLIER'){
+            $sisa = [
+                'id_po'=>$this->PO->getIdPo(),
+                'qty_sup'=>$sum_qty,
+                'comp_sup'=>$sum_comp
+            ];
+            $this->PO->addData('stocks',$sisa);
+        }else{
+            $validatePO = $this->PO->validatePO($po['po_number'],'SUPPLIER');
+            if($validatePO !== NULL){
+                $sisa = [
+                    'qty_sub'=>$sum_qty,
+                    'comp_sub'=>$sum_comp
+                ];
+                $this->PO->editData('stocks','id_po',$validatePO->id_po, $sisa);
+            }
+        }
+    }
+
+    public function countSisaBarang($id){
+        $stocks = $this->PO->getData('stocks');
+        foreach($stocks as $stock){
+            $sisa = ($stock->qty_sup/$stock->comp_sup/$stock->comp_sub)-$stock->qty_sub;
+            $total = [
+                'total'=>$sisa
+            ];
+            $this->PO->editData('stocks','id_po',$id, $total);
+        }
+    }
+
+    public function getSisaBarang(){
+        $stocks = $this->PO->getData('stocks');
     }
 
     public function editPO_Subcon($id_po,$id_subcon)
