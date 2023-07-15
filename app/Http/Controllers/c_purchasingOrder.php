@@ -220,7 +220,7 @@ class c_purchasingOrder extends Controller
             ];
             $this->PO->addData('stocks',$sisa);
         }else{
-            $validatePO = $this->PO->validatePO($po['po_number'],'SUPPLIER');
+            $validatePO = $this->PO->validatePO($po['id_tujuan_po'],'SUPPLIER');
             if($validatePO !== NULL){
                 $sisa = [
                     'qty_sub'=>$sum_qty,

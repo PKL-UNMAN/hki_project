@@ -169,9 +169,9 @@ class m_purchasingOrder extends Model
         return DB::table('purchasing')->where('id_tujuan', $id)->update($data);
     }
     
-    public function validatePO($po_num,$class){
+    public function validatePO($id_destination,$class){
         return DB::table('purchasing')
-        ->where('purchasing.po_number',$po_num)
+        ->where('purchasing.id_destination',$id_destination)
         ->where('purchasing.class',$class)
         ->first();
     }
