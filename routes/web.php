@@ -71,7 +71,10 @@ Route::controller(c_purchasingOrder::class)->middleware('auth')->group(function 
     Route::get('hki/subcon/po/detailpo/{no}', 'detailPO_Subcon')->name('hki.subcon.po.detailpo');
 
     // Ajax Hki PO
+        //import PO oleh HKI
+    Route::post('hki/import/po','import')->name('import');
     // Ubah Status PO
+
     Route::get('ubahstatus', 'ubahStatus')->name('ubahstatus');
 });
 

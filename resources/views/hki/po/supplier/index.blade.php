@@ -20,8 +20,35 @@
 	
     <div class="mb-2" style="text-align: left">
         <a href="{{route('hki.po.supplier.create')}}" class="btn btn-primary shadow"><i class="fa-solid fa-square-plus"></i> Tambah PO</a>
-        <a href="#" class="btn btn-info shadow" style="color: white"><i class="fa-sharp fa-solid fa-cloud-arrow-up"></i> Upload PO</a>
+        <button type="button" class="btn btn-info shadow" data-bs-toggle="modal" data-bs-target="#exampleModal" style="color: white"><i class="fa-sharp fa-solid fa-cloud-arrow-up"></i> Upload PO</button>
     </div>
+      <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Import Excel</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form action="{{ route('import') }}"
+            method="POST"
+            enctype="multipart/form-data">
+          @csrf
+          <input type="file" name="file" class="form-control">
+          <input type="hidden" name="role" value="2">
+          <br>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Import</button>
+        </div>
+    </form>
+      </div>
+    </div>
+  </div>
 
     <div class="row">
         <div class="col col-md-12 col-12 mt-2">

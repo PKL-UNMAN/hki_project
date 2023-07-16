@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\m_user;
 use App\Models\m_role;
 use App\Models\m_purchasingOrder;
+use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Validators\ValidationException;
+use App\Imports\ImportProduction;
 use DB;
 use File;
 use Auth;
@@ -234,7 +237,7 @@ class c_purchasingOrder extends Controller
     public function countSisaBarang($id){
         $stocks = $this->PO->getData('stocks');
         foreach($stocks as $stock){
-            $sisa = ($stock->qty_sup/$stock->comp_sup/$stock->comp_sub)-$stock->qty_sub;
+            $sisa = ($stock->qty_sup*$stock->comp_sup)-$stock->qty_sub;
             $total = [
                 'total'=>$sisa
             ];
@@ -333,6 +336,29 @@ class c_purchasingOrder extends Controller
         ];
         return view('hki.po.supplier.detail', $data);
 
+    }
+
+    public function import(Request $request){
+        $fileArray = Excel::toArray(new ImportProduction, $request->file('file')->store('files'));
+        dd($fileArray[0]);
+        // foreach ($fileArray[0] as $key){
+        //     $id = intval($key[5]);
+        //     $data = DB::table('users')->where('id','=',$id)->get();
+        //     foreach($data as $d){
+        //         if($d->id == $id){
+        //             if($request['role'] === "2"){
+        //                 Excel::import(new ImportUser, $request->file('file')->store('files'));
+        //                 return redirect()->route('hki.po.subcon.index')->with('success','Berhasil Import PO');
+        //             }else{
+        //                 Excel::import(new ImportSupplier,
+        //                 $request->file('file')->store('files'));
+        //                 return redirect()->route('hki.po.supplier.index')->with('success','Berhasil Import PO');   
+        //             }
+        //         }else{
+        //             return redirect()->route('hki.po.subcon.index')->with('success','Gagal Import PO');   
+        //         }
+        //     }
+        // }
     }
 
 
