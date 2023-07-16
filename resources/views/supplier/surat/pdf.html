@@ -20,6 +20,7 @@
             }
 
             table {
+                margin-top: 24px;
                 width: 100%;
                 border-collapse: collapse;
             }
@@ -30,47 +31,40 @@
                 /* border: 1px solid #ccc; */
             }
 
-            .row {
-                display: flex;
-                justify-content: space-between;
-                margin-bottom: 10px;
+            .row::after {
+                content: "";
+                display: table;
+                clear: both;
             }
-            /* /* .col {
-        flex-basis: 20%;
-      } */
 
-            .col1 {
-                flex-basis: 60%;
+            .col {
+                width: 50%;
+                float: left;
             }
-            .col2 {
-                flex-basis: 40%;
-            }
-            */ p {
+
+            p {
                 margin: 0;
                 font-weight: bold;
             }
 
-            #table {
-                margin-top: 34px;
+            .target {
+                margin-top: 20px;
+            }
+            .ttd {
+                margin-top: 50px;
             }
 
-            /* .target {
-        margin-top: 20px;
-      }
-      .ttd {
-        margin-top: 50px;
-      }
-      .field {
-        font-weight: bold;
-      } */
-            /* 
-      #td11,
-      #td21,
-      #td22,
-      #td12 {
-        margin-left: 100px;
-        text-align: center;
-      } */
+            .field {
+                font-weight: bold;
+            }
+
+            #td11,
+            #td21,
+            #td22,
+            #td12 {
+                margin-left: 10%;
+                text-align: center;
+            }
         </style>
     </head>
     <body>
@@ -98,7 +92,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div id="detail" class="col2">
+                <div id="detail" class="col">
                     <table border="0">
                         <tbody>
                             <tr>
