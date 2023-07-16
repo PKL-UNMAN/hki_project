@@ -94,14 +94,13 @@ Route::controller(c_subcon::class)->middleware('auth')->group(function () {
     // Surat Subcon ke HKI
     Route::get('subcon/surat', 'mySurat_Subcon')->name('subcon.surat.index');
     Route::get('subcon/surat/download/{no}', 'mySurat_Download')->name('subcon.surat.download');
-    Route::get('supplier/surat/download/{no}', 'mySurat_Download')->name('supplier.surat.download');
     
     
     // Monitoring Sisa
     Route::get('subcon/sisa', 'mySisa_Subcon')->name('subcon.sisa.index');
     
     
-
+    
     // Modal Detail PO di Subcon
     Route::get('subcon/po/detailpo/{no}', 'detailPO_Subcon')->name('subcon.po.detailpo');
     
@@ -116,6 +115,7 @@ Route::controller(c_supplier::class)->middleware('auth')->group(function () {
     // PO Supplier
     Route::get('supplier/po', 'myPO_Supplier')->name('supplier.po.index');
     Route::get('supplier/po/download/{no}', 'myPO_Download')->name('supplier.po.download');
+    Route::get('supplier/surat/download/{no}', 'mySurat_Download')->name('supplier.surat.download');
 
     // Modal Detail PO di Supplier
     Route::get('supplier/po/detailpo/{no}', 'detailPO_Supplier')->name('supplier.po.detailpo');
@@ -150,6 +150,7 @@ Route::controller(c_surat::class)->middleware('auth')->group(function () {
     Route::post('supplier/surat/update/{no}', 'updateSurat_supplier')->name('supplier.surat.update');
     Route::get('supplier/surat/delete/{no}', 'destroySurat_supplier')->name('supplier.surat.delete');
     Route::get('/hki/monitorsurat', 'monitorSurat')->name('hki.monitorsurat.index');
+
     
     
     

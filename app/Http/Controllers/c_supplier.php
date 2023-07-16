@@ -20,6 +20,8 @@ class c_supplier extends Controller
         $this->user = new m_user();
         $this->role = new m_role();
         $this->PO = new m_purchasingOrder();
+        $this->surat = new m_surat();
+
     }
 
     // PO SUBCON
@@ -57,6 +59,16 @@ class c_supplier extends Controller
         return view('subcon.surat.index', $data);
     }
 
+        //Download Surat Subcon
+    public function mySurat_Download($no)
+    {
+        $data =[
+            'from'=> $this->surat->download($no),
+            'hki'=> $this->user->detailHKI(),
+        ];
+        $pdf = PDF::loadview('supplier.surat.pdf', $data)->setPaper('letter', 'landscape');
+        return $pdf->download('laporan-Surat-Jalan.pdf');
+    }
     // END SURAT
 
 
