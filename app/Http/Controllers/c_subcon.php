@@ -87,10 +87,14 @@ class c_subcon extends Controller
     public function ubahStatus_suratSup(Request $request)
     {
         $no_surat = $request->no_surat;
-        $data = [
-            'status' => "Finish",
-        ];
-        $this->surat->editStatusSuratSup($no_surat, $data);
+        $validatePO = $this->PO->validatePOWithSurat($no_surat);
+        if($validatePO){
+            $data = [
+                'status' => "Finish",
+            ];
+            $this->surat->editStatusSuratSup($no_surat, $data);
+            $this->PO->editData('purchasing','id_po',$validatePO->id_po,$data);
+        }
     }
     // end surat dari supplier ke subcon di subcon
     // read surat
@@ -113,10 +117,10 @@ class c_subcon extends Controller
     public function mySurat_Download($no)
     {
         $data =[
-            'from'=> $this->surat->download($no),
-            'hki'=> $this->user->detailHKI(),
+            'details'=> $this->PO->getPOWithSurat($no),
+            'from'=> $this->PO->getSenderSurat($no)
         ];
-        // dd($data);
+
         $pdf = PDF::loadview('subcon.surat.pdf', $data)->setPaper('a4', 'potrait');
 	    return $pdf->download('laporan-Surat-Jalan.pdf');
     }

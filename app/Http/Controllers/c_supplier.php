@@ -63,11 +63,12 @@ class c_supplier extends Controller
     public function mySurat_Download($no)
     {
         $data =[
-            'from'=> $this->surat->download($no),
-            'hki'=> $this->user->detailHKI(),
+            'details'=> $this->PO->getPOWithSurat($no),
+            'from'=> $this->PO->getSenderSurat($no)
         ];
-        $pdf = PDF::loadview('supplier.surat.pdf', $data)->setPaper('letter', 'landscape');
-        return $pdf->download('laporan-Surat-Jalan.pdf');
+
+        $pdf = PDF::loadview('supplier.surat.pdf', $data)->setPaper('a4', 'potrait');
+	    return $pdf->download('laporan-Surat-Jalan.pdf');
     }
     // END SURAT
 

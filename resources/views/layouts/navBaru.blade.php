@@ -40,6 +40,7 @@
             <li><a class="nav-link scrollto {{Route::is('hki.surat.index') ? 'active':''}}" href="{{ route('hki.surat.index') }}">Surat Jalan</a></li>
             <li><a class="nav-link scrollto {{Route::is('hki.sisabarang.index') ? 'active':''}}" href="{{ route('hki.sisabarang.index') }}">Sisa Barang</a></li>
             <li><a class="nav-link scrollto {{Route::is('hki.monitorsurat.index') ? 'active':''}}" href="{{ route('hki.monitorsurat.index') }}">Monitor Surat</a></li>
+            <li><a class="nav-link scrollto {{Route::is('hki.production.index') ? 'active':''}}" href="{{ route('hki.production.index') }}">Production</a></li>
         @endif
         <li class="dropdownx"><a class="getstarted scrollto" href="#">{{ Auth::user()->username }}<i
                     class="bi bi-chevron-down"></i></a>

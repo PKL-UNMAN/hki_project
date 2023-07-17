@@ -142,10 +142,10 @@
                             'Status diubah menjadi Finish.',
                             'success',
                             '3000'
-                        )
-                        location.reload(true);
-                    },
-                    error: function (xhr, status, error) {
+                            )
+                            location.reload(true);
+                        },
+                        error: function (xhr, status, error) {
                         Swal.fire(
                             'Kesalahan!',
                             'Terjadi kesalahan dalam memproses permintaan.',

@@ -73,6 +73,9 @@ Route::controller(c_purchasingOrder::class)->middleware('auth')->group(function 
     // Ajax Hki PO
         //import PO oleh HKI
     Route::post('hki/import/po','import')->name('import');
+    Route::get('hki/production','getProduction')->name('hki.production.index');
+    Route::post('hki/production/upload','uploadProduction')->name('hki.production.upload');
+    Route::get('hki/production/export','exportProduction')->name('hki.production.export');
     // Ubah Status PO
 
     Route::get('ubahstatus', 'ubahStatus')->name('ubahstatus');

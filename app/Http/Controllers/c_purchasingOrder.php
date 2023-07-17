@@ -6,10 +6,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\m_user;
 use App\Models\m_role;
+use App\Models\Production;
 use App\Models\m_purchasingOrder;
 use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\Validators\ValidationException;
 use App\Imports\ImportProduction;
+use App\Exports\ExportProduction;
+use Illuminate\Support\Collection;
+
 use DB;
 use File;
 use Auth;
@@ -249,6 +253,7 @@ class c_purchasingOrder extends Controller
         $stocks = $this->PO->getData('stocks');
     }
 
+
     public function editPO_Subcon($id_po,$id_subcon)
     {
         $data =[
@@ -339,8 +344,27 @@ class c_purchasingOrder extends Controller
     }
 
     public function import(Request $request){
-        $fileArray = Excel::toArray(new ImportProduction, $request->file('file')->store('files'));
-        dd($fileArray[0]);
+        $data = Excel::toArray([], $request->file('file')->store('files'));
+        $validateTanggal = array_filter($data[0][1], function($value) {
+            return $value == date('d');
+        });
+        $import = new ImportProduction;
+        Excel::import($import, $request->file('file')->store('files'));
+        
+// die;
+//         $validateData = array_filter($data[0][1], function($value) {
+//             return $value == date('d');
+//         });
+//         die;
+//         if(in_array(date('d'), $validateTanggal) == TRUE){
+//             echo 'data tersedia';
+//         }else{
+//             echo 'data tidak tersedia';
+//         }
+//             die;
+//             Excel::import(new ImportProduction, $request->file('file')->store('files'));
+//             echo 'berhasil upload report production';
+        // die;
         // foreach ($fileArray[0] as $key){
         //     $id = intval($key[5]);
         //     $data = DB::table('users')->where('id','=',$id)->get();
@@ -360,6 +384,31 @@ class c_purchasingOrder extends Controller
         //     }
         // }
     }
+
+    public function getProduction(){
+        return view('hki.production.index');
+    }
+
+    public function uploadProduction(Request $request){
+        $import = new ImportProduction;
+        Excel::import($import, $request->file('file')->store('files'));
+    }
+
+
+    public function exportProduction(Request $request){
+        $data = DB::table('productions')
+        ->orderBy('tanggal', 'ASC')
+        ->get()
+        ->toArray();
+        $collection = collect($data);
+        $transposedData = $collection->transpose()->map(function($data) {
+            return $data;
+          });
+        dd($transposedData);
+        // return Excel::download(new ExportProduction, 'production_counter.xlsx');
+    }
+
+    
 
 
 

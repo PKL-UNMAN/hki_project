@@ -333,10 +333,14 @@ class c_surat extends Controller
     public function ubahStatus(Request $request)
     {
         $no_surat = $request->no_surat;
-        $data = [
-            'status' => "Finish",
-        ];
-        $this->surat->editData($no_surat, $data);
+        $validatePO = $this->PO->validatePOWithSurat($no_surat);
+        if($validatePO){
+            $data = [
+                'status' => "Finish",
+            ];
+            $this->surat->editData($no_surat, $data);
+            $this->PO->editData('purchasing','id_po',$validatePO->id_po,$data);
+        }
     }
 
     public function hki_lihatSurat($no)
