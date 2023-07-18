@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: db
--- Waktu pembuatan: 10 Jul 2023 pada 14.35
--- Versi server: 5.7.41
--- Versi PHP: 8.1.17
+-- Host: localhost:3306
+-- Waktu pembuatan: 18 Jul 2023 pada 13.06
+-- Versi server: 8.0.33-cll-lve
+-- Versi PHP: 8.1.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `hki`
+-- Database: `kreasin3_hki`
 --
 
 -- --------------------------------------------------------
@@ -28,12 +28,12 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `failed_jobs` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `uuid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -44,9 +44,9 @@ CREATE TABLE `failed_jobs` (
 --
 
 CREATE TABLE `migrations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL
+  `id` int UNSIGNED NOT NULL,
+  `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -63,7 +63,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (7, '2019_08_19_000000_create_failed_jobs_table', 1),
 (8, '2019_12_14_000001_create_personal_access_tokens_table', 1),
 (9, '2023_07_01_153555_create_surat_supplier_table', 1),
-(10, '2023_07_08_035118_create_purchasing_detail_table', 1);
+(10, '2023_07_08_035118_create_purchasing_detail_table', 1),
+(11, '2023_07_12_150333_create_stocks_table', 2),
+(12, '2023_07_15_150025_create_productions_table', 3);
 
 -- --------------------------------------------------------
 
@@ -72,8 +74,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -84,12 +86,12 @@ CREATE TABLE `password_resets` (
 --
 
 CREATE TABLE `personal_access_tokens` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tokenable_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text COLLATE utf8mb4_unicode_ci,
+  `id` bigint UNSIGNED NOT NULL,
+  `tokenable_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `abilities` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -98,20 +100,67 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `productions`
+--
+
+CREATE TABLE `productions` (
+  `id` bigint UNSIGNED NOT NULL,
+  `line` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `shift` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nilai` bigint UNSIGNED NOT NULL,
+  `tanggal` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `productions`
+--
+
+INSERT INTO `productions` (`id`, `line`, `shift`, `nilai`, `tanggal`) VALUES
+(1, 'AXEL', 'I', 70, '2023-07-17'),
+(2, 'AXEL', 'II', 70, '2023-07-17'),
+(3, 'AXEL', 'III', 70, '2023-07-17'),
+(4, 'C/MBER', 'I', 70, '2023-07-17'),
+(5, 'C/MBER', 'II', 70, '2023-07-17'),
+(6, 'C/MBER', 'III', 70, '2023-07-17'),
+(7, 'YH4', 'I', 70, '2023-07-17'),
+(8, 'YH4', 'II', 70, '2023-07-17'),
+(9, 'YH4', 'III', 70, '2023-07-17'),
+(10, 'Y4L', 'I', 70, '2023-07-17'),
+(11, 'Y4L', 'II', 70, '2023-07-17'),
+(12, 'Y4L', 'III', 70, '2023-07-17'),
+(13, 'LH CVT', 'I', 70, '2023-07-17'),
+(14, 'LH CVT', 'II', 70, '2023-07-17'),
+(15, 'LH CVT', 'III', 70, '2023-07-17'),
+(16, 'LH RH CVT', 'I', 70, '2023-07-17'),
+(17, 'LH RH CVT', 'II', 70, '2023-07-17'),
+(18, 'LH RH CVT', 'III', 70, '2023-07-17'),
+(19, 'ROD', 'I', 70, '2023-07-17'),
+(20, 'ROD', 'II', 70, '2023-07-17'),
+(21, 'ROD', 'III', 70, '2023-07-17'),
+(22, 'TM BODY', 'I', 70, '2023-07-17'),
+(23, 'TM BODY', 'II', 70, '2023-07-17'),
+(24, 'TM BODY', 'III', 70, '2023-07-17'),
+(25, 'AMT  LVUV', 'I', 70, '2023-07-17'),
+(26, 'AMT  LVUV', 'II', 70, '2023-07-17'),
+(27, 'AMT  LVUV', 'III', 70, '2023-07-17');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `purchasing`
 --
 
 CREATE TABLE `purchasing` (
-  `id_po` bigint(20) UNSIGNED NOT NULL,
-  `po_number` int(11) NOT NULL,
-  `id_tujuan_po` int(11) NOT NULL,
-  `default_supplier_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `class` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `issue_date` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `currency_code` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `id_destination` int(11) NOT NULL,
+  `id_po` bigint UNSIGNED NOT NULL,
+  `po_number` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_tujuan_po` int NOT NULL,
+  `default_supplier_id` bigint UNSIGNED DEFAULT NULL,
+  `class` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `issue_date` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `currency_code` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_destination` int NOT NULL,
   `delivery_time` datetime NOT NULL,
-  `status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -119,10 +168,10 @@ CREATE TABLE `purchasing` (
 --
 
 INSERT INTO `purchasing` (`id_po`, `po_number`, `id_tujuan_po`, `default_supplier_id`, `class`, `issue_date`, `currency_code`, `id_destination`, `delivery_time`, `status`) VALUES
-(3, 90, 2, 2, 'SUPPLIER', '8/7/2023 - 20.53.14', 'IDR', 3, '2023-07-20 00:00:00', 'On Progress'),
-(4, 91, 2, 2, 'SUPPLIER', '8/7/2023 - 21.17.49', 'EUR', 3, '2023-07-14 00:00:00', 'On Progress'),
-(5, 111, 3, 1, 'SUBCON', '10/7/2023 - 20.41.50', 'IDR', 1, '2023-07-11 00:00:00', 'On Progress'),
-(6, 1, 2, 2, 'SUPPLIER', '10/7/2023 - 21.18.14', 'IDR', 3, '2023-07-11 00:00:00', 'On Progress');
+(98, 'hki202001', 3, 3, 'SUPPLIER', '17/7/2023 - 09.43.54', 'IDR', 2, '2023-07-18 00:00:00', 'Finish'),
+(99, 'hki202301', 2, 1, 'SUBCON', '17/7/2023 - 09.48.27', 'IDR', 1, '2023-07-18 00:00:00', 'Finish'),
+(100, 'hki220011', 3, 3, 'SUPPLIER', '17/7/2023 - 10.24.23', 'IDR', 2, '2023-07-19 00:00:00', 'Finish'),
+(101, 'hki331011', 2, 1, 'SUBCON', '17/7/2023 - 10.37.01', 'IDR', 1, '2023-07-20 00:00:00', 'Finish');
 
 -- --------------------------------------------------------
 
@@ -131,16 +180,16 @@ INSERT INTO `purchasing` (`id_po`, `po_number`, `id_tujuan_po`, `default_supplie
 --
 
 CREATE TABLE `purchasing_details` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `id_po` bigint(20) UNSIGNED NOT NULL,
-  `part_no` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `part_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `unit_price` int(11) NOT NULL,
-  `order_qty` int(11) NOT NULL,
-  `unit` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `composition` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `amount` int(11) NOT NULL,
-  `order_number` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL
+  `id` bigint UNSIGNED NOT NULL,
+  `id_po` bigint UNSIGNED NOT NULL,
+  `part_no` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `part_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `unit_price` int NOT NULL,
+  `order_qty` int NOT NULL,
+  `unit` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `composition` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `amount` int NOT NULL,
+  `order_number` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -148,11 +197,10 @@ CREATE TABLE `purchasing_details` (
 --
 
 INSERT INTO `purchasing_details` (`id`, `id_po`, `part_no`, `part_name`, `unit_price`, `order_qty`, `unit`, `composition`, `amount`, `order_number`) VALUES
-(2, 3, '90A', 'Besi', 90, 3, 'KG', '90', 24300, 'P90A'),
-(3, 4, '91A', 'Baja Ringan', 90, 5, 'Ton', '800', 360000, 'PO91A'),
-(4, 4, '91B', 'Alumunium', 90, 9, 'KG', '800', 360000, 'PO91B'),
-(5, 5, '1', 'metal', 1000, 10000, 'pcs', '0.2', 2000000, '1'),
-(6, 6, '1', 'metal', 1000, 2000, 'pcs', '0.2', 400000, '1');
+(30, 98, 't1.4X298.5HX84B', 'JSH440WN-P', 25946, 2000, 'KG', '0.138', 7161096, 'PUU010203'),
+(31, 99, '45825-73R00', 'REINF,SPNSN', 3712, 100, 'pcs', '1', 371200, 'puu221133'),
+(32, 100, 't1.4X298.5HX84B', 'JSH440WN-P', 25946, 2000, 'kg', '0.138', 7161096, 'puu020311'),
+(33, 101, '45825-73R00', 'REINF,SPNSN', 3712, 100, 'pcs', '1', 371200, 'puu113322');
 
 -- --------------------------------------------------------
 
@@ -161,8 +209,8 @@ INSERT INTO `purchasing_details` (`id`, `id_po`, `part_no`, `part_name`, `unit_p
 --
 
 CREATE TABLE `role` (
-  `role_id` bigint(20) UNSIGNED NOT NULL,
-  `role_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `role_id` bigint UNSIGNED NOT NULL,
+  `role_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -177,16 +225,40 @@ INSERT INTO `role` (`role_id`, `role_name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `stocks`
+--
+
+CREATE TABLE `stocks` (
+  `id_sisa` bigint UNSIGNED NOT NULL,
+  `id_po` bigint UNSIGNED NOT NULL,
+  `qty_sub` int DEFAULT NULL,
+  `qty_sup` int DEFAULT NULL,
+  `comp_sub` float DEFAULT NULL,
+  `comp_sup` float DEFAULT NULL,
+  `total` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `stocks`
+--
+
+INSERT INTO `stocks` (`id_sisa`, `id_po`, `qty_sub`, `qty_sup`, `comp_sub`, `comp_sup`, `total`) VALUES
+(12, 98, 100, 2000, 1, 0.138, 176),
+(13, 100, NULL, 2000, NULL, 0.138, 276);
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `surat`
 --
 
 CREATE TABLE `surat` (
-  `no_surat` bigint(20) UNSIGNED NOT NULL,
+  `no_surat` bigint UNSIGNED NOT NULL,
   `tanggal` datetime NOT NULL,
-  `po_number` varchar(225) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `pengirim` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `penerima` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `po_number` varchar(225) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pengirim` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `penerima` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -194,9 +266,10 @@ CREATE TABLE `surat` (
 --
 
 INSERT INTO `surat` (`no_surat`, `tanggal`, `po_number`, `pengirim`, `penerima`, `status`) VALUES
-(1, '2023-07-11 00:00:00', '90', 'Supplier 1', 'Subcon 1', 'Finish'),
-(2, '2023-07-18 00:00:00', '111', 'Subcon 1', 'admin HKI', 'Finish'),
-(3, '2023-07-11 00:00:00', '1', 'Supplier 1', 'Subcon 1', 'Finish');
+(1, '2023-07-18 00:00:00', 'hki202001', 'JFE SHOJI STEEL INDONESIA', 'MIYUKI INDONESIA', 'Finish'),
+(2, '2023-07-19 00:00:00', 'hki202301', 'MIYUKI INDONESIA', 'admin HKI', 'Finish'),
+(3, '2023-07-19 00:00:00', 'hki220011', 'JFE SHOJI STEEL INDONESIA', 'MIYUKI INDONESIA', 'Finish'),
+(4, '2023-07-20 00:00:00', 'hki331011', 'MIYUKI INDONESIA', 'admin HKI', 'Finish');
 
 -- --------------------------------------------------------
 
@@ -205,11 +278,11 @@ INSERT INTO `surat` (`no_surat`, `tanggal`, `po_number`, `pengirim`, `penerima`,
 --
 
 CREATE TABLE `surat_details` (
-  `no_surat` bigint(20) UNSIGNED NOT NULL,
-  `part_no` varchar(225) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `part_name` varchar(225) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `qty` varchar(225) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `unit` varchar(225) COLLATE utf8mb4_unicode_ci NOT NULL
+  `no_surat` bigint UNSIGNED NOT NULL,
+  `part_no` varchar(225) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `part_name` varchar(225) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `qty` varchar(225) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `unit` varchar(225) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -217,9 +290,10 @@ CREATE TABLE `surat_details` (
 --
 
 INSERT INTO `surat_details` (`no_surat`, `part_no`, `part_name`, `qty`, `unit`) VALUES
-(1, '90A', 'Besi', '3', 'KG'),
-(2, '1', 'metal', '10000', 'pcs'),
-(3, '1', 'metal', '2000', 'pcs');
+(1, 't1.4X298.5HX84B', 'JSH440WN-P', '2000', 'KG'),
+(2, '45825-73R00', 'REINF,SPNSN', '100', 'pcs'),
+(3, 't1.4X298.5HX84B', 'JSH440WN-P', '2000', 'kg'),
+(4, '45825-73R00', 'REINF,SPNSN', '100', 'pcs');
 
 -- --------------------------------------------------------
 
@@ -228,12 +302,12 @@ INSERT INTO `surat_details` (`no_surat`, `part_no`, `part_name`, `qty`, `unit`) 
 --
 
 CREATE TABLE `users` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nama` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `role_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `id` bigint UNSIGNED NOT NULL,
+  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nama` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `role_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -242,8 +316,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `nama`, `role_id`, `password`, `created_at`) VALUES
 (1, 'hki', 'admin HKI', '1', '$2a$12$NP61H8qRLkmw5aqNaa2OfuEntASvkqCXD9NfE3l8kPeqj6ndDNIni', NULL),
-(2, 'supplier', 'Supplier 1', '3', '$2a$12$NP61H8qRLkmw5aqNaa2OfuEntASvkqCXD9NfE3l8kPeqj6ndDNIni', NULL),
-(3, 'subcon', 'Subcon 1', '2', '$2a$12$NP61H8qRLkmw5aqNaa2OfuEntASvkqCXD9NfE3l8kPeqj6ndDNIni', NULL);
+(2, 'miyuki', 'MIYUKI INDONESIA', '2', '$2y$10$uTjUoQ9zjpQMckrzaOvO6.uvHXSQjA3XJZbRCTJNPB6bUVMg4gatW', '17-07-2023'),
+(3, 'JFE', 'JFE SHOJI STEEL INDONESIA', '3', '$2y$10$DKZW8nBhoMHdfOPsK2WrZOcNzFdp3swgCc4v251d1irI0cyX1LU/q', '17-07-2023');
 
 -- --------------------------------------------------------
 
@@ -252,15 +326,15 @@ INSERT INTO `users` (`id`, `username`, `nama`, `role_id`, `password`, `created_a
 --
 
 CREATE TABLE `users_detail` (
-  `id_detail` bigint(20) UNSIGNED NOT NULL,
-  `id_user` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `id_perusahaan` int(11) NOT NULL,
-  `class` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `telepon` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `fax` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `alamat` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_date` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `id_detail` bigint UNSIGNED NOT NULL,
+  `id_user` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id_perusahaan` int NOT NULL,
+  `class` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `telepon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `fax` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `alamat` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `user_date` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -269,8 +343,8 @@ CREATE TABLE `users_detail` (
 
 INSERT INTO `users_detail` (`id_detail`, `id_user`, `id_perusahaan`, `class`, `email`, `telepon`, `fax`, `alamat`, `user_date`) VALUES
 (1, '1', 1, 'HKI', 'admin@hki.co.id', '087778896543', '123456654321', 'Karawang', NULL),
-(2, '2', 3, 'SUPPLIER', 'admin@supplier.co.id', '087778896097', '123456654321', 'Purwakarta', NULL),
-(3, '3', 2, 'SUBCON', 'admin@subcon.co.id', '087778896678', '123456654321', 'Jakarta', NULL);
+(4, '2', 30030, 'SUBCON', 'MIYUKIINDONESIA@gmail.com', '02189119670', '02189119670', 'KAWASAN INDUSTRI KIIC KARAWANG JL MALIGI VII LOT.Q-1B, Jawa Barat 41361', '17-07-2023'),
+(5, '3', 50010, 'SUPPLIER', 'jfe@gmail.com', '0218980903', '0218980903', 'Kawasan Industri MM 2100 Blok B-4/2, Jalan Kalimantan 1, Cibitung, Gandamekar, Bekasi, Kabupaten Bekasi, Jawa Barat 17530', '17-07-2023');
 
 --
 -- Indexes for dumped tables
@@ -304,6 +378,12 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
+-- Indeks untuk tabel `productions`
+--
+ALTER TABLE `productions`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `purchasing`
 --
 ALTER TABLE `purchasing`
@@ -321,6 +401,13 @@ ALTER TABLE `purchasing_details`
 --
 ALTER TABLE `role`
   ADD PRIMARY KEY (`role_id`);
+
+--
+-- Indeks untuk tabel `stocks`
+--
+ALTER TABLE `stocks`
+  ADD PRIMARY KEY (`id_sisa`),
+  ADD KEY `stocks_id_po_foreign` (`id_po`);
 
 --
 -- Indeks untuk tabel `surat`
@@ -355,55 +442,67 @@ ALTER TABLE `users_detail`
 -- AUTO_INCREMENT untuk tabel `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT untuk tabel `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `productions`
+--
+ALTER TABLE `productions`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT untuk tabel `purchasing`
 --
 ALTER TABLE `purchasing`
-  MODIFY `id_po` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_po` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
 -- AUTO_INCREMENT untuk tabel `purchasing_details`
 --
 ALTER TABLE `purchasing_details`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT untuk tabel `role`
 --
 ALTER TABLE `role`
-  MODIFY `role_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `role_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT untuk tabel `stocks`
+--
+ALTER TABLE `stocks`
+  MODIFY `id_sisa` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT untuk tabel `surat`
 --
 ALTER TABLE `surat`
-  MODIFY `no_surat` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `no_surat` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `users_detail`
 --
 ALTER TABLE `users_detail`
-  MODIFY `id_detail` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_detail` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
@@ -414,6 +513,12 @@ ALTER TABLE `users_detail`
 --
 ALTER TABLE `purchasing_details`
   ADD CONSTRAINT `purchasing_details_id_po_foreign` FOREIGN KEY (`id_po`) REFERENCES `purchasing` (`id_po`);
+
+--
+-- Ketidakleluasaan untuk tabel `stocks`
+--
+ALTER TABLE `stocks`
+  ADD CONSTRAINT `stocks_id_po_foreign` FOREIGN KEY (`id_po`) REFERENCES `purchasing` (`id_po`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `surat_details`
