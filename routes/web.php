@@ -47,7 +47,7 @@ Route::controller(c_user::class)->middleware('auth')->group(function () {
 // Hki PO
 Route::controller(c_purchasingOrder::class)->middleware('auth')->group(function () {
     // PO Supplier
-    Route::get('hki/po/supplier', 'tampilPO_Supplier')->name('hki.po.supplier.index');
+    Route::get('hki/po/supplier/', 'tampilPO_Supplier')->name('hki.po.supplier.index');
     Route::get('hki/po/supplier/create', 'createPO_Supplier')->name('hki.po.supplier.create');
     Route::post('hki/po/supplier/store', 'storePO_Supplier')->name('hki.po.supplier.store');
     Route::get('hki/po/supplier/edit/{id}/{id_subcon}/{id_supplier}', 'editPO_Supplier')->name('hki.po.supplier.edit');
@@ -72,7 +72,7 @@ Route::controller(c_purchasingOrder::class)->middleware('auth')->group(function 
 
     // Ajax Hki PO
         //import PO oleh HKI
-    Route::post('hki/import/po','import')->name('import');
+    Route::post('hki/import/po/{class}','import')->name('import');
     Route::get('hki/production','getProduction')->name('hki.production.index');
     Route::post('hki/production/upload','uploadProduction')->name('hki.production.upload');
     Route::get('hki/production/export','exportProduction')->name('hki.production.export');

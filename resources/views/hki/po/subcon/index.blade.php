@@ -20,8 +20,34 @@
 	
     <div class="mb-2" style="text-align: left">
         <a href="{{route('hki.po.subcon.create')}}" class="btn btn-primary shadow"><i class="fa-solid fa-square-plus"></i> Tambah PO</a>
-        <a href="#" class="btn btn-info shadow" style="color: white"><i class="fa-sharp fa-solid fa-cloud-arrow-up"></i> Upload PO</a>
+        <a href="#" class="btn btn-info shadow" style="color: white" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-sharp fa-solid fa-cloud-arrow-up"></i> Upload PO</a>
     </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Import Excel</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ url('hki/import/po/subcon') }}"
+                method="POST"
+                enctype="multipart/form-data">
+              @csrf
+              <input type="file" name="file" class="form-control">
+              <input type="hidden" name="class" value="SUBCON">
+              <br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Import</button>
+            </div>
+        </form>
+          </div>
+        </div>
+      </div>
 
     <div class="row">
         <div class="col col-md-12 col-12 mt-2">
@@ -56,6 +82,7 @@
                             <td>
                                 <select name="status" class="form-select" id="status{{$data->id_po}}" onchange="ubahStatus({{$data->id}})" >
                                     <option value="" @if($data->status == "") selected @endif>--Status --</option>
+                                    <option value="Unsend" @if($data->status == "Unsend") selected @endif>Unsend</option>
                                     <option value="On Progress" @if($data->status == "On Progress") selected @endif>On Progress</option>
                                     <option value="Finish"  @if($data->status == "Finish") selected @endif>Finish</option>
                                 </select>

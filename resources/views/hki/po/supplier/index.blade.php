@@ -33,12 +33,12 @@
           </button>
         </div>
         <div class="modal-body">
-            <form action="{{ route('import') }}"
+            <form action="{{ url('hki/import/po/supplier') }}"
             method="POST"
             enctype="multipart/form-data">
           @csrf
           <input type="file" name="file" class="form-control">
-          <input type="hidden" name="role" value="2">
+          <input type="hidden" name="class" value="SUPPLIER">
           <br>
         </div>
         <div class="modal-footer">
@@ -83,6 +83,7 @@
                             <td>
                                 <select name="status" class="form-select" id="status{{$data->id_po}}" onchange="ubahStatus({{$data->id}})" >
                                     <option value="" @if($data->status == "") selected @endif>--Status --</option>
+                                    <option value="Unsend" @if($data->status == "Unsend") selected @endif>Unsend</option>
                                     <option value="On Progress" @if($data->status == "On Progress") selected @endif>On Progress</option>
                                     <option value="Finish"  @if($data->status == "Finish") selected @endif>Finish</option>
                                 </select>

@@ -11,6 +11,7 @@ use App\Models\m_purchasingOrder;
 use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\Validators\ValidationException;
 use App\Imports\ImportProduction;
+use App\Imports\POImport;
 use App\Exports\ExportProduction;
 use Illuminate\Support\Collection;
 
@@ -344,52 +345,20 @@ class c_purchasingOrder extends Controller
 
     }
 
-    public function import(Request $request){
-        $data = Excel::toArray([], $request->file('file')->store('files'));
-        $validateTanggal = array_filter($data[0][1], function($value) {
-            return $value == date('d');
-        });
-        $import = new ImportProduction;
-        Excel::import($import, $request->file('file')->store('files'));
-        
-// die;
-//         $validateData = array_filter($data[0][1], function($value) {
-//             return $value == date('d');
-//         });
-//         die;
-//         if(in_array(date('d'), $validateTanggal) == TRUE){
-//             echo 'data tersedia';
-//         }else{
-//             echo 'data tidak tersedia';
-//         }
-//             die;
-//             Excel::import(new ImportProduction, $request->file('file')->store('files'));
-//             echo 'berhasil upload report production';
-        // die;
-        // foreach ($fileArray[0] as $key){
-        //     $id = intval($key[5]);
-        //     $data = DB::table('users')->where('id','=',$id)->get();
-        //     foreach($data as $d){
-        //         if($d->id == $id){
-        //             if($request['role'] === "2"){
-        //                 Excel::import(new ImportUser, $request->file('file')->store('files'));
-        //                 return redirect()->route('hki.po.subcon.index')->with('success','Berhasil Import PO');
-        //             }else{
-        //                 Excel::import(new ImportSupplier,
-        //                 $request->file('file')->store('files'));
-        //                 return redirect()->route('hki.po.supplier.index')->with('success','Berhasil Import PO');   
-        //             }
-        //         }else{
-        //             return redirect()->route('hki.po.subcon.index')->with('success','Gagal Import PO');   
-        //         }
-        //     }
-        // }
+    public function import(Request $request,$class){
+        if($class === 'supplier'){
+            Excel::import(new POImport('SUPPLIER','3'), $request->file('file')->store('files'));
+            return redirect()->route('hki.po.supplier.index')->with('success','Berhasil Import PO Supplier');
+        }else{
+            Excel::import(new POImport('SUBCON','2'), $request->file('file')->store('files'));
+            return redirect()->route('hki.po.subcon.index')->with('success','Berhasil Import PO Subcon');
+        }
     }
 
     public function getProduction(){
-        $data = [
-            'productions' => $this->Prod->getData()
-        ];
+        $data = array($this->Prod->getData());
+        $nilai = array_column($data, 'nilai', 'tanggal');
+        dd($data);
         return view('hki.production.index',$data);
     }
 
