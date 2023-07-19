@@ -102,7 +102,21 @@ class c_purchasingOrder extends Controller
             'supplier' => $this->user->supplierData(),
             'supplierBy' => $this->user->supplierDataById($id_supplier) 
         ];
+        // dd($data[])
         return view ('hki.po.supplier.edit', $data);
+    }
+
+    public function editUploadPO_Supplier($id)
+    {
+        $data =[
+            'PO' => $this->PO->detailData($id),
+            'POById'=> $this->PO->getPOById('purchasing',$id),
+            'subcon' => $this->user->subconData(),
+            'subconBy' => $this->user->subconDataById(NULL),
+            'supplier' => $this->user->supplierData(),
+            'supplierBy' => $this->user->supplierDataById(NULL) 
+        ];
+        return view ('hki.po.supplier.editUpload', $data);
     }
 
     public function updatePO_Supplier(Request $request, $id_po)
@@ -120,7 +134,8 @@ class c_purchasingOrder extends Controller
                 "issue_date" => $request->issue_date,
                 "currency_code" => $request->currency,
                 "id_destination" => $request->destination,
-                "delivery_time" => $request->delivery_date
+                "delivery_time" => $request->delivery_date,
+                "status" => 'On Progress'
             ];
             $this->PO->editData('purchasing','id_po',$id_po, $po);
             $parts = [];
@@ -283,7 +298,8 @@ class c_purchasingOrder extends Controller
                 "issue_date" => $request->issue_date,
                 "currency_code" => $request->currency,
                 "id_destination" => $request->destination,
-                "delivery_time" => $request->delivery_date
+                "delivery_time" => $request->delivery_date,
+                "status" => 'On Progress'
             ];
             $this->PO->editData('purchasing','id_po',$id_po, $po);
             $parts = [];

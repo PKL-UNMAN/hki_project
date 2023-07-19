@@ -62,7 +62,7 @@ class m_user extends Model
 
     public function subconDataById($id)
     {
-        return DB::table('users')->where('id', $id)->first();
+        return DB::table('users')->where('id', $id)->orWhere('id',NULL)->first();
     }
 
 
@@ -74,7 +74,7 @@ class m_user extends Model
 
     public function supplierDataById($id)
     {
-        return DB::table('users')->where('id', $id)->first();
+        return DB::table('users')->where('id', $id)->orWhere('id',NULL)->first();
     }
 
 

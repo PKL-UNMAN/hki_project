@@ -93,7 +93,12 @@
                             <div class="form-group mt-3 text-start">
                                 <label for="" class="fw-bold">Currency</label>
                                 <select id="currency" class="form-control @error('currency') is-invalid @enderror">
-                                    <option value="{{$POById->currency_code}}">-- {{$POById->currency_code}} --</option>
+                                    <option value="{{$POById->currency_code}}">-- 
+                                    @if ($POById->currency_code !== NULL)
+                                        {{$POById->currency_code}}
+                                    @else
+                                     {{$else = 'Pilih Currency'}} 
+                                    @endif --</option>
                                     <option>IDR</option>
                                 </select>
                                 @error('currency')

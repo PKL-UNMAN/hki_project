@@ -20,7 +20,7 @@
                             <div class="form-group text-start">
                                 <label for="id_tujuan" class="text-left fw-bold">Tujuan Supplier (Nama Perusahaan)</label>
                                 <select id="id_tujuan" class="form-control @error('id_tujuan') is-invalid @enderror">
-                                <option data-class="SUPPLIER" data-id="{{$supplierBy->id}}" value="{{$POById->id_tujuan_po}}"> {{$POById->id_tujuan_po}} - {{$POById->nama}} (Dipilih)</option>
+                                    <option>-- Pilih Tujuan Supplier --</option>
                                     @foreach($supplier as $data)
                                     <option data-id="{{$data->id}}" data-class="SUPPLIER" value="{{$data->id}}">{{$data->id}} - {{$data->nama}}</option>
                                     @endforeach
@@ -33,7 +33,7 @@
                             </div>
                             <div class="form-group mt-3 text-start">
                                 <label for="po_number" class="fw-bold">PO Number</label>
-                                <input type="text" class="form-control @error('po_number') is-invalid @enderror" id="po_number" placeholder="Masukkan po_number" value="{{$POById->po_number}}">
+                                <input type="text" class="form-control @error('po_number') is-invalid @enderror" id="po_number" placeholder="Masukkan po_number">
                                 @error('po_number')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -43,7 +43,7 @@
                             <div class="form-group mt-3 text-start">
                                 <label for="destination" class="fw-bold">Tujuan Pengiriman (Delivery Destination)</label>
                                 <select id="destination" class="form-control @error('destination') is-invalid @enderror">
-                                    <option value="{{$subconBy->id}}">{{$subconBy->nama}}</option>
+                                    <option>-- Pilih Tujuan Pengiriman --</option>
                                     @foreach($subcon as $data)
                                         <option value="{{$data->id}}">{{$data->nama}}</option>
                                     @endforeach
@@ -97,7 +97,7 @@
                             <div class="form-group mt-3 text-start">
                                 <label for="currency" class="fw-bold">Currency</label>
                                 <select id="currency" class="form-control @error('currency') is-invalid @enderror">
-                                    <option value="{{$POById->currency_code}}">-- {{$POById->currency_code}} --</option>
+                                    <option>-- Pilih Currency Code --</option>
                                     <option>IDR</option>
                                     <option>EUR</option>
                                 </select>
