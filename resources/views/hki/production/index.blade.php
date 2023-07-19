@@ -1,4 +1,4 @@
-@extends('layouts.templateBaru',['title'=>'PO Supplier'])
+@extends('layouts.templateBaru',['title'=>'Production'])
 @section('content')
 <div class="container">
     <div class="header bg-primary text-light pb-3 pt-4 mb-3 rounded shadow">
@@ -19,9 +19,41 @@
     @endif
 	
     <div class="mb-2" style="text-align: left">
-        <a href="{{route('hki.production.export')}}" class="btn btn-primary shadow"><i class="fa-solid fa-square-plus"></i> Export</a>
-        <button type="button" class="btn btn-info shadow" data-bs-toggle="modal" data-bs-target="#exampleModal" style="color: white"><i class="fa-sharp fa-solid fa-cloud-arrow-up"></i> Upload Production</button>
-    </div>
+      <a href="{{route('hki.production.export')}}" class="btn btn-primary shadow"><i class="fa-solid fa-square-plus"></i> Export</a>
+      <button type="button" class="btn btn-info shadow" data-bs-toggle="modal" data-bs-target="#exampleModal" style="color: white"><i class="fa-sharp fa-solid fa-cloud-arrow-up"></i> Upload Production</button>
+  </div>
+    <div class="row">
+      <div class="col col-md-12 col-12 mt-2">
+          <div class="ss" data-aos="fade-up">
+              <table id="surat_hki" class="display nowrap table" style="width:100%">
+                  <thead>
+                      <tr>
+                          <th>No</th>
+                          <th>Line</th>
+                          <th>Shift</th>
+                          <th>Nilai Production</th>
+                          <th>Tanggal</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      @php
+                          $no=1;
+                      @endphp
+                  @foreach ($productions as $data)
+                  <tr>
+                      <td>{{$no++}}</td>
+                      <td>{{$data->line}}</td>
+                      <td>{{$data->shift}}</td>
+                      <td>{{$data->nilai}}</td>
+                      <td>{{$data->tanggal}}</td>
+                  </tr>
+                  @endforeach
+                  </tbody>
+              </table>
+          </div>
+      </div>
+  </div>
+
       <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

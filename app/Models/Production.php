@@ -24,6 +24,10 @@ class Production extends Model
         ->get();
     }
 
+    public function getData(){
+        return DB::table('productions')->get();
+    }
+
     public static function groupingData(){
         return DB::table('productions')
         ->orderBy('tanggal', 'ASC')

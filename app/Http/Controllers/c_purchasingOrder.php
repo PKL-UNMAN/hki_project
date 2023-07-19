@@ -26,6 +26,7 @@ class c_purchasingOrder extends Controller
         $this->user = new m_user();
         $this->role = new m_role();
         $this->PO = new m_purchasingOrder();
+        $this->Prod = new Production();
        
     }
 
@@ -386,7 +387,10 @@ class c_purchasingOrder extends Controller
     }
 
     public function getProduction(){
-        return view('hki.production.index');
+        $data = [
+            'productions' => $this->Prod->getData()
+        ];
+        return view('hki.production.index',$data);
     }
 
     public function uploadProduction(Request $request){
