@@ -74,6 +74,11 @@
                     <table border="0">
                         <tbody>
                             <tr>
+                                <td>
+                                    {!! DNS1D::getBarcodeHTML("$from->no_surat",'C128',2,40) !!}
+                                </td>
+                            </tr>
+                            <tr>
                                 <td class="field">
                                     Sender:&nbsp; {{$from->pengirim}}
                                 </td>

@@ -165,6 +165,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Mavinoo\Batch\BatchServiceProvider::class,
+        Milon\Barcode\BarcodeServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -198,6 +199,8 @@ return [
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'Excel' =>Maatwebsite\Excel\Facades\Excel::class,
         'Batch' => Mavinoo\Batch\BatchFacade::class,
+        'DNS1D' => Milon\Barcode\Facades\DNS1DFacade::class,
+        'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
     ])->toArray(),
 
 ];
