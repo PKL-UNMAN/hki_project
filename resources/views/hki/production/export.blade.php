@@ -14,18 +14,13 @@
     </thead>
     <tbody>
         @php
-            $retdata = array();
 
         @endphp
         @foreach ($export as $item)
         <tr>
             <td>{{$item->line}}</td>
             <td>{{$item->shift}}</td>
-            @foreach ($group as $row => $columns)
-                @foreach ($columns as $row2 => $column2)
-                        <td>{{$column2->nilai}}</td>
-                @endforeach
-            @endforeach
+            {{-- <td>{{$item->nilai}}</td> --}}
         </tr>
         @endforeach
     </tbody>

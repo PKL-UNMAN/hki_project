@@ -24,8 +24,11 @@ class Production extends Model
         ->get();
     }
 
-    public function getData(){
-        return DB::table('productions')->get();
+    public static function groupColumn(){
+        return DB::table('productions')
+        ->select('line','shift')
+        ->groupBy('line','shift')
+        ->get();
     }
 
     public static function groupingData(){

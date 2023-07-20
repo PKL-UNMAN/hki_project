@@ -15,9 +15,8 @@ class ExportProduction implements FromView
     public function view(): View
     {
         return view('hki.production.export', [
-            'export' => Production::all(),
-            'date' => Production::groupDate(),
-            'group' => Production::groupingData()
+            'export' => Production::groupColumn(),
+            'date' => Production::groupDate()
         ]);
     }
 }

@@ -372,9 +372,9 @@ class c_purchasingOrder extends Controller
     }
 
     public function getProduction(){
-        $data = array($this->Prod->getData());
-        $nilai = array_column($data, 'nilai', 'tanggal');
-        dd($data);
+        $data = [
+            'productions'=> $this->Prod->getData()
+       ];
         return view('hki.production.index',$data);
     }
 
@@ -385,16 +385,30 @@ class c_purchasingOrder extends Controller
 
 
     public function exportProduction(Request $request){
-        $data = DB::table('productions')
-        ->orderBy('tanggal', 'ASC')
-        ->get()
-        ->toArray();
-        $collection = collect($data);
-        $transposedData = $collection->transpose()->map(function($data) {
-            return $data;
-          });
-        dd($transposedData);
-        // return Excel::download(new ExportProduction, 'production_counter.xlsx');
+        $dt = DB::table('productions')
+        ->select('nilai')
+        ->groupBy('line','id')
+        ->get();
+        $no = 1;
+        foreach($dt as $d){
+            if($no <= 27){
+                echo $no.' kolom (1) </br>';
+            }elseif($no > 27){
+                echo $no.' kolom (2) </br>';
+            }
+            $no++;
+        }
+
+        echo '<table>';
+        echo '<tr>';
+        for($i = 0; $i < 10; $i++) { 
+            echo '<td>Column'.$i.'</td>';
+        }
+    '</tr>';
+    '</table>';
+
+        // return Excel::download(new exportProduction, 'productions.xlsx');
+        
     }
 
     
