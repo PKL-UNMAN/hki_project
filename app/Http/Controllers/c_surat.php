@@ -189,6 +189,11 @@ class c_surat extends Controller
         return redirect()->route('subcon.surat.index')->with('success', 'Berhasil Dihapus');
     }
 
+    public function subcon_scanSurat()
+    {
+        return view('subcon.suratSup.scan');
+    }
+
 
     // surat supplier
     public function tampilSurat_supplier()

@@ -144,6 +144,9 @@ Route::controller(c_surat::class)->middleware('auth')->group(function () {
     Route::post('subcon/surat/update/{no}', 'updateSurat_Subcon')->name('subcon.surat.update');
     Route::get('subcon/surat/read/{no}', 'readSurat_Subcon')->name('subcon.surat.read');
     Route::get('subcon/surat/delete/{no}', 'destroySurat_Subcon')->name('subcon.surat.delete');
+
+     // scan barcode surat di subcon
+     Route::get('subcon/suratSup/scan', 'subcon_scanSurat')->name('subcon.surat.scan');
     
     // Surat Supplier
     Route::get('supplier/surat', 'tampilSurat_supplier')->name('supplier.surat.index');

@@ -2,6 +2,9 @@
 @section('content')
 <div class="container">
     <h3>Surat Jalan Supplier {{Auth::user()->name}}</h3>
+    <div style="display: flex;justify-content: flex-end;">
+        <a href="#" class="btn btn-info" onclick="modalscan()"><i class="bi bi-camera-fill"></i> Scan Barcode</a>
+     </div>
     @if (session()->has('success'))
     <script>
         window.onload = function () {
@@ -85,6 +88,22 @@
         </div>
     </div>
 </div>
+<div id="scan" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="scanTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="scanTitle">Modal Title</h5>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-0" id="pagescaner"></p>
+                </div>
+                <div id="modalFooter" class="modal-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
 {{-- endModal --}}
 @endsection
 
@@ -171,5 +190,12 @@
             $("#exampleModalCenter").modal('show');
         })
     }
+    function modalscan( ) {
+            $.get("{{ url('subcon/suratSup/scan') }}", {}, function(data, status) {
+                $("#scanTitle").html(`Scan Barcode Surat jalan`)
+                $("#pagescaner").html(data);
+                $("#scan").modal('show');
+            })
+        }
 </script>
 @endsection
