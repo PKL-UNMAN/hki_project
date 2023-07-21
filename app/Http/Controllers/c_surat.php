@@ -37,6 +37,10 @@ class c_surat extends Controller
         ];
         return view('hki.surat.index', $data);
     }
+    public function hki_scanSurat()
+    {
+        return view('hki.surat.scan');
+    }
 
     // END Surat HKI
 

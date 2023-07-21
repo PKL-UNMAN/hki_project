@@ -3,6 +3,9 @@
     <div class="container">
         <h1 class="left-align" style="text-align: left;">Surat Jalan HKI</h1>
         <p class="left-align" style="text-align: left;">Dashboard>Surat Jalan</p>
+        <div style="display: flex;justify-content: flex-end;">
+           <a href="#" class="btn btn-info" onclick="modalscan()"><i class="bi bi-camera-fill"></i> Scan Barcode</a>
+        </div>
         @if (session()->has('success'))
             <script>
                 window.onload = function() {
@@ -86,11 +89,28 @@
             </div>
         </div>
     </div>
+    <div id="scan" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="scanTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="scanTitle">Modal Title</h5>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-0" id="pagescaner"></p>
+                </div>
+                <div id="modalFooter" class="modal-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
     {{-- endModal --}}
 @endsection
 
 @section('script')
     <script>
+        let html5QrcodeScanner; // Definisikan sebagai variabel global
         $(document).ready(function() {
             var t = $('#surat_hki').DataTable({
                 rowReorder: {
@@ -159,5 +179,13 @@
                 $("#exampleModalCenter").modal('show');
             })
         }
+        function modalscan( ) {
+            $.get("{{ url('hki/surat/scan') }}", {}, function(data, status) {
+                $("#scanTitle").html(`Scan Barcode Surat jalan`)
+                $("#pagescaner").html(data);
+                $("#scan").modal('show');
+            })
+        }
     </script>
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 @endsection
