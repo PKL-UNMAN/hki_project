@@ -38,6 +38,7 @@
               @csrf
               <input type="file" name="file" class="form-control">
               <input type="hidden" name="class" value="SUBCON">
+              <input type="hidden" name="role_id" value="2">
               <br>
             </div>
             <div class="modal-footer">
@@ -100,7 +101,7 @@
               </div>
         </div>
     </div>
-  @foreach ($PO as $item)
+  @foreach ($detail_PO as $item)
   <!-- Modal -->
   <div class="modal fade" id="exampleModal{{$item->id_po}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">

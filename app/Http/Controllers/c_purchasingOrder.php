@@ -116,6 +116,7 @@ class c_purchasingOrder extends Controller
             'supplier' => $this->user->supplierData(),
             'supplierBy' => $this->user->supplierDataById(NULL) 
         ];
+
         return view ('hki.po.supplier.editUpload', $data);
     }
 
@@ -134,7 +135,6 @@ class c_purchasingOrder extends Controller
                 "issue_date" => $request->issue_date,
                 "currency_code" => $request->currency,
                 "id_destination" => $request->destination,
-                "delivery_time" => $request->delivery_date,
                 "status" => 'On Progress'
             ];
             $this->PO->editData('purchasing','id_po',$id_po, $po);
@@ -146,6 +146,7 @@ class c_purchasingOrder extends Controller
                     "unit_price" => $request->unit_price[$no],
                     "order_qty" => $request->qty[$no],
                     "unit" => $request->unit[$no],
+                    "delivery_time" => $request->delivery_date[$no],
                     "composition" => $request->composition[$no],
                     "amount" => $request->amount[$no],
                     "order_number" => $request->order_number[$no],
@@ -298,7 +299,6 @@ class c_purchasingOrder extends Controller
                 "issue_date" => $request->issue_date,
                 "currency_code" => $request->currency,
                 "id_destination" => $request->destination,
-                "delivery_time" => $request->delivery_date,
                 "status" => 'On Progress'
             ];
             $this->PO->editData('purchasing','id_po',$id_po, $po);
@@ -310,6 +310,7 @@ class c_purchasingOrder extends Controller
                     "unit_price" => $request->unit_price[$no],
                     "order_qty" => $request->qty[$no],
                     "unit" => $request->unit[$no],
+                    "delivery_time" => $request->delivery_date[$no],
                     "composition" => $request->composition[$no],
                     "amount" => $request->amount[$no],
                     "order_number" => $request->order_number[$no],
@@ -362,11 +363,21 @@ class c_purchasingOrder extends Controller
     }
 
     public function import(Request $request,$class){
+        $data = Excel::toArray([], $request->file('file')->store('files'));
+        $this->PO->addData('purchasing',
+        [
+            'po_number'=> $data[0][1][0],
+            'class'=> $request->class,
+            'currency_code'=>$data[0][1][18],
+            'id_tujuan_po'=> intval($request->role_id),
+            'status' => 'Unsend'
+            ]
+        );
         if($class === 'supplier'){
-            Excel::import(new POImport('SUPPLIER','3'), $request->file('file')->store('files'));
+            Excel::import(new POImport(), $request->file('file')->store('files'));
             return redirect()->route('hki.po.supplier.index')->with('success','Berhasil Import PO Supplier');
         }else{
-            Excel::import(new POImport('SUBCON','2'), $request->file('file')->store('files'));
+            Excel::import(new POImport(), $request->file('file')->store('files'));
             return redirect()->route('hki.po.subcon.index')->with('success','Berhasil Import PO Subcon');
         }
     }

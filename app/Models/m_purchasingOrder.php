@@ -39,7 +39,7 @@ class m_purchasingOrder extends Model
 
     public function tampilPO_Subcon()
     {
-        return DB::table('purchasing')->join('users','purchasing.id_tujuan_po','=','users.id')->where('users.role_id', '2')->get();
+        return DB::table('purchasing')->join('users','purchasing.id_tujuan_po','=','users.role_id')->where('purchasing.class', 'SUBCON')->get();
     }
 
     public function addData($table,$data)
@@ -59,7 +59,7 @@ class m_purchasingOrder extends Model
 
     public function detailPOSubcon()
     {
-        return DB::table('purchasing')->join('users','purchasing.id_tujuan_po','=','users.id')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->where('users.role_id', '2')->get();
+        return DB::table('purchasing')->join('users','purchasing.id_tujuan_po','=','users.role_id')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->where('purchasing.class', 'SUBCON')->get();
     }
 
     public function detailPOSupplier()
@@ -68,7 +68,7 @@ class m_purchasingOrder extends Model
     }
 
     public function getPOById($table,$id){
-        return DB::table('purchasing')->join('users','purchasing.id_tujuan_po','=','users.id')->where('id_po',$id)->first();
+        return DB::table('purchasing')->join('users','purchasing.id_tujuan_po','=','users.id')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->where('purchasing_details.id_po',$id)->first();
     }
 
     public function getDetailsByIdPO($id){

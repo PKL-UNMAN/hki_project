@@ -39,6 +39,7 @@
           @csrf
           <input type="file" name="file" class="form-control">
           <input type="hidden" name="class" value="SUPPLIER">
+          <input type="hidden" name="role_id" value="3">
           <br>
         </div>
         <div class="modal-footer">

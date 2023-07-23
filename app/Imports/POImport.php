@@ -10,42 +10,41 @@ use Maatwebsite\Excel\Concerns\ToCollection;
 
 class POImport implements ToCollection,WithStartRow
 {
-    public function __construct($class,$id_tujuan_po)
+    public function __construct()
     {
-        $this->class = $class;
-        $this->id_tujuan_po = $id_tujuan_po;
         $this->PO = new m_purchasingOrder();
 
     }
+
     /**
     * @param Collection $collection
     */
     public function startRow(): int
     {
-        return 2;
+        return 5;
     }
 
     public function collection(Collection $rows)
     {
-        $this->PO->addData('purchasing',[
-            'class'=> $this->class,
-            'id_tujuan_po'=> $this->id_tujuan_po,
-            'delivery_time' => Date::excelToDateTimeObject($rows[0][5]),
-            'status' => 'Unsend'
-        ]);
-        foreach ($rows as $row) 
-        {
-            $this->PO->addData('purchasing_details',[
-                'id_po' => $this->PO->getIdPo(),
-                'part_no' => $row[0],
-                'part_name' => $row[1],
-                'order_qty' => $row[2],
-                'unit' => $row[3],
-                'unit_price' => $row[4],
-                'amount' => $row[6],
-                'order_number' => $row[7]
-            ]);
+        foreach ($rows as $row)
+        { 
+            if($row[1]==="4=Credit Card" || $row[1]==NULL){
+                echo 'gagal upload';
+            }else{
+                $detail_po = [
+                    'id_po' => $this->PO->getIdPo(),
+                    'part_no' => $row[1],
+                    'part_name' => $row[2],
+                    'order_qty' => $row[5],
+                    'delivery_time' => Date::excelToDateTimeObject($row[18]),
+                    'unit' => $row[6],
+                    'unit_price' => $row[9],
+                    'amount' => $row[10],
+                    'order_number' => $row[11]
+                ];
+                $this->PO->addData('purchasing_details',$detail_po);
+            }
         }
-        
+
     }
 }

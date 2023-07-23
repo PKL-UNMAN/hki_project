@@ -74,15 +74,6 @@
                                 </span>
                                 @enderror
                             </div>
-                            <div class="form-group mt-3 text-start">
-                                <label for="delivery_date" class="fw-bold"><i class="fa-solid fa-calendar-days"></i> Delivery Date</label>
-                                <input type="datetime" class="form-control @error('delivery_date') is-invalid @enderror" id="delivery_date" value="{{$POById->delivery_time}}">
-                                @error('delivery_date')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group text-start">
@@ -192,7 +183,15 @@
                         </span>
                         @enderror
                     </div>
-
+                    <div class="form-group mt-3 text-start">
+                        <label for="delivery_date" class="fw-bold"><i class="fa-solid fa-calendar-days"></i> Delivery Date</label>
+                        <input type="datetime" class="form-control @error('delivery_date') is-invalid @enderror" id="delivery_date" value="{{$item->delivery_time}}">
+                        @error('delivery_date')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
                     <div class="form-group mt-3 text-start">
                         <label for="" class="fw-bold">Order Number</label>
                         <input type="text" class="form-control @error('order_number') is-invalid @enderror" name="order_number[]" placeholder="Masukkan order_number" value="{{$item->order_number}}">
