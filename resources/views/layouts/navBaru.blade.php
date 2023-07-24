@@ -30,7 +30,12 @@
         @endif
         {{-- hki --}}
         @if (Auth::user()->role_id == '1')
-            <li><a class="nav-link scrollto {{Route::is('hki.user.index') ? 'active':''}}" href="{{ route('hki.user.index') }}">Data Master</a></li>
+        <li class="dropdown"><a href="#"><span>Data Master</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+                <li><a class="{{Route::is('hki.user.index') ? 'active':''}}" href="{{ route('hki.user.index') }}">User</a></li>
+                <li><a class="{{Route::is('hki.part.index') ? 'active':''}}" href="{{ route('hki.part.index') }}">Part</a></li>
+            </ul>
+        </li>
             <li class="dropdown"><a href="#"><span>Purchase Order</span> <i class="bi bi-chevron-down"></i></a>
                 <ul>
                     <li><a class="{{Route::is('hki.po.supplier.index') ? 'active':''}}" href="{{ route('hki.po.supplier.index') }}">Supplier</a></li>

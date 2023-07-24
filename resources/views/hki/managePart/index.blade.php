@@ -2,9 +2,9 @@
 @section('content')
     <div class="container">
         <h1 class="left-align" style="text-align: left;">Data Master</h1>
-        <p class="left-align" style="text-align: left;">Dashboard>Data Master>User</p>
+        <p class="left-align" style="text-align: left;">Dashboard>Data Master>Part</p>
         <div class="d-flex justify-content-end">
-            <a href="{{ route('hki.user.create') }}" class="btn btn-primary" style="width:300px">Tambah User</a>
+            <a href="{{ route('hki.part.create') }}" class="btn btn-primary" style="width:300px">Tambah Part</a>
         </div>
         @if ($message = session('success'))
             <script>
@@ -17,38 +17,33 @@
         <div class="row">
             <div class="col-12 mt-2">
                 <div class="ss" data-aos="fade-up">
-                    <table id="myTable2" class="display nowrap" style="width:100%">
+                    <table id="myPart" class="display nowrap" style="width:100%">
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>ID Perusahaan</th>
-                                <th>Name Perusahaan</th>
-                                <th>Role</th>
-                                <th>Class</th>
+                                <th>Produser</th>
+                                <th>Id Part</th>
+                                <th>Part No</th>
+                                <th>Part Name</th>
+                                <th>Composition</th>
+                                <th>Unit Price</th>
                                 <th>Action</th>
                             </tr>
 
                         </thead>
                         <tbody>
-                            @php
-                                $no = 1
-                            @endphp
-                            @foreach ($user as $data)
+                            @foreach ($part as $data)
                                 <tr>
-                                    <td>{{$no++}}</td>
-                                    <td>{{$data->id_perusahaan}}</td>
+                                    <td></td>
                                     <td>{{$data->nama}}</td>
-                                    <td>{{$data->id.' - '.$data->role_name}}</td>
-                                    <td>{{$data->class}}</td>
+                                    <td>{{$data->id_part}}</td>
+                                    <td>{{$data->part_no}}</td>
+                                    <td>{{$data->part_name}}</td>
+                                    <td>{{$data->composition}}</td>
+                                    <td>{{$data->unit_price}}</td>
                                     <td>
-                                        @if ($data->role_id == '0')
-                                            No Action
-                                        @else
-                                            <a href="{{ route('hki.user.edit', $data->id) }}"
-                                                class="btn btn-warning btn-sm">Edit</a>
-                                            <a id="hapus" href="#" onclick="modalHapus({{ $data->id }})"
-                                                class="btn btn-danger btn-sm">Hapus</a>
-                                        @endif
+                                        <a href="{{ route('hki.user.edit', $data->id_part) }}"class="btn btn-warning btn-sm">Edit</a>
+                                        <a id="hapus" href="#" onclick="modalHapus({{ $data->id_part }})"class="btn btn-danger btn-sm">Hapus</a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -68,7 +63,7 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            var t = $('#myTable2').DataTable({
+            var t = $('#myPart').DataTable({
                 rowReorder: {
                     selector: 'td:nth-child(2)'
                 },
@@ -99,7 +94,7 @@
     </script>
 
     <script>
-        function modalHapus(id) {
+        function modalHapus(id_part) {
             Swal.fire({
                 title: 'Apakah Anda yakin?',
                 text: "Untuk menghapus user?",
@@ -112,7 +107,7 @@
                 if (result.isConfirmed) {
                     $.ajax({
                         type: "get",
-                        url: "{{ url('hki/user/destroy') }}/" + id,
+                        url: "{{ url('hki/part/destroy') }}/" + id_part,
                         success: function(data) {
                             location.reload(true);
                             Swal.fire(

@@ -6,6 +6,7 @@ use App\Http\Controllers\c_purchasingOrder;
 use App\Http\Controllers\c_subcon;
 use App\Http\Controllers\c_supplier;
 use App\Http\Controllers\c_surat;
+use App\Http\Controllers\c_masterpart;
 
 
 /*
@@ -42,6 +43,14 @@ Route::controller(c_user::class)->middleware('auth')->group(function () {
     Route::get('hki/user/destroy/{id}', 'destroy')->name('hki.user.destroy');
     Route::get('user/profile/{id}', 'getProfile')->name('user.profile');
     Route::post('profile/user/update/{id}', 'updateProfile')->name('profile.user.update');
+});
+// Manage Part
+Route::controller(c_masterpart::class)->middleware('auth')->group(function () {
+    Route::get('hki/part', 'index')->name('hki.part.index');
+    Route::get('hki/part/create', 'create')->name('hki.part.create');
+    Route::post('hki/part/store', 'store')->name('hki.part.store');
+    Route::get('hki/part/destroy/{id}', 'destroy')->name('hki.part.destroy');
+
 });
 
 // Hki PO
