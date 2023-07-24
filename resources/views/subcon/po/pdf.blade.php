@@ -65,9 +65,7 @@
             line-height:1;
       }
       
-      .page-break {
-            page-break-after: always;
-      }
+     
 
      </style >
 </head>
