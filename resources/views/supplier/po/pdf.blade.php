@@ -5,16 +5,20 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <style type= "text/css">
     *{
-            margin: 0;
+            margin-top: 20px;
         }
-    body {font-family: 'Times New Roman', Times, serif; background-color : #ffffff }
+        
+    body {font-family: Arial, Helvetica, sans-serif; background-color : #ffffff }
     .rangkasurat {margin:auto ;background-color : #fff;padding: 10px}
    .header {border-bottom : 3px solid black; padding: 0px;margin-top:0em;line-height: 1.5}
     .tengah {text-align : center;font-size:16px;}
     .judul{
-      text-align:center;line-height:5px;font-size:12px;margin-top:1em;}
+      text-align:center;line-height:5px;font-size:14px;padding-top:25px;}
      .isi{
-      margin-left:2em;margin-top:1em;margin-right:2em;font-size:12px;
+      margin-left:2em;margin-top:1em;margin-right:2em;
+     }
+     .isi p{
+      font-size:12px;
      }
 
      .list{
@@ -61,9 +65,10 @@
             line-height:1;
       }
       
+      .page-break {
+            page-break-after: always;
+      }
 
-
-    
      </style >
 </head>
 <body>
@@ -72,7 +77,7 @@
 
 
 <div class = "rangkasurat">
-     <table class="header" width = "100%">
+     <table class="header" width="100%">
            <tr>
                  <td style="width:100%" class = "tengah">
                        <h2 style="line-height:40px;font-weight:100"><b>PT HIRUTA KOGYO INDONESIA</b></h2>
@@ -156,10 +161,10 @@
             </div>
       </div>
 
-      <div class="isi" style="font-size:14px">
+      <div class="isi" style="font-size:10px">
       
 
-      <table width="90%" class="text-center">
+      <table width="100%" class="text-center">
       <tr>
             <th class="th"><p>No</p></th>
             <th class="th"><p>Part No</p></th>
@@ -176,7 +181,7 @@
           $no=1
       @endphp
       @foreach ($group as $item)
-            <tr>
+            <tr >
                   <td style="text-align:center;width:5%" class="td"><p>{{$no++}}</p></td>
                   <td class="td" style="width:10%"><p>{{$item->part_no}}</p></td>
                   <td class="td" style="width:20%"><p>{{$item->part_name}}</p></td>
@@ -184,9 +189,9 @@
                   <td class="td"><p>@currency($item->composition)</p></td>
                   <td class="td"><p>{{$item->unit}}</p></td>
                   <td class="td"><p>@currency($item->unit_price)</p></td>
-                  <td class="td" style="width:10%"><p>{{$item->delivery_time}}</p></td>
-                  <td class="td" style="width:10%"><p>@currency($item->amount)</p></td>
-                  <td class="td"><p>{{$item->order_number}}</p></td>
+                  <td class="td" style="width:10%"><p>&nbsp;{{$item->delivery_time}}&nbsp;</p></td>
+                  <td class="td" style="width:10%"><p>&nbsp;@currency($item->amount)&nbsp;</p></td>
+                  <td class="td"><p>&nbsp;{{$item->order_number}}&nbsp;</p></td>
             </tr>
       @endforeach
       <tr>
