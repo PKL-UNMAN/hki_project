@@ -65,9 +65,6 @@
             line-height:1;
       }
       
-      .page-break {
-            page-break-after: always;
-      }
 
      </style >
 </head>
@@ -161,7 +158,7 @@
             </div>
       </div>
 
-      <div class="isi" style="font-size:10px">
+      <div class="isi" >
       
 
       <table width="100%" class="text-center">
