@@ -42,7 +42,7 @@
                                     <td>{{$data->composition}}</td>
                                     <td>{{$data->unit_price}}</td>
                                     <td>
-                                        <a href="{{ route('hki.user.edit', $data->id_part) }}"class="btn btn-warning btn-sm">Edit</a>
+                                        <a href="{{ route('hki.part.edit', $data->id_part) }}"class="btn btn-warning btn-sm">Edit</a>
                                         <a id="hapus" href="#" onclick="modalHapus({{ $data->id_part }})"class="btn btn-danger btn-sm">Hapus</a>
                                     </td>
                                 </tr>

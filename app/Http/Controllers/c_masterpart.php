@@ -34,7 +34,7 @@ class c_masterpart extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id_user' => 'required|exists:users,id',
+            'id_user' => 'required',
             'part_no' => 'required',
             'part_name' => 'required',
             'composition' => 'required|numeric',
@@ -65,6 +65,42 @@ class c_masterpart extends Controller
             ]);
         }
         return redirect()->route('hki.part.index')->with('success', 'Part berhasil ditambahkan.');
+    }
+
+    public function edit($id)
+    {
+        $data =[
+            'produser' => $this->part->Dataproduser(),
+            'part'=>$this->part->ambil_datapart($id),
+        ];
+        return view ('hki.managePart.edit', $data);
+    }
+
+    public function update(Request $request, $id_part)
+    {
+        // Validate the incoming data
+        $validatedData = $request->validate([
+            'id_user' => 'required', // Assuming 'users' table is where 'id_user' comes from
+            'part_no' => 'required|string',
+            'part_name' => 'required|string',
+            'composition' => 'required|numeric',
+            'unit_price' => 'required|numeric',
+        ]);
+        
+        // Find the part to be updated
+        $part = m_masterpart::findOrFail($id_part);
+
+        // Update the part attributes
+        $part->id_user = $validatedData['id_user'];
+        $part->part_no = $validatedData['part_no'];
+        $part->part_name = $validatedData['part_name'];
+        $part->composition = $validatedData['composition'];
+        $part->unit_price = $validatedData['unit_price'];
+
+        // Save the updated part
+        $part->save();
+
+        return redirect()->route('hki.part.index')->with('success', 'Data Part berhasil diperbarui.');
     }
 
     public function destroy($id)

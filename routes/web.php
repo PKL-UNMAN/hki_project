@@ -49,6 +49,8 @@ Route::controller(c_masterpart::class)->middleware('auth')->group(function () {
     Route::get('hki/part', 'index')->name('hki.part.index');
     Route::get('hki/part/create', 'create')->name('hki.part.create');
     Route::post('hki/part/store', 'store')->name('hki.part.store');
+    Route::get('hki/part/edit/{id}', 'edit')->name('hki.part.edit');
+    Route::post('hki/part/update/{id}', 'update')->name('hki.part.update');
     Route::get('hki/part/destroy/{id}', 'destroy')->name('hki.part.destroy');
 
 });
