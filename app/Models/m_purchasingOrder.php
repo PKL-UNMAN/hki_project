@@ -187,4 +187,8 @@ class m_purchasingOrder extends Model
         return DB::table('surat')->join('purchasing','surat.po_number','=','purchasing.po_number')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->where('surat.no_surat',$no_surat)->first();
     }
     // END Kondisi
+
+    public function validatePOWithName($name){
+        return DB::table('users')->where('users.nama', $name)->first();
+    }
 }

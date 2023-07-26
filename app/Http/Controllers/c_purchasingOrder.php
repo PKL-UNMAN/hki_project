@@ -364,21 +364,29 @@ class c_purchasingOrder extends Controller
 
     public function import(Request $request,$class){
         $data = Excel::toArray([], $request->file('file')->store('files'));
-        $this->PO->addData('purchasing',
-        [
-            'po_number'=> $data[0][1][0],
-            'class'=> $request->class,
-            'currency_code'=>$data[0][1][18],
-            'id_tujuan_po'=> intval($request->role_id),
-            'status' => 'Unsend'
-            ]
-        );
-        if($class === 'supplier'){
-            Excel::import(new POImport(), $request->file('file')->store('files'));
-            return redirect()->route('hki.po.supplier.index')->with('success','Berhasil Import PO Supplier');
+        if($this->PO->validatePOWithName($data[0][1][5]) !== NULL){
+            $this->PO->addData('purchasing',
+            [
+                'po_number'=> $data[0][1][0],
+                'class'=> $request->class,
+                'currency_code'=>$data[0][1][18],
+                'id_tujuan_po'=> intval($request->role_id),
+                'status' => 'Unsend'
+                ]
+            );
+            if($class === 'supplier'){
+                Excel::import(new POImport(), $request->file('file')->store('files'));
+                return redirect()->route('hki.po.supplier.index')->with('success','Berhasil Import PO Supplier');
+            }else{
+                Excel::import(new POImport(), $request->file('file')->store('files'));
+                return redirect()->route('hki.po.subcon.index')->with('success','Berhasil Import PO Subcon');
+            }
         }else{
-            Excel::import(new POImport(), $request->file('file')->store('files'));
-            return redirect()->route('hki.po.subcon.index')->with('success','Berhasil Import PO Subcon');
+            if($class === 'supplier'){
+                return redirect()->route('hki.po.supplier.index')->with('fail','Gagal Import PO Supplier');
+            }else{
+                return redirect()->route('hki.po.subcon.index')->with('fail','Gagal Import PO Subcon');
+            }
         }
     }
 
@@ -396,27 +404,29 @@ class c_purchasingOrder extends Controller
 
 
     public function exportProduction(Request $request){
-        $dt = DB::table('productions')
-        ->select('nilai')
-        ->groupBy('line','id')
-        ->get();
-        $no = 1;
-        foreach($dt as $d){
-            if($no <= 27){
-                echo $no.' kolom (1) </br>';
-            }elseif($no > 27){
-                echo $no.' kolom (2) </br>';
-            }
-            $no++;
-        }
+    //     $dt = DB::table('productions')
+    //     ->select('nilai')
+    //     ->groupBy('line','id')
+    //     ->get();
 
-        echo '<table>';
-        echo '<tr>';
-        for($i = 0; $i < 10; $i++) { 
-            echo '<td>Column'.$i.'</td>';
-        }
-    '</tr>';
-    '</table>';
+        
+    //     $no = 1;
+    //     foreach($dt as $d){
+    //         if($no <= 27){
+    //             echo $no.' kolom (1) </br>';
+    //         }elseif($no > 27){
+    //             echo $no.' kolom (2) </br>';
+    //         }
+    //         $no++;
+    //     }
+
+    //     echo '<table>';
+    //     echo '<tr>';
+    //     for($i = 0; $i < 10; $i++) { 
+    //         echo '<td>Column'.$i.'</td>';
+    //     }
+    // '</tr>';
+    // '</table>';
 
         // return Excel::download(new exportProduction, 'productions.xlsx');
         
