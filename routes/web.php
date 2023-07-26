@@ -150,6 +150,7 @@ Route::controller(c_surat::class)->middleware('auth')->group(function () {
     Route::get('subcon/surat', 'tampilSurat_subcon')->name('subcon.surat.index');
     Route::get('subcon/surat/create', 'createSurat_subcon')->name('subcon.surat.create');
     Route::get('subcon/surat/create/{selectedValue}', 'ambilData_po_subcon')->name('ambil.data');
+    Route::get('/subcon/surat/create/dPart/{combinedData}', 'ambilData_dpo_subcon')->name('ambil.datadp');
     Route::post('subcon/surat/store', 'storeSurat_subcon')->name('subcon.surat.store');
     Route::get('subcon/surat/edit/{no}', 'editSurat_Subcon')->name('subcon.surat.edit');
     Route::post('subcon/surat/update/{no}', 'updateSurat_Subcon')->name('subcon.surat.update');

@@ -78,6 +78,14 @@ class c_surat extends Controller
         $data = $this->PO->ambilData_posubcon($selectedValue,$id);
         return response()->json(['data' => $data]);
     }
+    public function ambilData_dpo_subcon($combinedData){
+        // Anda dapat memisahkan kembali data yang telah digabungkan
+        list($selectedPartno, $selectedPoNumber) = explode('_', $combinedData);
+        $id = Auth::user()->id;
+        $data = $this->PO->ambilData_dposubcon($selectedPartno, $selectedPoNumber,$id);
+        return response()->json(['data' => $data]);
+    }
+
     public function storeSurat_subcon(Request $request) {
         // Validasi data yang diterima dari permintaan AJAX
         $request->validate([
