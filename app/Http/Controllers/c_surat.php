@@ -78,6 +78,14 @@ class c_surat extends Controller
         $data = $this->PO->ambilData_posubcon($selectedValue,$id);
         return response()->json(['data' => $data]);
     }
+    public function ambilData_dpo_subcon($combinedData){
+        // Anda dapat memisahkan kembali data yang telah digabungkan
+        list($selectedPartno, $selectedPoNumber) = explode('_', $combinedData);
+        $id = Auth::user()->id;
+        $data = $this->PO->ambilData_dposubcon($selectedPartno, $selectedPoNumber,$id);
+        return response()->json(['data' => $data]);
+    }
+
     public function storeSurat_subcon(Request $request) {
         // Validasi data yang diterima dari permintaan AJAX
         $request->validate([
@@ -203,7 +211,6 @@ class c_surat extends Controller
         $id = Auth::user()->id;
         $data = [
             'po' => $this->PO->myPO_Subcon($id),
-            'tujuan'=> $this->user->hkiData(),
         ];
         return view('supplier.surat.create', $data);
     }
@@ -216,48 +223,47 @@ class c_surat extends Controller
         $tujuan =  $this->PO->ambilData_posupp_tujuan($selectedValue,$id);
         return response()->json(['data' => $data,'tujuan' => $tujuan]);
     }
+    public function ambilData_dpo_supplier($combinedData){
+        // Anda dapat memisahkan kembali data yang telah digabungkan
+        list($selectedPartno, $selectedPoNumber) = explode('_', $combinedData);
+        $id = Auth::user()->id;
+        $data = $this->PO->ambilData_dposupp($selectedPartno, $selectedPoNumber,$id);
+        return response()->json(['data' => $data]);
+    }
     public function storeSurat_supplier(Request $request)
     {
-        // Validasi input jika diperlukan
-        $request->validate([ 
-            'po_number'=> 'required',
-            'tanggal'=> 'required|date',
-            'partNoInput'=> 'required|array',
-            'partNameInput'=> 'required|array',
-            'qtyInput'=> 'required|array',
-            'unitInput'=> 'required|array',
-            ]);
-
-        // Mengambil data dari input utama
-        $poNumber=$request->input('po_number');
-        $pengirim=$request->input('pengirim');
-        $penerima=$request->input('penerima');
-        $tanggal=$request->input('tanggal');
-        $partNoInputs=$request->input('partNoInput');
-        $partNameInputs=$request->input('partNameInput');
-        $qtyInputs=$request->input('qtyInput');
-        $unitInputs=$request->input('unitInput');
+        // Validasi data yang diterima dari permintaan AJAX
+        $request->validate([
+            'po_number' => 'required',
+            'tanggal' => 'required|date',
+            'pengirim' => 'required',
+            'penerima' => 'required',
+            'data_table' => 'required|array|min:1', // Data tabel harus berupa array dengan minimal 1 elemen
+            'data_table.*.part_no' => 'required',
+            'data_table.*.part_name' => 'required',
+            'data_table.*.qty' => 'required|integer|min:1',
+            'data_table.*.unit' => 'required',
+        ]);
         $id=$this->surat->checkID();
-
         if ($id==null) {
             $id_baru=$id+1;
             $Surat=new m_surat();
             $Surat->no_surat=$id_baru;
-            $Surat->po_number=$poNumber;
-            $Surat->pengirim=$pengirim;
-            $Surat->penerima=$penerima;
-            $Surat->tanggal=$tanggal;
+            $Surat->po_number = $request->po_number;
+            $Surat->tanggal = $request->tanggal;
+            $Surat->pengirim = $request->pengirim;
+            $Surat->penerima = $request->penerima;
             $Surat->status="On Progress";
             $Surat->save();
 
-            foreach ($partNoInputs as $index=> $partNoInputs) {
-                $detailSurat=new m_detail_surat();
-                $detailSurat->no_surat=$id_baru;
-                $detailSurat->part_no=$partNoInputs;
-                $detailSurat->part_name=$partNameInputs[$index];
-                $detailSurat->qty=$qtyInputs[$index];
-                $detailSurat->unit=$unitInputs[$index];
-                $detailSurat->save();
+            foreach ($request->data_table as $item) {
+                $detilSurat = new m_detail_surat;
+                $detilSurat->no_surat = $Surat->no_surat; // Jika menggunakan model Surat
+                $detilSurat->part_no = $item['part_no'];
+                $detilSurat->part_name = $item['part_name'];
+                $detilSurat->qty = $item['qty'];
+                $detilSurat->unit = $item['unit'];
+                $detilSurat->save();
             }
         }
         else {
@@ -265,23 +271,24 @@ class c_surat extends Controller
             $id_baru=$idMax+1;
             $Surat=new m_surat();
             $Surat->no_surat=$id_baru;
-            $Surat->po_number=$poNumber;
-            $Surat->pengirim=$pengirim;
-            $Surat->penerima=$penerima;
-            $Surat->tanggal=$tanggal;
+            $Surat->po_number = $request->po_number;
+            $Surat->tanggal = $request->tanggal;
+            $Surat->pengirim = $request->pengirim;
+            $Surat->penerima = $request->penerima;
             $Surat->status="On Progress";
             $Surat->save();
 
-            foreach ($partNoInputs as $index=> $partNoInputs) {
-                $detailSurat=new m_detail_surat();
-                $detailSurat->no_surat=$id_baru;
-                $detailSurat->part_no=$partNoInputs;
-                $detailSurat->part_name=$partNameInputs[$index];
-                $detailSurat->qty=$qtyInputs[$index];
-                $detailSurat->unit=$unitInputs[$index];
-                $detailSurat->save();
+            foreach ($request->data_table as $item) {
+                $detilSurat = new m_detail_surat;
+                $detilSurat->no_surat = $Surat->no_surat; // Jika menggunakan model Surat
+                $detilSurat->part_no = $item['part_no'];
+                $detilSurat->part_name = $item['part_name'];
+                $detilSurat->qty = $item['qty'];
+                $detilSurat->unit = $item['unit'];
+                $detilSurat->save();
             }
         }
+        // Redirect ke halaman atau rute yang diinginkan setelah berhasil menyimpan data
         return redirect()->route('supplier.surat.index')->with('success', 'success');
     }
     public function destroySurat_supplier($no)

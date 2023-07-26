@@ -150,6 +150,7 @@ Route::controller(c_surat::class)->middleware('auth')->group(function () {
     Route::get('subcon/surat', 'tampilSurat_subcon')->name('subcon.surat.index');
     Route::get('subcon/surat/create', 'createSurat_subcon')->name('subcon.surat.create');
     Route::get('subcon/surat/create/{selectedValue}', 'ambilData_po_subcon')->name('ambil.data');
+    Route::get('/subcon/surat/create/dPart/{combinedData}', 'ambilData_dpo_subcon')->name('ambil.datadp');
     Route::post('subcon/surat/store', 'storeSurat_subcon')->name('subcon.surat.store');
     Route::get('subcon/surat/edit/{no}', 'editSurat_Subcon')->name('subcon.surat.edit');
     Route::post('subcon/surat/update/{no}', 'updateSurat_Subcon')->name('subcon.surat.update');
@@ -163,6 +164,7 @@ Route::controller(c_surat::class)->middleware('auth')->group(function () {
     Route::get('supplier/surat', 'tampilSurat_supplier')->name('supplier.surat.index');
     Route::get('supplier/surat/create', 'createSurat_supplier')->name('supplier.surat.create');
     Route::get('supplier/surat/create/{selectedValue}', 'ambilData_po_supplier')->name('ambil.data');
+    Route::get('/supplier/surat/create/dPart/{combinedData}', 'ambilData_dpo_supplier')->name('ambil.datadp');
     Route::post('supplier/surat/store', 'storeSurat_supplier')->name('supplier.surat.store');
     Route::get('supplier/surat/edit/{no}', 'editSurat_supplier')->name('supplier.surat.edit');
     Route::post('supplier/surat/update/{no}', 'updateSurat_supplier')->name('supplier.surat.update');

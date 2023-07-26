@@ -251,11 +251,13 @@ $('#part_no').on('change', function () {
 function partnoChange() {
     // Mendapatkan nilai dari tag <select> Part No
     var selectedPartno = $('#part_no').val();
-
-    // Melakukan permintaan AJAX hanya jika Part No sudah dipilih
+    var selectedPoNumber = $('#basic-usage').val();
+    // Gabungkan data tersebut dengan karakter terpisah, misalnya '_'
+    var combinedData = selectedPartno + '_' + selectedPoNumber;
+    // Melakukan permintaan AJAX
     if (selectedPartno !== "") {
         $.ajax({
-            url: '/subcon/surat/create/' + selectedPartno,
+            url: '/subcon/surat/create/dPart/' + combinedData,
             method: 'GET',
             success: function (response) {
 
