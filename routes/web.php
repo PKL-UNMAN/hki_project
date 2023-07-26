@@ -164,6 +164,7 @@ Route::controller(c_surat::class)->middleware('auth')->group(function () {
     Route::get('supplier/surat', 'tampilSurat_supplier')->name('supplier.surat.index');
     Route::get('supplier/surat/create', 'createSurat_supplier')->name('supplier.surat.create');
     Route::get('supplier/surat/create/{selectedValue}', 'ambilData_po_supplier')->name('ambil.data');
+    Route::get('/supplier/surat/create/dPart/{combinedData}', 'ambilData_dpo_supplier')->name('ambil.datadp');
     Route::post('supplier/surat/store', 'storeSurat_supplier')->name('supplier.surat.store');
     Route::get('supplier/surat/edit/{no}', 'editSurat_supplier')->name('supplier.surat.edit');
     Route::post('supplier/surat/update/{no}', 'updateSurat_supplier')->name('supplier.surat.update');

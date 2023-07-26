@@ -122,7 +122,10 @@ class m_purchasingOrder extends Model
         return DB::table('purchasing')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->where('po_number', $selectedPoNumber)->Where('purchasing_details.part_no', $selectedPartno)->where('id_tujuan_po', $id)->get();
     }
     public function ambilData_posupp($selectedValue,$id){
-        return DB::table('purchasing')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->join('users','purchasing.id_tujuan_po','=','users.id')->where('po_number', $selectedValue)->orWhere('purchasing_details.part_no', $selectedValue)->where('id_tujuan_po', $id)->get();
+        return DB::table('purchasing')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->join('users','purchasing.id_tujuan_po','=','users.id')->where('po_number', $selectedValue)->where('id_tujuan_po', $id)->get();
+    }
+    public function ambilData_dposupp($selectedPartno, $selectedPoNumber,$id){
+        return DB::table('purchasing')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->join('users','purchasing.id_tujuan_po','=','users.id')->where('po_number', $selectedPoNumber)->Where('purchasing_details.part_no', $selectedPartno)->where('id_tujuan_po', $id)->get();
     }
     public function ambilData_posupp_tujuan($selectedValue,$id){
         return DB::table('purchasing')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->join('users','purchasing.id_destination','=','users.id')->where('po_number', $selectedValue)->first();

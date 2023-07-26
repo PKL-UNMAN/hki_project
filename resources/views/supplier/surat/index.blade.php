@@ -137,6 +137,8 @@
                 $("#exampleModalCenter").modal('show');
             })
         }
+        // Inisialisasi data untuk menyimpan item-item yang akan ditambahkan ke dalam tabel yang ada di create surat
+        let dataPoSup = [];
 
         function modalREAD(no_surat) {
             $.get("{{ url('subcon/surat/read') }}/" + no_surat, {}, function(data, status) {
