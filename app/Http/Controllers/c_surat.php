@@ -87,16 +87,16 @@ class c_surat extends Controller
     }
 
     public function storeSurat_subcon(Request $request) {
-        // Validasi data yang diterima dari permintaan AJAX
+      //  Validasi data yang diterima dari permintaan AJAX
         $request->validate([
             'po_number' => 'required',
-            'tanggal' => 'required|date',
+            'tanggal' => 'required',
             'pengirim' => 'required',
             'penerima' => 'required',
-            'data_table' => 'required|array|min:1', // Data tabel harus berupa array dengan minimal 1 elemen
+            'data_table' => 'required', // Data tabel harus berupa array dengan minimal 1 elemen
             'data_table.*.part_no' => 'required',
             'data_table.*.part_name' => 'required',
-            'data_table.*.qty' => 'required|integer|min:1',
+            'data_table.*.qty' => 'required',
             'data_table.*.unit' => 'required',
         ]);
         $id=$this->surat->checkID();

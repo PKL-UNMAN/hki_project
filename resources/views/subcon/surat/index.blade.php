@@ -19,7 +19,7 @@
         @endif
         <div class="row">
             <div class="col-2  mt-2 mb-4">
-                <a href="#" onclick="tambahSurat()" class="btn btn-primary" style="width:150px">Tambah Surat</a>
+                <a href="{{route('subcon.surat.create')}}" class="btn btn-primary" style="width:150px">Tambah Surat</a>
             </div>
         </div>
         <div class="row">
