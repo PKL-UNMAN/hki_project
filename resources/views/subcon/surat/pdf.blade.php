@@ -69,15 +69,11 @@
     <body>
         <div class="container">
             <h1>Surat Jalan</h1>
+            {!! DNS1D::getBarcodehtml("$from->no_surat",'C128',1,45) !!}
             <div class="row">
                 <div id="sender" class="col">
                     <table border="0">
                         <tbody>
-                            <tr>
-                                <td>
-                                    {!! DNS1D::getBarcodehtml("$from->no_surat",'C128',1,60) !!}
-                                </td>
-                            </tr>
                             <tr>
                                 <td class="field">
                                     Sender:&nbsp; {{$from->pengirim}}
