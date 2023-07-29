@@ -54,11 +54,11 @@
                                     <td>
                                         @if ($data->status == 'On Progress')
                                             <a href="#" class="btn btn-success"
-                                                onclick="modalACC({{ $data->no_surat }})">ACC</a>
+                                                onclick="modalACC({{ $data->id }})">ACC</a>
                                         @endif
                                         <a href="#" class="btn btn-warning"
-                                            onclick="modalREAD({{ $data->no_surat }})">READ</a>
-                                        <a href="{{ route('subcon.surat.download', $data->no_surat) }}"
+                                            onclick="modalREAD({{ $data->id }})">READ</a>
+                                        <a href="{{ route('subcon.surat.download', $data->id) }}"
                                             class="btn btn-primary">Download</a>
                                     </td>
                                 </tr>

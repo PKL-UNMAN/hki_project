@@ -81,9 +81,9 @@ class m_surat extends Model
     {
         return DB::table('surat')->where('penerima', $nama)->get();
     }
-    public function editStatusSuratSup($no_surat, $data)
+    public function editStatusSuratSup($id, $data)
     {
-        return DB::table('surat')->where('no_surat', $no_surat)->update($data);
+        return DB::table('surat')->where('id', $id)->update($data);
     }
    
     //END model surat dari supplier ke subcon

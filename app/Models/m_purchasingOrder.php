@@ -181,8 +181,8 @@ class m_purchasingOrder extends Model
         ->first();
     }
 
-    public function validatePOWithSurat($no_surat){
-        return DB::table('purchasing')->join('surat','purchasing.po_number','=','surat.po_number')->where('surat.no_surat', $no_surat)->first();
+    public function validatePOWithSurat($id){
+        return DB::table('purchasing')->join('surat','purchasing.po_number','=','surat.po_number')->where('surat.id', $id)->first();
     }
 
     public function getPOWithSurat($id){

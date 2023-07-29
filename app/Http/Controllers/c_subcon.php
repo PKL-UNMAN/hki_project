@@ -86,13 +86,13 @@ class c_subcon extends Controller
       // ubah status
     public function ubahStatus_suratSup(Request $request)
     {
-        $no_surat = $request->no_surat;
-        $validatePO = $this->PO->validatePOWithSurat($no_surat);
+        $id = $request->id;
+        $validatePO = $this->PO->validatePOWithSurat($id);
         if($validatePO){
             $data = [
                 'status' => "Finish",
             ];
-            $this->surat->editStatusSuratSup($no_surat, $data);
+            $this->surat->editStatusSuratSup($id, $data);
             $this->PO->editData('purchasing','id_po',$validatePO->id_po,$data);
         }
     }

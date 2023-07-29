@@ -28,6 +28,7 @@
                     <thead>
                         <tr>
                             <th>No</th>
+                            <Th>No Surat</Th>
                             <th>PO Number</th>
                             <th>Pengirim</th>
                             <th>Tujuan Pengiriman</th>
@@ -40,6 +41,7 @@
                         @foreach ($surat as $data)
                         <tr>
                             <td></td>
+                            <td>{{ $data->no_surat }}</td>
                             <td>{{ $data->po_number }}</td>
                             <td>{{ $data->pengirim }}</td>
                             <td>{{ $data->penerima }}</td>
@@ -53,10 +55,10 @@
                             </td>
                             <td>
                                 @if ($data->status == 'On Progress')
-                                <a href="#" class="btn btn-success" onclick="modalACC('{{ $data->no_surat }}')">ACC</a>
+                                <a href="#" class="btn btn-success" onclick="modalACC('{{ $data->id }}')">ACC</a>
                                 @endif
-                                <a href="#" class="btn btn-warning" onclick="modalREAD({{$data->no_surat}})">READ</a>
-                                <a href="{{ route('subcon.surat.download', $data->no_surat) }}"
+                                <a href="#" class="btn btn-warning" onclick="modalREAD({{$data->id}})">READ</a>
+                                <a href="{{ route('supplier.surat.download', $data->id) }}"
                                     class="btn btn-primary">Download</a>
                             </td>
                         </tr>
@@ -141,7 +143,7 @@
 </script>
 
 <script>
-    function modalACC(no_surat) {
+    function modalACC(id) {
         Swal.fire({
             title: 'Apakah Anda yakin?',
             text: "ACC Surat?",
@@ -154,7 +156,7 @@
             if (result.isConfirmed) {
                 $.ajax({
                     type: "get",
-                    url: "{{ url('subcon/suratSup/status/ ') }}" + no_surat,
+                    url: "{{ url('subcon/suratSup/status/ ') }}" + id,
                     success: function (data) {
                         Swal.fire(
                             'Surat Disetujui!',
