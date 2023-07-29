@@ -25,6 +25,10 @@ class m_surat extends Model
     {
         return DB::table('surat')->where('id',$id)->first();
     }
+    public function alamattujuan($id)
+    {
+        return DB::table('surat')->join('users', 'surat.penerima','=','users.nama')->join('users_detail', 'users.id', '=', 'users_detail.id_user')->where('surat.id',$id)->first();
+    }
     public function detailSurat($id)
     {
         return DB::table('surat')->join('surat_details', 'surat.no_surat','=','surat_details.no_surat')->where('id',$id)->get();

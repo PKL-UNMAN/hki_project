@@ -130,7 +130,7 @@ Route::controller(c_supplier::class)->middleware('auth')->group(function () {
     // PO Supplier
     Route::get('supplier/po', 'myPO_Supplier')->name('supplier.po.index');
     Route::get('supplier/po/download/{no}', 'myPO_Download')->name('supplier.po.download');
-    Route::get('supplier/surat/download/{no}', 'mySurat_Download')->name('supplier.surat.download');
+    Route::get('supplier/surat/download/{id}', 'mySurat_Download')->name('supplier.surat.download');
 
     // Modal Detail PO di Supplier
     Route::get('supplier/po/detailpo/{no}', 'detailPO_Supplier')->name('supplier.po.detailpo');
@@ -168,7 +168,7 @@ Route::controller(c_surat::class)->middleware('auth')->group(function () {
     Route::post('supplier/surat/store', 'storeSurat_supplier')->name('supplier.surat.store');
     Route::get('supplier/surat/edit/{no}', 'editSurat_supplier')->name('supplier.surat.edit');
     Route::post('supplier/surat/update/{no}', 'updateSurat_supplier')->name('supplier.surat.update');
-    Route::get('supplier/surat/delete/{no}', 'destroySurat_supplier')->name('supplier.surat.delete');
+    Route::post('supplier/surat/delete', 'destroySurat_supplier')->name('supplier.surat.delete');
     Route::get('/hki/monitorsurat', 'monitorSurat')->name('hki.monitorsurat.index');
 
     

@@ -60,11 +60,13 @@ class c_supplier extends Controller
     }
 
         //Download Surat Subcon
-    public function mySurat_Download($no)
+    public function mySurat_Download($id)
     {
+        $id = Auth::user()->id;
         $data =[
-            'details'=> $this->PO->getPOWithSurat($no),
-            'from'=> $this->PO->getSenderSurat($no)
+            'details'=> $this->surat->detailSurat($id),
+            'from'=> $this->surat->headSurat($id),
+            'tujuan'=> $this->surat->alamattujuan($id),
         ];
 
         $pdf = PDF::loadview('supplier.surat.pdf', $data)->setPaper('a4', 'potrait');
