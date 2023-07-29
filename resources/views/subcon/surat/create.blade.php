@@ -1,4 +1,4 @@
-@extends('layouts.templateBaru', ['title' => 'Tambah User'])
+@extends('layouts.templateBaru', ['title' => 'Buat Surat Jalan'])
 @section('content')
     <div class="container">
         <h1 class="left-align" style="text-align: left;">Buat Surat Jalan</h1>
@@ -363,7 +363,7 @@
                     window.location.href = "{{ route('subcon.surat.index') }}";
                 },
                 error: function(error) {
-
+                    console.log(error);
                 }
             });
         });

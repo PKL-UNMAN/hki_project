@@ -21,18 +21,18 @@ class m_surat extends Model
     }
 
     // buat tampilan read surat
-    public function headSurat($no_surat)
+    public function headSurat($id)
     {
-        return DB::table('surat')->where('no_surat',$no_surat)->first();
+        return DB::table('surat')->where('id',$id)->first();
     }
-    public function detailSurat($no_surat)
+    public function detailSurat($id)
     {
-        return DB::table('surat_details')->where('no_surat',$no_surat)->get();
+        return DB::table('surat')->join('surat_details', 'surat.no_surat','=','surat_details.no_surat')->where('id',$id)->get();
     }
     
-    public function detailPengirim($no_surat)
+    public function detailPengirim($id)
     {
-        return DB::table('surat')->join('users', 'surat.pengirim','=','users.nama')->join('users_detail', 'users.id', '=', 'users_detail.id_user')->where('surat.no_surat',$no_surat)->first();
+        return DB::table('surat')->join('users', 'surat.pengirim','=','users.nama')->join('users_detail', 'users.id', '=', 'users_detail.id_user')->where('surat.id',$id)->first();
     }
     // end tampilan read surat
 
@@ -43,6 +43,8 @@ class m_surat extends Model
         'pengirim',
         'penerima',
         'tanggal',
+        'no_surat',
+        'id',
     ];
     protected $primaryKey = 'no_surat';
     public $incrementing = false;
@@ -60,7 +62,7 @@ class m_surat extends Model
 
     public function maxIditem()
     {
-        return DB::table('surat')->max('no_surat');
+        return DB::table('surat')->max('id');
     }
 
 
@@ -94,12 +96,15 @@ class m_surat extends Model
         return DB::table('surat')->join('users', 'surat.penerima', '=', 'users.nama')->join('users_detail', 'users.id', '=', 'users_detail.id_user')->join('purchasing', 'surat.po_number', '=', 'purchasing.po_number')->join('surat_details','surat.no_surat','=','surat_details.no_surat')->where('surat.no_surat', $no)->first();
     }
 
-    public function deleteData($no)
+    public function deleteData($id,$no)
     {
         DB::table('surat_details')->where('no_surat', $no)->delete();
         DB::table('surat')->where('no_surat', $no)->delete();
     }
-
+    public function detailSurat1()
+    {
+        return $this->hasMany(m_detail_surat::class, 'no_surat', 'no_surat');
+    }
 
 
     //   Kondisi Ketika User dihapus dan User masih punya surat, maka surat akan dijadikan Log

@@ -152,10 +152,10 @@ Route::controller(c_surat::class)->middleware('auth')->group(function () {
     Route::get('subcon/surat/create/{selectedValue}', 'ambilData_po_subcon')->name('ambil.data');
     Route::get('/subcon/surat/create/dPart/{combinedData}', 'ambilData_dpo_subcon')->name('ambil.datadp');
     Route::post('subcon/surat/store', 'storeSurat_subcon')->name('subcon.surat.store');
-    Route::get('subcon/surat/edit/{no}', 'editSurat_Subcon')->name('subcon.surat.edit');
-    Route::post('subcon/surat/update/{no}', 'updateSurat_Subcon')->name('subcon.surat.update');
-    Route::get('subcon/surat/read/{no}', 'readSurat_Subcon')->name('subcon.surat.read');
-    Route::get('subcon/surat/delete/{no}', 'destroySurat_Subcon')->name('subcon.surat.delete');
+    Route::get('subcon/surat/edit/{id}', 'editSurat_Subcon')->name('subcon.surat.edit');
+    Route::post('subcon/surat/update/{id}', 'updateSurat_Subcon')->name('subcon.surat.update');
+    Route::get('subcon/surat/read/{id}', 'readSurat_Subcon')->name('subcon.surat.read');
+    Route::post('subcon/surat/delete', 'destroySurat_Subcon')->name('subcon.surat.delete');
 
      // scan barcode surat di subcon
      Route::get('subcon/suratSup/scan', 'subcon_scanSurat')->name('subcon.surat.scan');

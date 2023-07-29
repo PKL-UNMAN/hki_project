@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 24 Jul 2023 pada 09.12
+-- Waktu pembuatan: 29 Jul 2023 pada 05.02
 -- Versi server: 10.4.28-MariaDB
--- Versi PHP: 8.0.28
+-- Versi PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -676,7 +676,8 @@ CREATE TABLE `stocks` (
 --
 
 CREATE TABLE `surat` (
-  `no_surat` bigint(20) UNSIGNED NOT NULL,
+  `id` bigint(20) NOT NULL,
+  `no_surat` varchar(100) NOT NULL,
   `tanggal` datetime NOT NULL,
   `po_number` varchar(225) NOT NULL,
   `pengirim` varchar(255) NOT NULL,
@@ -688,11 +689,9 @@ CREATE TABLE `surat` (
 -- Dumping data untuk tabel `surat`
 --
 
-INSERT INTO `surat` (`no_surat`, `tanggal`, `po_number`, `pengirim`, `penerima`, `status`) VALUES
-(1, '2023-07-18 00:00:00', 'hki202001', 'JFE SHOJI STEEL INDONESIA', 'MIYUKI INDONESIA', 'Finish'),
-(2, '2023-07-19 00:00:00', 'hki202301', 'MIYUKI INDONESIA', 'admin HKI', 'Finish'),
-(3, '2023-07-19 00:00:00', 'hki220011', 'JFE SHOJI STEEL INDONESIA', 'MIYUKI INDONESIA', 'Finish'),
-(4, '2023-07-20 00:00:00', 'hki331011', 'MIYUKI INDONESIA', 'admin HKI', 'Finish');
+INSERT INTO `surat` (`id`, `no_surat`, `tanggal`, `po_number`, `pengirim`, `penerima`, `status`) VALUES
+(1, '1/DO-SI/07/2023', '2023-07-28 00:00:00', 'HKI230490', 'MIYUKI INDONESIA', 'admin HKI', 'On Progress'),
+(2, '2/DO-SI/07/2023', '2023-07-28 00:00:00', 'HKI230490', 'MIYUKI INDONESIA', 'admin HKI', 'On Progress');
 
 -- --------------------------------------------------------
 
@@ -701,7 +700,7 @@ INSERT INTO `surat` (`no_surat`, `tanggal`, `po_number`, `pengirim`, `penerima`,
 --
 
 CREATE TABLE `surat_details` (
-  `no_surat` bigint(20) UNSIGNED NOT NULL,
+  `no_surat` varchar(100) NOT NULL,
   `part_no` varchar(225) NOT NULL,
   `part_name` varchar(225) NOT NULL,
   `qty` varchar(225) NOT NULL,
@@ -713,10 +712,12 @@ CREATE TABLE `surat_details` (
 --
 
 INSERT INTO `surat_details` (`no_surat`, `part_no`, `part_name`, `qty`, `unit`) VALUES
-(1, 't1.4X298.5HX84B', 'JSH440WN-P', '2000', 'KG'),
-(2, '45825-73R00', 'REINF,SPNSN', '100', 'pcs'),
-(3, 't1.4X298.5HX84B', 'JSH440WN-P', '2000', 'kg'),
-(4, '45825-73R00', 'REINF,SPNSN', '100', 'pcs');
+('1/DO-SI/07/2023', '4113A015', 'ARM LOWER', '200', 'PC'),
+('1/DO-SI/07/2023', '4113A015', 'ARM LOWER', '200', 'PC'),
+('1/DO-SI/07/2023', '4113A015', 'ARM LOWER', '200', 'PC'),
+('2/DO-SI/07/2023', '4113A015', 'ARM LOWER', '11', 'PC'),
+('2/DO-SI/07/2023', '4113A015', 'ARM LOWER', '20', 'PC'),
+('2/DO-SI/07/2023', '4113A015', 'ARM LOWER', '200', 'PC');
 
 -- --------------------------------------------------------
 
@@ -914,12 +915,6 @@ ALTER TABLE `role`
 --
 ALTER TABLE `stocks`
   MODIFY `id_sisa` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
---
--- AUTO_INCREMENT untuk tabel `surat`
---
-ALTER TABLE `surat`
-  MODIFY `no_surat` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`

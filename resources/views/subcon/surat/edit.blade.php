@@ -7,7 +7,7 @@
                     <h3>Edit Surat Jalan</h3>
                 </center>
                 <div class="form mt-4">
-                    <form enctype="multipart/form-data" action="{{ route('subcon.surat.update', $surat->no_surat) }}"
+                    <form enctype="multipart/form-data" action="{{ route('subcon.surat.update', $surat->id) }}"
                         method="POST">
                         @csrf
                         <div style="text-align: left" class="row">

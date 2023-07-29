@@ -75,7 +75,7 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    {!! DNS1D::getBarcodeHTML("$from->no_surat",'C128',2,40) !!}
+                                    {!! DNS1D::getBarcodehtml("$from->no_surat",'C128',1,60) !!}
                                 </td>
                             </tr>
                             <tr>
@@ -145,7 +145,9 @@
                     </div>
                 </div>
             </div>
-            
+            @php
+                $jumlah = 0; // Deklarasi variabel $jumlah dengan nilai awal 0
+            @endphp
             <table id="table" class="table" border="1">
                 <thead>
                     <tr>
@@ -172,10 +174,13 @@
                         <!--- Deskripsi -->
                         <td>{{$detail->part_name}}</td>
                         <!--- qty -->
-                        <td>{{$detail->order_qty}}</td>
+                        <td>{{$detail->qty}}</td>
                         <!-- unit -->
                         <td>{{$detail->unit}}</td>
                     </tr>
+                    @php
+                        $jumlah = $jumlah + $detail->qty;
+                    @endphp
                     @endforeach
                 </tbody>
                 <tfoot>
@@ -187,7 +192,7 @@
                             Total
                         </td>
                         <!-- total qty -->
-                        <td>{{$detail->order_qty}}</td>
+                        <td>{{$jumlah}}</td>
                         <!-- total unit -->
                         <td></td>
                     </tr>

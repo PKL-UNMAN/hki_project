@@ -87,23 +87,46 @@ class c_surat extends Controller
     }
 
     public function storeSurat_subcon(Request $request) {
-      //  Validasi data yang diterima dari permintaan AJAX
-        $request->validate([
-            'po_number' => 'required',
-            'tanggal' => 'required',
-            'pengirim' => 'required',
-            'penerima' => 'required',
-            'data_table' => 'required', // Data tabel harus berupa array dengan minimal 1 elemen
-            'data_table.*.part_no' => 'required',
-            'data_table.*.part_name' => 'required',
-            'data_table.*.qty' => 'required',
-            'data_table.*.unit' => 'required',
-        ]);
-        $id=$this->surat->checkID();
+      // Validasi data yang diterima dari permintaan AJAX
+      $request->validate([
+        'po_number' => 'required',
+        'tanggal' => 'required',
+        'pengirim' => 'required',
+        'penerima' => 'required',
+        'data_table' => 'required', // Data tabel harus berupa array dengan minimal 1 elemen
+        'data_table.*.part_no' => 'required',
+        'data_table.*.part_name' => 'required',
+        'data_table.*.qty' => 'required',
+        'data_table.*.unit' => 'required',
+    ]);
+    $lastSurat = m_surat::orderBy('no_surat', 'desc')->first();
+
+if ($lastSurat) {
+    $lastNoSurat = $lastSurat->no_surat;
+    list($lastNo, $lastDoSi, $lastMonth, $lastYear) = explode('/', $lastNoSurat);
+
+    // Lakukan pengecekan untuk memastikan format bulan dan tahun sesuai dengan yang diinginkan
+    $currentMonth = date('m');
+    $currentYear = date('Y');
+
+    if ($currentMonth == $lastMonth && $currentYear == $lastYear) {
+        $newNo = intval($lastNo) + 1;
+    } else {
+        $newNo = 1;
+    }
+} else {
+    // Jika tidak ada "no surat" sebelumnya, beri nomor surat baru mulai dari 1
+    $newNo = 1;
+}
+
+    $noSurat = $newNo . '/DO-SI/' . date('m') . '/' . date('Y');
+
+    $id=$this->surat->checkID();
         if ($id==null) {
             $id_baru=$id+1;
             $Surat=new m_surat();
-            $Surat->no_surat=$id_baru;
+            $Surat->id=$id_baru;
+            $Surat->no_surat=$noSurat;
             $Surat->po_number = $request->po_number;
             $Surat->tanggal = $request->tanggal;
             $Surat->pengirim = $request->pengirim;
@@ -125,7 +148,8 @@ class c_surat extends Controller
             $idMax=$this->surat->maxIditem();
             $id_baru=$idMax+1;
             $Surat=new m_surat();
-            $Surat->no_surat=$id_baru;
+            $Surat->id=$id_baru;
+            $Surat->no_surat=$noSurat;
             $Surat->po_number = $request->po_number;
             $Surat->tanggal = $request->tanggal;
             $Surat->pengirim = $request->pengirim;
@@ -147,26 +171,26 @@ class c_surat extends Controller
         return redirect()->route('subcon.surat.index')->with('success', 'Data berhasil disimpan.');
     }
 
-    public function editSurat_Subcon($no)
+    public function editSurat_Subcon($id)
     {
         $data = [
-            'surat' => $this->surat->headSurat($no),
-            'detail'=> $this->surat->detailSurat($no)
+            'surat' => $this->surat->headSurat($id),
+            'detail'=> $this->surat->detailSurat($id)
         ];
         return view('subcon.surat.edit', $data);
     }
 
-    public function readSurat_Subcon($no)
+    public function readSurat_Subcon($id)
     {
         $data = [
-            'perusahaan' => $this->surat->detailPengirim($no),
-            'surat' => $this->surat->headSurat($no),
-            'detail'=> $this->surat->detailSurat($no)
+            'perusahaan' => $this->surat->detailPengirim($id),
+            'surat' => $this->surat->headSurat($id),
+            'detail'=> $this->surat->detailSurat($id)
         ];
         return view('subcon.surat.read', $data);
     }
 
-    public function updateSurat_Subcon(Request $request, $no_surat)
+    public function updateSurat_Subcon(Request $request, $id)
     {
         // Validasi data yang diinputkan
         $request->validate([
@@ -174,7 +198,7 @@ class c_surat extends Controller
         ]);
 
         // Mengambil data surat jalan berdasarkan nomor surat
-        $surat = m_surat::where('no_surat', $no_surat)->first();
+        $surat = m_surat::where('id', $id)->first();
 
         // Mengupdate tanggal pengiriman
         $surat->tanggal = $request->tanggal;
@@ -184,11 +208,19 @@ class c_surat extends Controller
         return redirect()->route('subcon.surat.index')->with('success', 'Surat jalan berhasil diperbarui.');
     }
 
-    public function destroySurat_Subcon($no)
+    public function destroySurat_Subcon(Request $request)
     {
-        $this->surat->deleteData($no);
+        $id = $request->input('no_surat');
+        $surat = m_surat::find($id);
+        if (!$surat) {
+            return response()->json(['message' => 'Data not found'], 404);
+        }
+        // Hapus detail surat terlebih dahulu karena memiliki relasi dengan no_surat
+        $surat->detailSurat1()->delete();
+        // Hapus data surat
+        $surat->delete();
         return redirect()->route('subcon.surat.index')->with('success', 'Berhasil Dihapus');
-    }
+        }
 
     public function subcon_scanSurat()
     {

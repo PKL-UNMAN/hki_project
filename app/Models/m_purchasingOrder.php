@@ -185,12 +185,12 @@ class m_purchasingOrder extends Model
         return DB::table('purchasing')->join('surat','purchasing.po_number','=','surat.po_number')->where('surat.no_surat', $no_surat)->first();
     }
 
-    public function getPOWithSurat($no_surat){
-        return DB::table('surat')->join('purchasing','surat.po_number','=','purchasing.po_number')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->where('surat.no_surat',$no_surat)->get();
+    public function getPOWithSurat($id){
+        return DB::table('surat')->join('purchasing','surat.po_number','=','purchasing.po_number')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->where('surat.id',$id)->get();
     }
 
-    public function getSenderSurat($no_surat){
-        return DB::table('surat')->join('purchasing','surat.po_number','=','purchasing.po_number')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->where('surat.no_surat',$no_surat)->first();
+    public function getSenderSurat($id){
+        return DB::table('surat')->join('purchasing','surat.po_number','=','purchasing.po_number')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->where('surat.id',$id)->first();
     }
     // END Kondisi
 
