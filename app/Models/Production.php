@@ -9,6 +9,8 @@ use DB;
 class Production extends Model
 {
     use HasFactory;
+    protected $table = 'productions';
+    protected $guarded = [];
     protected $fillable = [
         'line',
         'shift',

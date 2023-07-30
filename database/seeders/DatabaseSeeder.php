@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        // seed untuk api
+        $this->call(ApiKeySeeder::class);
 
 // seed user hki
         DB::table('users')->insert([
