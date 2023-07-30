@@ -1,0 +1,18 @@
+TODO HKI Sabtu 29 Juli 2023
+- Enhance Mekanisme sisa barang
+  *validate trigger from qty part in surat jalan [BE DONE]
+  *hitung sisa dari trigger qty part surat jalan [ON PROGRESS]
+- Fixing Create PO Supplier [DONE]
+- Fixing Create PO Subcon   [DONE]
+- Fixing Update PO Supplier 
+- Fixing Update PO Subcon
+
+  
+***TO-BE PUSH*****
+
+
+Enhance Struktur Table Stocks :
+- id (PK)
+- no_surat (FK)
+- tanggal
+- sisa

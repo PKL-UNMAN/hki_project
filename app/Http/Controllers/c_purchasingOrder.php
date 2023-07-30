@@ -64,7 +64,6 @@ class c_purchasingOrder extends Controller
                 "issue_date" => $request->issue_date,
                 "currency_code" => $request->currency,
                 "id_destination" => $request->destination,
-                "delivery_time" => $request->delivery_date,
                 "status" => 'On Progress'
             ];
             $this->PO->addData('purchasing',$po);
@@ -81,11 +80,12 @@ class c_purchasingOrder extends Controller
                     "composition" => $request->composition[$no],
                     "amount" => $request->amount[$no],
                     "order_number" => $request->order_number[$no],
+                    "delivery_time" => $request->delivery_date[$no]
                 ];
 
-                $this->sisaBarang($parts,$request->classname,$po);
                 $no++;
             }
+
             $this->PO->addData('purchasing_details',$parts);
             return redirect()->route('hki.po.supplier.index')->with('success','PO berhasil ditambahkan');
         }
@@ -195,7 +195,6 @@ class c_purchasingOrder extends Controller
                 "issue_date" => $request->issue_date,
                 "currency_code" => $request->currency,
                 "id_destination" => $request->destination,
-                "delivery_time" => $request->delivery_date,
                 "status" => 'On Progress'
             ];
             $this->PO->addData('purchasing',$po);
@@ -212,9 +211,8 @@ class c_purchasingOrder extends Controller
                     "composition" => $request->composition[$no],
                     "amount" => $request->amount[$no],
                     "order_number" => $request->order_number[$no],
+                    "delivery_time" => $request->delivery_date[$no]
                 ];
-                $this->sisaBarang($parts,$request->classname,$po);
-                $this->countSisaBarang($this->PO->getIdPo()-1);
                 $no++;
             }
             $this->PO->addData('purchasing_details',$parts);
@@ -224,52 +222,69 @@ class c_purchasingOrder extends Controller
     }
 
     public function sisa(){
-       $data = [
+        $this->countSisaBarang();
+        $data = [
+            'groupSubcon' => $this->PO->groupNameSubcon(),
             'sisa' => $this->PO->getSisaBarang()
         ];
        return view ('hki.sisabarang.index', $data);
     }
 
-    public function sisaBarang($parts,$classname,$po){
-        $sum_qty=0;
-        $sum_comp=0;
-        foreach ($parts as $part) {
-            $sum_qty+= $part['order_qty'];
-            $sum_comp+= $part['composition'];
-        }
-        if($classname==='SUPPLIER'){
-            $sisa = [
-                'id_po'=>$this->PO->getIdPo(),
-                'qty_sup'=>$sum_qty,
-                'comp_sup'=>$sum_comp
-            ];
-            $this->PO->addData('stocks',$sisa);
-        }else{
-            $validatePO = $this->PO->validatePO($po['id_tujuan_po'],'SUPPLIER');
-            if($validatePO !== NULL){
-                $sisa = [
-                    'qty_sub'=>$sum_qty,
-                    'comp_sub'=>$sum_comp
-                ];
-                $this->PO->editData('stocks','id_po',$validatePO->id_po, $sisa);
+    public function countSisaBarang(){
+        $sumPOSubcon = $this->PO->getSumTotalPo();
+        $sumPOSent = $this->PO->getSumPoSent();
+        //Looping total PO Subcon
+        foreach($sumPOSubcon as $sum){
+            $qty_sent = 0;
+            //Looping data PO yang dikirim
+            foreach($sumPOSent as $sumSent){
+                if($sumSent->tanggal < date('Y-m-d')){
+                    //Validasi ketika nomor surat terdapat di table stocks
+                    if($this->PO->validateNoSurat($sumSent->no_surat) !== NULL){
+                        if(count($sumPOSent) == 1){
+                            $sisa = intval($sum->total_qty_po) - $sumSent->qty_sent;
+                            $data = [
+                                'no_surat'=>$sumSent->no_surat,
+                                'tanggal'=>$sumSent->tanggal,
+                                'sisa'=>$sisa
+                            ];
+                        }else{
+                            $qty_sent+=$sumSent->qty_sent;
+                            $sisa = intval($sum->total_qty_po) - $qty_sent;
+                            $data = [
+                                'no_surat'=>$sumSent->no_surat,
+                                'tanggal'=>$sumSent->tanggal,
+                                'sisa'=>$sisa
+                            ];
+                        }
+                        //edit data existing pada table stocks
+                        $this->PO->editData('stocks','no_surat',$sumSent->no_surat, $data);
+                    }else{
+                        //ketika nomor surat belum tersimpan di table stocks
+                        if(count($sumPOSent) == 1){
+                            $sisa = intval($sum->total_qty_po) - $sumSent->qty_sent;
+                            $data = [
+                                'no_surat'=>$sumSent->no_surat,
+                                'tanggal'=>$sumSent->tanggal,
+                                'sisa'=>$sisa
+                            ];
+                        }else{
+                            $qty_sent+=$sumSent->qty_sent;
+                            $sisa = intval($sum->total_qty_po) - $qty_sent;
+                            $data = [
+                                'no_surat'=>$sumSent->no_surat,
+                                'tanggal'=>$sumSent->tanggal,
+                                'sisa'=>$sisa
+                            ];
+                        }
+                        //tambah data baru 
+                        $this->PO->addData('stocks',$data);
+                    }
+                }
             }
         }
     }
 
-    public function countSisaBarang($id){
-        $stocks = $this->PO->getData('stocks');
-        foreach($stocks as $stock){
-            $sisa = ($stock->qty_sup*$stock->comp_sup)-$stock->qty_sub;
-            $total = [
-                'total'=>$sisa
-            ];
-            $this->PO->editData('stocks','id_po',$id, $total);
-        }
-    }
-
-    public function getSisaBarang(){
-        $stocks = $this->PO->getData('stocks');
-    }
 
 
     public function editPO_Subcon($id_po,$id_subcon)

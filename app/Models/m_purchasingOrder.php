@@ -20,10 +20,20 @@ class m_purchasingOrder extends Model
     }
 
     public function getSisaBarang(){
+        return DB::table('stocks')
+        ->join('surat','stocks.no_surat','=','surat.no_surat')
+        ->join('surat_details','stocks.no_surat','=','surat_details.no_surat')
+        ->select('stocks.sisa','surat.po_number','surat_details.part_no','surat_details.part_name','stocks.tanggal','surat.pengirim')
+        ->groupBy('stocks.sisa','surat.po_number','surat_details.part_no','surat_details.part_name','stocks.tanggal','surat.pengirim')
+        ->get();
+    }
+
+
+    public function groupNameSubcon(){
         return DB::table('purchasing')
-        ->join('stocks','purchasing.id_po','=','stocks.id_po')
-        ->join('users','purchasing.id_tujuan_po','=','users.id')
-        ->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')
+        ->join('surat','purchasing.po_number','=','surat.po_number')
+        ->select('surat.pengirim','surat.po_number')
+        ->groupBy('surat.pengirim','surat.po_number')
         ->get();
     }
 
@@ -35,6 +45,10 @@ class m_purchasingOrder extends Model
 
     public function getIdPO(){
         return DB::table('purchasing')->max('id_po');
+    }
+
+    public function getsisaPO(){
+        return DB::table('stocks')->min('sisa');
     }
 
     public function tampilPO_Subcon()
@@ -196,5 +210,25 @@ class m_purchasingOrder extends Model
 
     public function validatePOWithName($name){
         return DB::table('users')->where('users.nama', $name)->first();
+    }
+
+    public function getSumTotalPO(){
+        return DB::table('purchasing_details')
+        ->join('purchasing','purchasing_details.id_po','=','purchasing.id_po')->where('purchasing.class','SUBCON')
+        ->select('purchasing.po_number',DB::raw('SUM(purchasing_details.order_qty) AS total_qty_po'))
+        ->groupBy('purchasing.po_number')
+        ->get();
+    }
+
+    public function getSumPOSent(){
+        return DB::table('surat_details')
+        ->join('surat','surat_details.no_surat','=','surat.no_surat')
+        ->select('surat.no_surat','surat.tanggal',DB::raw('SUM(surat_details.qty) AS qty_sent'))
+        ->groupBy('surat.no_surat')
+        ->get();
+    }
+
+    public function validateNoSurat($no_surat){
+        return DB::table('stocks')->where('stocks.no_surat', $no_surat)->first();
     }
 }

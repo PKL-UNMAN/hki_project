@@ -72,15 +72,6 @@
                                 </span>
                                 @enderror
                             </div>
-                            <div class="form-group mt-3 text-start">
-                                <label for="delivery_date" class="fw-bold"><i class="fa-solid fa-calendar-days"></i> Delivery Date</label>
-                                <input type="date" class="form-control @error('delivery_date') is-invalid @enderror" id="delivery_date">
-                                @error('delivery_date')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group text-start">
@@ -193,6 +184,15 @@
                         </span>
                         @enderror
                     </div>
+                    <div class="form-group mt-3 text-start">
+                        <label for="delivery_date" class="fw-bold"><i class="fa-solid fa-tag"></i> Delivery Date</label>
+                        <input type="date" class="form-control @error('delivery_date') is-invalid @enderror" id="delivery_date">
+                        @error('delivery_date')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
                 </div>
             </div>
         </form>
@@ -207,7 +207,6 @@
         <input type="hidden" name="destination" value="">
         <input type="hidden" name="default_id" value="">
         <input type="hidden" name="issue_date" value="">
-        <input type="hidden" name="delivery_date" value="">
         <input type="hidden" name="classname" value="">
         <input type="hidden" name="currency" value="">
     </div>
@@ -260,7 +259,6 @@
             $('[name="destination"]').val(destination)
             $('[name="default_id"]').val(default_id)
             $('[name="issue_date"]').val(issue_date)
-            $('[name="delivery_date"]').val(delivery_date)
             $('[name="classname"]').val(classname)
             $('[name="currency"]').val(currency)
         });
@@ -296,6 +294,7 @@
         '<td><input class="form-control" name="unit[]" value='+$('#unit').val()+'></td>'+
         '<td><input class="form-control" name="amount[]" value='+$('#amount').val()+'></td>'+
         '<td><input class="form-control" name="order_number[]" value='+$('#order_number').val()+'></td>'+
+        '<td><input class="form-control" type="hidden" name="delivery_date[]" value='+$('#delivery_date').val()+'></td>'+
         '<td><a href="javascript:void(0)" id=delete'+no+' class="btn btn-danger">Hapus</a></td>'+
         '</tr>');
         $('#part_no').val('')
@@ -306,6 +305,7 @@
         $('#unit').val('')
         $('#amount').val('')
         $('#order_number').val('')
+        $('#delivery_date').val('')
         $('#delete'+no).click(function() {
             $('#row'+no).remove()
             no--

@@ -15,13 +15,10 @@ return new class extends Migration
     {
         Schema::create('stocks', function (Blueprint $table) {
             $table->id('id_sisa');
-            $table->unsignedBigInteger('id_po');
-            $table->integer('qty_sub');
-            $table->integer('qty_sup');
-            $table->integer('comp_sub');
-            $table->integer('comp_sup');
-            $table->integer('total');
-            $table->foreign('id_po')->references('id_po')->on('purchasing')->onDelete('cascade')->onUpdate('cascade');
+            $table->unsignedBigInteger('no_surat');
+            $table->integer('tanggal');
+            $table->integer('sisa');
+            $table->foreign('no_surat')->references('no_surat')->on('surat')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
