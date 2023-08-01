@@ -178,14 +178,88 @@
             $(document).on('click', '.btn-success', function(event) {
                 event.preventDefault();
                 moveToTable2(this);
+                $('#data-table').DataTable().destroy();
+                deleteFromTable2(this);
+                $('#data-table').DataTable({
+                                rowReorder: {
+                                    selector: 'td:nth-child(2)',
+                                },
+                                responsive: true,
+                                stateSave: true,
+                                columnDefs: [{
+                                    searchable: false,
+                                    orderable: false,
+                                    targets: 0,
+                                }, ],
+                                order: [
+                                    [1, 'asc']
+                                ],
+                            });
             });
 
             // Tambahkan event listener untuk menangani klik tombol "Delete"
             $(document).on('click', '.btn-danger', function(event) {
                 event.preventDefault();
-                deleteFromTable2(this);
+                $('#data-table').DataTable().destroy();
+                moveToTable1(this);
+                $('#data-table').DataTable({
+                                rowReorder: {
+                                    selector: 'td:nth-child(2)',
+                                },
+                                responsive: true,
+                                stateSave: true,
+                                columnDefs: [{
+                                    searchable: false,
+                                    orderable: false,
+                                    targets: 0,
+                                }, ],
+                                order: [
+                                    [1, 'asc']
+                                ],
+                            });
             });
         });
+        // Fungsi untuk memindahkan data dari tabel kedua ke tabel pertama
+function moveToTable1(button) {
+    // Dapatkan baris yang berisi tombol "Delete" yang diklik di tabel kedua
+    var row = button.parentNode.parentNode;
+
+    // Dapatkan data dari baris di tabel kedua
+    var rowData = {
+        no_part: row.cells[0].innerHTML,
+        part_name: row.cells[1].innerHTML,
+        qty: row.cells[2].querySelector('input').value,
+        unit: row.cells[3].innerHTML,
+        order_number: row.cells[4].innerHTML,
+    };
+
+    // Dapatkan body tabel pertama
+    var tableBodyMain = document.getElementById('data-table').getElementsByTagName('tbody')[0];
+    // Buat baris baru di tabel pertama
+    var newRowMain = tableBodyMain.insertRow();
+    // Masukkan data ke dalam sel-sel baris tabel pertama
+    var cellMain_1 = newRowMain.insertCell(0);
+    cellMain_1.innerHTML = rowData.no_part;
+
+    var cellMain_2 = newRowMain.insertCell(1);
+    cellMain_2.innerHTML = rowData.part_name;
+
+    var cellMain_3 = newRowMain.insertCell(2);
+    cellMain_3.innerHTML = rowData.qty;
+
+    var cellMain_4 = newRowMain.insertCell(3);
+    cellMain_4.innerHTML = rowData.unit;
+
+    var cellMain_5 = newRowMain.insertCell(4);
+    cellMain_5.innerHTML = rowData.order_number;
+
+    // Tambahkan tombol "Delete" untuk menghapus baris dari tabel pertama
+    var cellMain_action = newRowMain.insertCell(5);
+    cellMain_action.innerHTML = '<button class="btn btn-success">Pilih</button>';
+
+    // Hapus baris dari tabel kedua setelah memindahkan data
+    row.remove();
+}
 
         // Fungsi untuk mengisi Table 1
         function populateOptions(response) {
