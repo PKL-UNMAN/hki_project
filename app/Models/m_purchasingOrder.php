@@ -40,7 +40,7 @@ class m_purchasingOrder extends Model
 
     public function tampilPO_Supplier()
     {
-        return DB::table('purchasing')->join('users','purchasing.id_tujuan_po','=','users.role_id')->where('purchasing.class', 'SUPPLIER')->get();
+        return DB::table('purchasing')->join('users_detail','purchasing.id_tujuan_po','=','users_detail.id_perusahaan')->join('users','users.id','=','users_detail.id_user')->where('users.role_id', '3')->get();
     }
 
     public function getIdPO(){

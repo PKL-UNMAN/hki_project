@@ -385,7 +385,7 @@ class c_purchasingOrder extends Controller
                 'po_number'=> $data[0][1][0],
                 'class'=> $request->class,
                 'currency_code'=>$data[0][1][18],
-                'id_tujuan_po'=> intval($request->role_id),
+                'id_tujuan_po'=> $data[0][1][4],
                 'status' => 'Unsend'
                 ]
             );

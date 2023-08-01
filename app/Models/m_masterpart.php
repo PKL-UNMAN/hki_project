@@ -12,7 +12,7 @@ class m_masterpart extends Model
     protected $table = 'master_part';
     protected $primaryKey = 'id_part'; 
     public $timestamps = false;
-    protected $fillable = ['id_user', 'part_no', 'part_name', 'composition', 'unit_price'];
+    protected $fillable = ['id_part','id_user', 'part_no', 'part_name', 'composition', 'unit_price'];
 
     public function checkID()
     {

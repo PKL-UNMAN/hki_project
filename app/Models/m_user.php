@@ -69,7 +69,7 @@ class m_user extends Model
   
     public function supplierData()
     {
-        return DB::table('users')->where('role_id', '3')->get();
+        return DB::table('users')->join('users_detail','users_detail.id_user','=','users.id')->where('role_id', '3')->get();
     }
 
     public function supplierDataById($id)
