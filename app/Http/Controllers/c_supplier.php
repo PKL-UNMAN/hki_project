@@ -62,7 +62,7 @@ class c_supplier extends Controller
         //Download Surat Subcon
     public function mySurat_Download($id)
     {
-        $id = Auth::user()->id;
+        
         $data =[
             'details'=> $this->surat->detailSurat($id),
             'from'=> $this->surat->headSurat($id),

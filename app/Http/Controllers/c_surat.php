@@ -132,6 +132,7 @@ if ($lastSurat) {
             $Surat->pengirim = $request->pengirim;
             $Surat->penerima = $request->penerima;
             $Surat->status="On Progress";
+            $Surat->tanggal_terbit=date('Y-m-d');
             $Surat->save();
 
             foreach ($request->data_table as $item) {
@@ -155,6 +156,7 @@ if ($lastSurat) {
             $Surat->pengirim = $request->pengirim;
             $Surat->penerima = $request->penerima;
             $Surat->status="On Progress";
+            $Surat->tanggal_terbit=date('Y-m-d');
             $Surat->save();
 
             foreach ($request->data_table as $item) {
@@ -309,6 +311,7 @@ if ($lastSurat) {
             $Surat->pengirim = $request->pengirim;
             $Surat->penerima = $request->penerima;
             $Surat->status="On Progress";
+            $Surat->tanggal_terbit=date('Y-m-d');
             $Surat->save();
 
             foreach ($request->data_table as $item) {
@@ -332,6 +335,7 @@ if ($lastSurat) {
             $Surat->pengirim = $request->pengirim;
             $Surat->penerima = $request->penerima;
             $Surat->status="On Progress";
+            $Surat->tanggal_terbit=date('Y-m-d');
             $Surat->save();
 
             foreach ($request->data_table as $item) {

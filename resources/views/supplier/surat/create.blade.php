@@ -146,7 +146,6 @@
                         } else {
                             // Membuat pesan dengan menggunakan alert()
                             alert('Opps! Data Po Tidak lengkap');
-                            $('#tujuan').removeAttr('readonly');
                         }
                         $('#data-table').DataTable().destroy();
                         // Panggil fungsi untuk mengisi opsi setelah menerima data dari server

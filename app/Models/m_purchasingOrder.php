@@ -53,7 +53,7 @@ class m_purchasingOrder extends Model
 
     public function tampilPO_Subcon()
     {
-        return DB::table('purchasing')->join('users','purchasing.id_tujuan_po','=','users.role_id')->where('purchasing.class', 'SUBCON')->get();
+        return DB::table('purchasing')->join('users_detail','purchasing.id_tujuan_po','=','users_detail.id_perusahaan')->join('users','users.id','=','users_detail.id_user')->where('users.role_id', '2')->get();
     }
 
     public function addData($table,$data)
@@ -107,7 +107,7 @@ class m_purchasingOrder extends Model
     // PO DI HALAMAN SUBCON
     public function myPO_Subcon($id)
     {
-        return DB::table('purchasing')->join('users_detail','purchasing.id_tujuan_po','=','users_detail.id_perusahaan')->where('users_detail.id_user', $id)->get();
+        return DB::table('purchasing')->join('users_detail','purchasing.id_tujuan_po','=','users_detail.id_perusahaan')->join('users','users.id','=','users_detail.id_user')->where('users_detail.id_user', $id)->get();
     }
 
     public function fromPO($no)
@@ -130,16 +130,16 @@ class m_purchasingOrder extends Model
     }
     // bantu isi data tambah surat jalan
     public function ambilData_posubcon($selectedValue,$id){
-        return DB::table('purchasing')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->join('users_detail','purchasing.id_tujuan_po','=','users_detail.id_perusahaan')->where('po_number', $selectedValue)->where('users_detail.id_user', $id)->get();
+        return DB::table('purchasing')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->join('users_detail','purchasing.id_tujuan_po','=','users_detail.id_perusahaan')->where('po_number', $selectedValue)->get();
     }
     public function ambilData_dposubcon($selectedPartno, $selectedPoNumber,$id){
         return DB::table('purchasing')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->where('po_number', $selectedPoNumber)->Where('purchasing_details.part_no', $selectedPartno)->get();
     }
     public function ambilData_posupp($selectedValue,$id){
-        return DB::table('purchasing')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->join('users','purchasing.id_tujuan_po','=','users.id')->where('po_number', $selectedValue)->get();
+        return DB::table('purchasing')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->join('users_detail','purchasing.id_tujuan_po','=','users_detail.id_perusahaan')->where('po_number', $selectedValue)->get();
     }
     public function ambilData_dposupp($selectedPartno, $selectedPoNumber,$id){
-        return DB::table('purchasing')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->join('users','purchasing.id_tujuan_po','=','users.id')->where('po_number', $selectedPoNumber)->Where('purchasing_details.part_no', $selectedPartno)->get();
+        return DB::table('purchasing')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->join('users_detail','purchasing.id_tujuan_po','=','users_detail.id_perusahaan')->join('users','users.id','=','users_detail.id_user')->where('po_number', $selectedPoNumber)->Where('purchasing_details.part_no', $selectedPartno)->Where('users.id', $id)->get();
     }
     public function ambilData_posupp_tujuan($selectedValue,$id){
         return DB::table('purchasing')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->join('users','purchasing.id_destination','=','users.id')->where('po_number', $selectedValue)->first();
@@ -177,7 +177,7 @@ class m_purchasingOrder extends Model
 
      public function myPO_Supplier($id)
      {
-        return DB::table('purchasing')->join('users','purchasing.id_tujuan_po','=','users.id')->where('id_tujuan_po', $id)->get();
+        return DB::table('purchasing')->join('users_detail','purchasing.id_tujuan_po','=','users_detail.id_perusahaan')->join('users','users.id','=','users_detail.id_user')->where('users_detail.id_user', $id)->get();
      }
       // END PO DI HALAMAN SUBCON
 
