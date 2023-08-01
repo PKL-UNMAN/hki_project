@@ -58,8 +58,7 @@
                             </td>
                             <td>
                                 <a href="{{ route('subcon.surat.edit', $data->id) }}" class="btn btn-warning">Edit</a>
-                                <button onclick="modalHapus('{{ $data->no_surat }}')"
-                                    class="btn btn-danger">Hapus</button>
+                                <button onclick="modalHapus('{{ $data->no_surat }}')" class="btn btn-danger">Hapus</button>
                                 <a href="#" onclick="modalREAD({{ $data->id }})" class="btn btn-warning">READ</a>
                                 <a href="{{ route('subcon.surat.download', $data->id) }}"
                                     class="btn btn-primary">Download</a>

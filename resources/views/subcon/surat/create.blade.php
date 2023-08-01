@@ -323,7 +323,6 @@
 
         // Dapatkan body tabel kedua
         var tableBody2 = document.getElementById('additional-table').getElementsByTagName('tbody')[0];
-
         // Buat baris baru di tabel kedua
         var newRow2 = tableBody2.insertRow();
         // Masukkan data ke dalam sel-sel baris tabel kedua
@@ -334,7 +333,9 @@
         cell2_2.innerHTML = rowData.part_name;
 
         var cell2_3 = newRow2.insertCell(2);
-        cell2_3.innerHTML = '<input type="text" value="' + rowData.qty + '">'; // Ubah kolom "Qty" menjadi input
+        var maxQuantity = parseInt(rowData.qty);
+        cell2_3.innerHTML = '<input type="number" max="' + maxQuantity + '" value="' + rowData.qty +
+        '">'; // Ubah kolom "Qty" menjadi input
 
         var cell2_4 = newRow2.insertCell(3);
         cell2_4.innerHTML = rowData.unit;
@@ -345,6 +346,13 @@
         // Tambahkan tombol delete untuk menghapus baris dari tabel kedua
         var cell2_action = newRow2.insertCell(5);
         cell2_action.innerHTML = '<button class="btn btn-danger">Delete</button>';
+        var inputQty = cell2_3.querySelector('input');
+        inputQty.addEventListener('input', function () {
+            var enteredValue = parseInt(inputQty.value);
+            if (enteredValue > maxQuantity) {
+                inputQty.value = maxQuantity; // Reset nilai jika melebihi batas
+            }
+        });
     }
 
     function deleteFromTable2(button) {

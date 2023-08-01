@@ -99,7 +99,7 @@ class c_surat extends Controller
         'data_table.*.qty' => 'required',
         'data_table.*.unit' => 'required',
     ]);
-    $lastSurat = m_surat::orderBy('no_surat', 'desc')->first();
+    $lastSurat = m_surat::orderBy('tanggal_terbit', 'desc')->first();
 
 if ($lastSurat) {
     $lastNoSurat = $lastSurat->no_surat;
