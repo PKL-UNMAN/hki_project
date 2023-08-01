@@ -92,13 +92,13 @@ class c_purchasingOrder extends Controller
 
     }
 
-    public function editPO_Supplier($id,$id_subcon,$id_supplier)
+    public function editPO_Supplier($id,$id_supplier)
     {
         $data =[
             'PO' => $this->PO->detailData($id),
             'POById'=> $this->PO->getPOById('purchasing',$id),
             'subcon' => $this->user->subconData(),
-            'subconBy' => $this->user->subconDataById($id_subcon),
+            'subconBy' => $this->user->subconData(),
             'supplier' => $this->user->supplierData(),
             'supplierBy' => $this->user->supplierDataById($id_supplier) 
         ];
@@ -386,6 +386,8 @@ class c_purchasingOrder extends Controller
                 'class'=> $request->class,
                 'currency_code'=>$data[0][1][18],
                 'id_tujuan_po'=> $data[0][1][4],
+                'default_supplier_id'=>$data[0][1][4],
+                'issue_date'=>date('Y-m-d H:i:s'), 
                 'status' => 'Unsend'
                 ]
             );
