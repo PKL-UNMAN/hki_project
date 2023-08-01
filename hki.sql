@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 01 Agu 2023 pada 15.15
+-- Waktu pembuatan: 01 Agu 2023 pada 15.43
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -212,7 +212,7 @@ CREATE TABLE `purchasing` (
 
 INSERT INTO `purchasing` (`id_po`, `po_number`, `id_tujuan_po`, `default_supplier_id`, `class`, `issue_date`, `currency_code`, `id_destination`, `status`) VALUES
 (404, 'HKI230490', 50010, NULL, 'SUPPLIER', NULL, 'IDR', NULL, 'Unsend'),
-(405, 'HKI230490', 2, NULL, 'SUBCON', NULL, 'IDR', NULL, 'Unsend');
+(405, 'HKI230491', 30030, NULL, 'SUBCON', NULL, 'IDR', NULL, 'Unsend');
 
 -- --------------------------------------------------------
 
@@ -942,7 +942,7 @@ ALTER TABLE `stocks`
 -- AUTO_INCREMENT untuk tabel `surat_details`
 --
 ALTER TABLE `surat_details`
-  MODIFY `id_detail_surat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_detail_surat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
