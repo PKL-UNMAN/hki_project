@@ -58,7 +58,7 @@
                         <div class="col-md-4">
                             <div class="form-group text-start">
                                 <label for="default_id" class="fw-bold">ID Default Supplier</label>
-                                <input type="text" class="form-control @error('default_id') is-invalid @enderror" id="default_id" placeholder="Masukkan default_id" value="{{$POById->default_supplier_id}}">
+                                <input type="text" class="form-control @error('default_id') is-invalid @enderror" id="default_id" placeholder="Masukkan default_id">
                                 @error('default_id')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -67,17 +67,8 @@
                             </div>
                             <div class="form-group mt-3 text-start">
                                 <label for="issue_date" class="fw-bold">Issue Date</label>
-                                <input type="text" class="form-control @error('issue_date') is-invalid @enderror" id="issue_date" placeholder="Masukkan issue_date" value="{{$POById->issue_date}}">
+                                <input type="text" class="form-control @error('issue_date') is-invalid @enderror" id="issue_date" placeholder="Masukkan issue_date">
                                 @error('issue_date')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                            <div class="form-group mt-3 text-start">
-                                <label for="delivery_date" class="fw-bold"><i class="fa-solid fa-calendar-days"></i> Delivery Date</label>
-                                <input type="datetime" class="form-control @error('delivery_date') is-invalid @enderror" id="delivery_date" value="{{$POById->delivery_time}}">
-                                @error('delivery_date')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -202,6 +193,15 @@
                         </span>
                         @enderror
                     </div>
+                    <div class="form-group mt-3 text-start">
+                        <label for="" class="fw-bold">Delivery Date</label>
+                        <input type="date" class="form-control @error('delivery_time') is-invalid @enderror" name="delivery_time[]" placeholder="Masukkan delivery_time" value="{{$item->delivery_time}}">
+                        @error('delivery_time')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
                     <div class="po">
                         <input type="hidden" name="id_tujuan" value="">
                         <input type="hidden" name="po_number" value="">
@@ -221,7 +221,7 @@
         @endphp
         @endforeach
     </div>
-    <button style="margin-left: 900px; margin-top:20px" type="submit" id="simpan" class="btn btn-primary shadow">Simpan</button>
+    <button style="margin-left: 1000px; margin-bottom:70px; margin-top:20px" type="submit" id="simpan" class="btn btn-primary shadow fixed-bottom">Simpan</button>
 </form>
     </div>
 </div>

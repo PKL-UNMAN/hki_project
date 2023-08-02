@@ -110,12 +110,13 @@ class c_purchasingOrder extends Controller
     {
         $data =[
             'PO' => $this->PO->detailData($id),
-            'POById'=> $this->PO->getPOById('purchasing',$id),
+            'POById'=> $this->PO->getPO($id),
             'subcon' => $this->user->subconData(),
             'subconBy' => $this->user->subconDataById(NULL),
             'supplier' => $this->user->supplierData(),
             'supplierBy' => $this->user->supplierDataById(NULL) 
         ];
+        // dd($id);
 
         return view ('hki.po.supplier.editUpload', $data);
     }
@@ -146,7 +147,7 @@ class c_purchasingOrder extends Controller
                     "unit_price" => $request->unit_price[$no],
                     "order_qty" => $request->qty[$no],
                     "unit" => $request->unit[$no],
-                    "delivery_time" => $request->delivery_date[$no],
+                    "delivery_time" => $request->delivery_time[$no],
                     "composition" => $request->composition[$no],
                     "amount" => $request->amount[$no],
                     "order_number" => $request->order_number[$no],
