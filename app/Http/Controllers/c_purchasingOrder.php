@@ -110,13 +110,12 @@ class c_purchasingOrder extends Controller
     {
         $data =[
             'PO' => $this->PO->detailData($id),
-            'POById'=> $this->PO->getPO($id),
+            'POById'=> $this->PO->getPOById('purchasing',$id),
             'subcon' => $this->user->subconData(),
             'subconBy' => $this->user->subconDataById(NULL),
             'supplier' => $this->user->supplierData(),
             'supplierBy' => $this->user->supplierDataById(NULL) 
         ];
-        // dd($id);
 
         return view ('hki.po.supplier.editUpload', $data);
     }
@@ -138,25 +137,8 @@ class c_purchasingOrder extends Controller
                 "id_destination" => $request->destination,
                 "status" => 'On Progress'
             ];
-            $this->PO->editData('purchasing','id_po',$id_po, $po);
-            $parts = [];
-            foreach ($id_details as $items) {
-                $parts= [
-                    "part_no" => $request->part_no[$no],
-                    "part_name" => $request->part_name[$no],
-                    "unit_price" => $request->unit_price[$no],
-                    "order_qty" => $request->qty[$no],
-                    "unit" => $request->unit[$no],
-                    "delivery_time" => $request->delivery_time[$no],
-                    "composition" => $request->composition[$no],
-                    "amount" => $request->amount[$no],
-                    "order_number" => $request->order_number[$no],
-                ];
-                $no++;
-                $this->PO->editData('purchasing_details','id',$items->id,$parts);
-            }
-            
         }
+        $this->PO->editData('purchasing','id_po',$id_po, $po);
         return redirect()->route('hki.po.supplier.index')->with('success', 'User Berhasil diupdate.');
            
         }
@@ -305,7 +287,7 @@ class c_purchasingOrder extends Controller
         $id_details = $this->PO->getDetailsByIdPO($id_po);
         $no = 0;
         if($id_details == NULL){
-            return redirect()->route('hki.po.supplier.index')->with('fail','Silakan lengkapi data terlebih dahulu!');
+            return redirect()->route('hki.po.subcon.index')->with('fail','Silakan lengkapi data terlebih dahulu!');
         }else{
             $po = [
                 "po_number" => $request->po_number,
@@ -317,28 +299,11 @@ class c_purchasingOrder extends Controller
                 "id_destination" => $request->destination,
                 "status" => 'On Progress'
             ];
-            $this->PO->editData('purchasing','id_po',$id_po, $po);
-            $parts = [];
-            foreach ($id_details as $items) {
-                $parts= [
-                    "part_no" => $request->part_no[$no],
-                    "part_name" => $request->part_name[$no],
-                    "unit_price" => $request->unit_price[$no],
-                    "order_qty" => $request->qty[$no],
-                    "unit" => $request->unit[$no],
-                    "delivery_time" => $request->delivery_date[$no],
-                    "composition" => $request->composition[$no],
-                    "amount" => $request->amount[$no],
-                    "order_number" => $request->order_number[$no],
-                ];
-                $no++;
-                $this->PO->editData('purchasing_details','id',$items->id,$parts);
-            }
-            
         }
+        $this->PO->editData('purchasing','id_po',$id_po, $po);
         return redirect()->route('hki.po.subcon.index')->with('success', 'User Berhasil diupdate.');
            
-        }
+    }
          
 
 

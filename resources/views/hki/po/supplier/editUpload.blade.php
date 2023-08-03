@@ -18,13 +18,8 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group text-start">
-                                <label for="id_tujuan" class="text-left fw-bold">Tujuan Supplier (Nama Perusahaan)</label>
-                                <select id="id_tujuan" class="form-control @error('id_tujuan') is-invalid @enderror">
-                                    <option>-- Pilih Tujuan Supplier --</option>
-                                    @foreach($supplier as $data)
-                                    <option data-id="{{$data->id}}" data-class="SUPPLIER" value="{{$data->id}}">{{$data->id}} - {{$data->nama}}</option>
-                                    @endforeach
-                                </select>
+                                <label for="id_tujuan" class="text-left fw-bold">Tujuan Supplier (ID Perusahaan)</label>
+                                <input type="text" class="form-control @error('Tujuan') is-invalid @enderror" id="id_tujuan" placeholder="Masukkan Tujuan" value="{{$POById->id_tujuan_po}}">
                                 @error('id_tujuan')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -58,7 +53,7 @@
                         <div class="col-md-4">
                             <div class="form-group text-start">
                                 <label for="default_id" class="fw-bold">ID Default Supplier</label>
-                                <input type="text" class="form-control @error('default_id') is-invalid @enderror" id="default_id" placeholder="Masukkan default_id">
+                                <input type="text" class="form-control @error('default_id') is-invalid @enderror" id="default_id" placeholder="Masukkan default_id" value="{{$POById->id_user}}">
                                 @error('default_id')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -118,7 +113,7 @@
                 <div class="col-md-4">
                     <div class="form-group text-start">
                         <label for="part_no" class="fw-bold">Part No.</label>
-                        <input type="text" id="part_no" class="form-control @error('part_no') is-invalid @enderror" name="part_no[]" placeholder="Masukkan part_no" value="{{$item->part_no}}">
+                        <input type="text" id="part_no" class="form-control @error('part_no') is-invalid @enderror" name="part_no[]" placeholder="Masukkan part_no" readonly value="{{$item->part_no}}">
                         @error('part_no')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -127,7 +122,7 @@
                     </div>
                     <div class="form-group mt-3 text-start">
                         <label for="qty" class="fw-bold">QTY</label>
-                        <input type="text" class="form-control @error('qty') is-invalid @enderror" id="qty{{$no}}" name="qty[]" placeholder="Masukkan qty" value="{{$item->order_qty}}">
+                        <input type="text" class="form-control @error('qty') is-invalid @enderror" id="qty{{$no}}" name="qty[]" placeholder="Masukkan qty" readonly value="{{$item->order_qty}}">
                         @error('qty')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -136,7 +131,7 @@
                     </div>
                     <div class="form-group mt-3 text-start">
                         <label for="composition" class="fw-bold">Composition</label>
-                        <input type="text" class="form-control @error('composition') is-invalid @enderror" id="composition{{$no}}" name="composition[]" placeholder="Masukkan composition" value="{{$item->composition}}">
+                        <input type="text" class="form-control @error('composition') is-invalid @enderror" id="composition{{$no}}" name="composition[]" placeholder="Masukkan composition" readonly value="{{$item->composition}}">
                         @error('composition')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -147,7 +142,7 @@
                 <div class="col-md-4">
                     <div class="form-group text-start">
                         <label for="" class="fw-bold">Part Name</label>
-                        <input type="text" class="form-control @error('part_name') is-invalid @enderror" name="part_name[]" placeholder="Masukkan part_name" value="{{$item->part_name}}">
+                        <input type="text" class="form-control @error('part_name') is-invalid @enderror" name="part_name[]" placeholder="Masukkan part_name" readonly value="{{$item->part_name}}">
                         @error('part_name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -156,7 +151,7 @@
                     </div>
                     <div class="form-group mt-3 text-start">
                         <label for="" class="fw-bold">Unit</label>
-                        <input type="text" class="form-control @error('unit') is-invalid @enderror" name="unit[]" placeholder="Masukkan unit" value="{{$item->unit}}">
+                        <input type="text" class="form-control @error('unit') is-invalid @enderror" name="unit[]" placeholder="Masukkan unit" readonly value="{{$item->unit}}">
                         @error('unit')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -165,7 +160,7 @@
                     </div>
                     <div class="form-group mt-3 text-start">
                         <label for="" class="fw-bold">Amount</label>
-                        <input type="text" class="form-control @error('amount') is-invalid @enderror" id="amount{{$no}}" name="amount[]" placeholder="Masukkan amount" value="{{$item->amount}}">
+                        <input type="text" class="form-control @error('amount') is-invalid @enderror" id="amount{{$no}}" name="amount[]" placeholder="Masukkan amount" readonly value="{{$item->amount}}">
                         @error('amount')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -176,7 +171,7 @@
                 <div class="col-md-4">
                     <div class="form-group text-start" data-index="{{$no}}">
                         <label for="" class="fw-bold">Unit Price</label>
-                        <input type="text" class="form-control @error('unit_price') is-invalid @enderror" id="unit_price{{$no}}" name="unit_price[]" placeholder="Masukkan unit_price" value="{{$item->unit_price}}">
+                        <input type="text" class="form-control @error('unit_price') is-invalid @enderror" id="unit_price{{$no}}" name="unit_price[]" placeholder="Masukkan unit_price" readonly value="{{$item->unit_price}}">
                         @error('unit_price')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -186,7 +181,7 @@
 
                     <div class="form-group mt-3 text-start">
                         <label for="" class="fw-bold">Order Number</label>
-                        <input type="text" class="form-control @error('order_number') is-invalid @enderror" name="order_number[]" placeholder="Masukkan order_number" value="{{$item->order_number}}">
+                        <input type="text" class="form-control @error('order_number') is-invalid @enderror" name="order_number[]" placeholder="Masukkan order_number" readonly value="{{$item->order_number}}">
                         @error('order_number')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -195,7 +190,7 @@
                     </div>
                     <div class="form-group mt-3 text-start">
                         <label for="" class="fw-bold">Delivery Date</label>
-                        <input type="date" class="form-control @error('delivery_time') is-invalid @enderror" name="delivery_time[]" placeholder="Masukkan delivery_time" value="{{$item->delivery_time}}">
+                        <input type="date" class="form-control @error('delivery_time') is-invalid @enderror" name="delivery_time[]" placeholder="Masukkan delivery_time" readonly value="{{$item->delivery_time}}">
                         @error('delivery_time')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -227,11 +222,7 @@
 </div>
 <script>
     $(document).ready(function(){
-        $('#id_tujuan,#destination,#currency').on('change', function(){
-            const default_id = $('#id_tujuan option:selected').data('id');
-            $('#default_id').val(default_id);
-            const class_name = $('#id_tujuan option:selected').data('class');
-            $('#classname').val(class_name);
+        $('#destination,#currency').on('change', function(){
             let currency = $('select#currency').val()
             $('[name="currency"]').val(currency)
             //edit tujuan

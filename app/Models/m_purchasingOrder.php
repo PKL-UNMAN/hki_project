@@ -68,7 +68,7 @@ class m_purchasingOrder extends Model
 
     public function detailData($id)
     {
-        return DB::table('purchasing')->join('users','purchasing.id_tujuan_po','=','users.id')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->where('purchasing_details.id_po', $id)->get();
+        return DB::table('purchasing')->join('users_detail','purchasing.id_tujuan_po','=','users_detail.id_perusahaan')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->where('purchasing_details.id_po', $id)->get();
     }
 
     public function detailPOSubcon()
@@ -82,7 +82,7 @@ class m_purchasingOrder extends Model
     }
 
     public function getPOById($table,$id){
-        return DB::table('purchasing')->join('users','purchasing.id_tujuan_po','=','users.id')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->where('purchasing_details.id_po',$id)->first();
+        return DB::table('purchasing')->join('users_detail','purchasing.id_tujuan_po','=','users_detail.id_perusahaan')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->where('purchasing_details.id_po',$id)->first();
     }
 
     public function getDetailsByIdPO($id){
