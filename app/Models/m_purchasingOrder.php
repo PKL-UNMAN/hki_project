@@ -94,6 +94,10 @@ class m_purchasingOrder extends Model
         return DB::table($table)->where('id_po', $no)->delete();
     }
 
+    public function deleteStock($no_surat){
+        return DB::table('stocks')->where('no_surat',$no_surat)->delete();
+    }
+
     public function checkID()
     {
         return DB::table('purchasing')->count();
@@ -223,7 +227,7 @@ class m_purchasingOrder extends Model
     public function getSumPOSent(){
         return DB::table('surat_details')
         ->join('surat','surat_details.no_surat','=','surat.no_surat')
-        ->select('surat.no_surat','surat.tanggal',DB::raw('SUM(surat_details.qty) AS qty_sent'))
+        ->select('surat.no_surat','surat.tanggal_terbit',DB::raw('SUM(surat_details.qty) AS qty_sent'))
         ->groupBy('surat.no_surat')
         ->get();
     }

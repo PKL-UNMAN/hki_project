@@ -126,6 +126,10 @@ class m_surat extends Model
         return DB::table('surat_supplier')->max('no_surat');
     }
 
+    public function deleteRow($table,$key,$val){
+        return DB::table($table)->where($key,$val)->delete();
+    }
+
 
     // END Kondisi
 }

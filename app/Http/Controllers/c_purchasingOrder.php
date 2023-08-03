@@ -221,14 +221,14 @@ class c_purchasingOrder extends Controller
             $qty_sent = 0;
             //Looping data PO yang dikirim
             foreach($sumPOSent as $sumSent){
-                if($sumSent->tanggal < date('Y-m-d')){
+                if($sumSent->tanggal_terbit <= date('Y-m-d')){
                     //Validasi ketika nomor surat terdapat di table stocks
                     if($this->PO->validateNoSurat($sumSent->no_surat) !== NULL){
                         if(count($sumPOSent) == 1){
                             $sisa = intval($sum->total_qty_po) - $sumSent->qty_sent;
                             $data = [
                                 'no_surat'=>$sumSent->no_surat,
-                                'tanggal'=>$sumSent->tanggal,
+                                'tanggal'=>$sumSent->tanggal_terbit,
                                 'sisa'=>$sisa
                             ];
                         }else{
@@ -236,7 +236,7 @@ class c_purchasingOrder extends Controller
                             $sisa = intval($sum->total_qty_po) - $qty_sent;
                             $data = [
                                 'no_surat'=>$sumSent->no_surat,
-                                'tanggal'=>$sumSent->tanggal,
+                                'tanggal'=>$sumSent->tanggal_terbit,
                                 'sisa'=>$sisa
                             ];
                         }
@@ -248,7 +248,7 @@ class c_purchasingOrder extends Controller
                             $sisa = intval($sum->total_qty_po) - $sumSent->qty_sent;
                             $data = [
                                 'no_surat'=>$sumSent->no_surat,
-                                'tanggal'=>$sumSent->tanggal,
+                                'tanggal'=>$sumSent->tanggal_terbit,
                                 'sisa'=>$sisa
                             ];
                         }else{
@@ -256,12 +256,17 @@ class c_purchasingOrder extends Controller
                             $sisa = intval($sum->total_qty_po) - $qty_sent;
                             $data = [
                                 'no_surat'=>$sumSent->no_surat,
-                                'tanggal'=>$sumSent->tanggal,
+                                'tanggal'=>$sumSent->tanggal_terbit,
                                 'sisa'=>$sisa
                             ];
                         }
                         //tambah data baru 
                         $this->PO->addData('stocks',$data);
+                    }
+                }else if($sumSent->tanggal_terbit > date('Y-m-d')){
+                    if($this->PO->validateNoSurat($sumSent->no_surat) !== NULL){
+                        //edit data existing pada table stocks
+                        $this->PO->deleteStock($sumSent->no_surat);
                     }
                 }
             }
