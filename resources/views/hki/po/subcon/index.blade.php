@@ -89,7 +89,7 @@
                                 </select>
                             </td>
                             <td style="width:40%">
-                                        <a href="{{url('hki/po/subcon/edit/'.$data->id_po.'/'.$data->id_tujuan_po)}}" class="btn btn-warning">Edit</a>
+                                        <a href="{{url('hki/po/subcon/edit/'.$data->id_po)}}" class="btn btn-warning">Edit</a>
                                         <a id="hapus" onclick="modalHapus({{$data->id_po}})" href="#" class="btn btn-danger">Delete</a>
                                         <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal{{$data->id_po}}" class="btn btn-info">Read</a>
                                         <a href="{{url('subcon/po/download/'.$data->id_po)}}" class="btn btn-primary">Download</a>

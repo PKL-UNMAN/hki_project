@@ -139,7 +139,7 @@ class c_purchasingOrder extends Controller
             ];
         }
         $this->PO->editData('purchasing','id_po',$id_po, $po);
-        return redirect()->route('hki.po.supplier.index')->with('success', 'User Berhasil diupdate.');
+        return redirect()->route('hki.po.supplier.index')->with('success', 'PO Berhasil diupdate.');
            
         }
          
@@ -281,7 +281,17 @@ class c_purchasingOrder extends Controller
 
         return view ('hki.po.subcon.edit', $data);
     }
-
+    public function editUploadPO_Subcon($id){
+        $data =[
+            'PO' => $this->PO->detailData($id),
+            'POById'=> $this->PO->getPOById('purchasing',$id),
+            'hki' => $this->user->hkiData(),
+            'subconBy' => $this->user->subconDataById(NULL),
+            'supplier' => $this->user->supplierData(),
+            'supplierBy' => $this->user->supplierDataById(NULL) 
+        ];
+        return view ('hki.po.subcon.editUpload', $data);
+    }
     public function updatePO_Subcon(Request $request, $id_po)
     {
         $id_details = $this->PO->getDetailsByIdPO($id_po);
@@ -301,7 +311,7 @@ class c_purchasingOrder extends Controller
             ];
         }
         $this->PO->editData('purchasing','id_po',$id_po, $po);
-        return redirect()->route('hki.po.subcon.index')->with('success', 'User Berhasil diupdate.');
+        return redirect()->route('hki.po.subcon.index')->with('success', 'PO Berhasil diupdate.');
            
     }
          

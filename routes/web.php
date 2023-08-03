@@ -76,6 +76,7 @@ Route::controller(c_purchasingOrder::class)->middleware('auth')->group(function 
     Route::get('hki/po/subcon/create', 'createPO_Subcon')->name('hki.po.subcon.create');
     Route::post('hki/po/subcon/store', 'storePO_Subcon')->name('hki.po.subcon.store');
     Route::get('hki/po/subcon/edit/{id_po}/{id_subcon}', 'editPO_Subcon')->name('hki.po.subcon.edit');
+    Route::get('hki/po/subcon/edit/{id_po}', 'editUploadPO_Subcon')->name('hki.po.subcon.edit');
     Route::post('hki/po/subcon/update/{no}', 'updatePO_Subcon')->name('hki.po.subcon.update');
     Route::get('hki/po/subcon/destroy/{no}', 'destroyPO_Subcon')->name('hki.po.subcon.destroy');
 

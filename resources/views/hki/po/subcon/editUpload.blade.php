@@ -1,4 +1,4 @@
-@extends('layouts.templateBaru',['title'=>'Edit PO Supplier'])
+@extends('layouts.templateBaru',['title'=>'Edit PO Subcon'])
 @section('content')
 @section('content')
 
@@ -7,7 +7,7 @@
         <div class="xformdm">
             <div class="header bg-primary text-light pb-3 pt-4 mb-3 rounded shadow">
                 <center>
-                    <h3>Edit PO Supplier</h3>
+                    <h3>Edit PO Subcon</h3>
                 </center>
             </div>
 
@@ -39,7 +39,7 @@
                                 <label for="destination" class="fw-bold">Tujuan Pengiriman (Delivery Destination)</label>
                                 <select id="destination" class="form-control @error('destination') is-invalid @enderror">
                                     <option>-- Pilih Tujuan Pengiriman --</option>
-                                    @foreach($subcon as $data)
+                                    @foreach($hki as $data)
                                         <option value="{{$data->id}}">{{$data->nama}}</option>
                                     @endforeach
                                 </select>
@@ -102,7 +102,7 @@
     </div>
 
     <div class="card mt-3 shadow-sm">
-        <form id="formPO" method="POST" action="{{url('hki/po/supplier/update/'.$POById->id_po)}}" enctype="multipart/form-data">
+        <form id="formPO" method="POST" action="{{url('hki/po/subcon/update/'.$POById->id_po)}}" enctype="multipart/form-data">
             @csrf
         @php
             $no = 1;
@@ -274,7 +274,6 @@
             let po_num = $('#po_number').val()
             $('[name="po_number"]').val(po_num)
         });
-        // ciri
         $('#destination').change(function(){
             date = new Date();
             $('#issue_date').val(date.toLocaleDateString('id-ID')+' - '+date.toLocaleTimeString('id-ID'))
