@@ -428,7 +428,6 @@
                 unit: unit
             });
         });
-        console.log(tableData);
         // Lakukan request Ajax ke server untuk menyimpan data
         $.ajax({
             url: "{{ route('subcon.surat.store') }}",
