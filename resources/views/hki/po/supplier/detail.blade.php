@@ -4,7 +4,7 @@
                         <div class="col col-md-12 col-12 mt-2">
                             <div class="form-group">
                                 <label for="password">PO Number</label>
-                                <input type="number" class="form-control @error('po_number') is-invalid @enderror" id="po_number" name="po_number" placeholder="Masukkan po_number" value="{{$PO->po_number}}" readonly>
+                                <input type="text" class="form-control @error('po_number') is-invalid @enderror" id="po_number" name="po_number" placeholder="Masukkan po_number" value="{{$PO->po_number}}" readonly>
                                 @error('po_number')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

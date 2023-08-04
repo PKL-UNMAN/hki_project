@@ -12,12 +12,12 @@ class m_surat extends Model
     // tampil surat dari subcon di hki
     public function suratdarisub($nama)
     {
-        return DB::table('surat')->join('users', 'surat.penerima', '=', 'users.nama')->where('penerima', $nama)->get();
+        return DB::table('surat')->where('penerima', $nama)->get();
     }
     // end tampil surat dari subcon di hki
 
     public function monitorSurat(){
-        return DB::table('surat')->join('users', 'surat.penerima', '=', 'users.nama')->where('pengirim','LIKE','%Supplier%')->get();
+        return DB::table('surat')->join('users', 'surat.pengirim', '=', 'users.nama')->where('role_id','3')->get();
     }
 
     // buat tampilan read surat
@@ -49,14 +49,16 @@ class m_surat extends Model
         'tanggal',
         'no_surat',
         'id',
+        'status',
+        'tanggal_terbit',
     ];
     protected $primaryKey = 'no_surat';
     public $incrementing = false;
     protected $keyType = 'string';
 
-    public function editData($no_surat, $data)
+    public function editData($id, $data)
     {
-        return DB::table('surat')->where('no_surat', $no_surat)->update($data);
+        return DB::table('surat')->where('id', $id)->update($data);
     }
 
     public function checkID()
