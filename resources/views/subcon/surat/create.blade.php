@@ -444,7 +444,7 @@
                 window.location.href = "{{ route('subcon.surat.index') }}";
             },
             error: function (error) {
-                console.log(error);
+                
             }
         });
     });
