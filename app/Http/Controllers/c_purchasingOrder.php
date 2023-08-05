@@ -214,63 +214,63 @@ class c_purchasingOrder extends Controller
     }
 
     public function countSisaBarang(){
-        $sumPOSubcon = $this->PO->getSumTotalPo();
+        $qty_group_item = $this->PO->qtyGroupPerItem();
         $sumPOSent = $this->PO->getSumPoSent();
-        //Looping total PO Subcon
-        foreach($sumPOSubcon as $sum){
-            $qty_sent = 0;
-            //Looping data PO yang dikirim
+        //Looping data item beserta QTY PO untuk dapat nama part dan jumlah dari table purchasing details
+        //Looping data item beserta QTY PO yang dikirimkan subcon dari table surat_details
+        foreach($qty_group_item as $qty_item){
             foreach($sumPOSent as $sumSent){
-                if($sumSent->tanggal_terbit <= date('Y-m-d')){
-                    //Validasi ketika nomor surat terdapat di table stocks
-                    if($this->PO->validateNoSurat($sumSent->no_surat) !== NULL){
-                        if(count($sumPOSent) == 1){
-                            $sisa = intval($sum->total_qty_po) - $sumSent->qty_sent;
-                            $data = [
-                                'no_surat'=>$sumSent->no_surat,
-                                'tanggal'=>$sumSent->tanggal_terbit,
-                                'sisa'=>$sisa
-                            ];
+                //Validasi jika terdapat nama item yang sama dari tabel purchasing_details dan surat_details
+                if($qty_item->part_name === $sumSent->part_name){
+                    //Jika terdapat data yang sama, lanjutkan kondisi jika tanggal di table surat <= current date
+                    if($sumSent->tanggal <= date('Y-m-d H:i:s')){
+                        //validasi data stocks sudah tersimpan
+                        if($this->PO->validateNoSurat($sumSent->no_surat) !== NULL){
+                        //jika sudah tersimpan, validasi jumlah data row yang dikirim
+                            echo 'data sudah tersimpan';
+                            die;
+                            if(count($sumPOSent) == 1){
+                                //jika jumlah data row == 1
+                            }else{
+                                //jika jumlah data row > 1
+                                
+                                //dan validasi data stocks belum tersimpan
+                            }
+                            //jika belum tersimpan, validasi jumlah data row yang dikirim
                         }else{
-                            $qty_sent+=$sumSent->qty_sent;
-                            $sisa = intval($sum->total_qty_po) - $qty_sent;
-                            $data = [
-                                'no_surat'=>$sumSent->no_surat,
-                                'tanggal'=>$sumSent->tanggal_terbit,
-                                'sisa'=>$sisa
-                            ];
+                            if(count($sumPOSent) == 1){
+                                //jika jumlah data row == 1
+                                $sisa = intval($qty_item->qty) - $sumSent->qty_sent;
+                                $data = [
+                                    'no_surat'=>$sumSent->no_surat,
+                                    'tanggal'=>$sumSent->tanggal,
+                                    'part_name'=>$qty_item->part_name,
+                                    'qty_requested'=>$qty_item->qty,
+                                    'qty_sent'=>$sumSent->qty_sent,
+                                    'sisa'=>$sisa
+                                ];
+                                $this->PO->addData('stocks',$data);
+                            }else{
+                                //jika jumlah data row > 1
+                                echo 'lebih dari satu baris data';
+                                die;
+                            }
+                            
                         }
-                        //edit data existing pada table stocks
-                        $this->PO->editData('stocks','no_surat',$sumSent->no_surat, $data);
                     }else{
-                        //ketika nomor surat belum tersimpan di table stocks
-                        if(count($sumPOSent) == 1){
-                            $sisa = intval($sum->total_qty_po) - $sumSent->qty_sent;
-                            $data = [
-                                'no_surat'=>$sumSent->no_surat,
-                                'tanggal'=>$sumSent->tanggal_terbit,
-                                'sisa'=>$sisa
-                            ];
-                        }else{
-                            $qty_sent+=$sumSent->qty_sent;
-                            $sisa = intval($sum->total_qty_po) - $qty_sent;
-                            $data = [
-                                'no_surat'=>$sumSent->no_surat,
-                                'tanggal'=>$sumSent->tanggal_terbit,
-                                'sisa'=>$sisa
-                            ];
-                        }
-                        //tambah data baru 
-                        $this->PO->addData('stocks',$data);
-                    }
-                }else if($sumSent->tanggal_terbit > date('Y-m-d')){
-                    if($this->PO->validateNoSurat($sumSent->no_surat) !== NULL){
-                        //edit data existing pada table stocks
-                        $this->PO->deleteStock($sumSent->no_surat);
+                        echo 'belum dikirim';
+                        die;
                     }
                 }
-            }
-        }
+            }  
+        }  
+        // die;
+
+                //     if($this->PO->validateNoSurat($sumSent->no_surat) !== NULL){
+                //         //edit data existing pada table stocks
+                //         $this->PO->deleteStock($sumSent->no_surat);
+                //     }
+            
     }
 
 

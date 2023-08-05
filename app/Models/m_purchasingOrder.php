@@ -216,19 +216,20 @@ class m_purchasingOrder extends Model
         return DB::table('users')->where('users.nama', $name)->first();
     }
 
-    public function getSumTotalPO(){
+    public function qtyGroupPerItem(){
         return DB::table('purchasing_details')
-        ->join('purchasing','purchasing_details.id_po','=','purchasing.id_po')->where('purchasing.class','SUBCON')
-        ->select('purchasing.po_number',DB::raw('SUM(purchasing_details.order_qty) AS total_qty_po'))
-        ->groupBy('purchasing.po_number')
+        ->join('purchasing','purchasing_details.id_po','=','purchasing.id_po')
+        ->where('purchasing.class','SUBCON')
+        ->select('purchasing_details.part_name',DB::raw('SUM(purchasing_details.order_qty) AS qty'))
+        ->groupBy('purchasing_details.part_name')
         ->get();
     }
 
     public function getSumPOSent(){
         return DB::table('surat_details')
         ->join('surat','surat_details.no_surat','=','surat.no_surat')
-        ->select('surat.no_surat','surat.tanggal_terbit',DB::raw('SUM(surat_details.qty) AS qty_sent'))
-        ->groupBy('surat.no_surat')
+        ->select('surat.no_surat','surat_details.part_name','surat.tanggal',DB::raw('SUM(surat_details.qty) AS qty_sent'))
+        ->groupBy('surat.no_surat','surat_details.part_name')
         ->get();
     }
 
