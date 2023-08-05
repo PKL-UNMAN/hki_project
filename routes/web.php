@@ -103,7 +103,7 @@ Route::controller(c_subcon::class)->middleware('auth')->group(function () {
     // Surat dari Supplier
     Route::get('subcon/suratSup', 'mySuratSup_Subcon')->name('subcon.suratSup.index');
     // ubah status surat dari supplier
-    Route::get('subcon/suratSup/status/{no_surat}', 'ubahStatus_suratSup')->name('subcon.suratSup.ubahstatus');
+    Route::get('subcon/suratSup/status/{id}', 'ubahStatus_suratSup')->name('subcon.suratSup.ubahstatus');
     // Read Surat di subcon
     Route::get('subcon/suratSup/read/{no_surat}', 'subcon_lihatSurat')->name('subcon.suratSup.read');
     
@@ -141,9 +141,9 @@ Route::controller(c_surat::class)->middleware('auth')->group(function () {
     // Surat HKI
     Route::get('hki/surat', 'tampilSurat_HKI')->name('hki.surat.index');
     // Ubah Status Surat 
-    Route::get('hki/surat/status/{no_surat}', 'ubahStatus')->name('hki.surat.ubahstatus');
+    Route::get('hki/surat/status/{id}', 'ubahStatus')->name('hki.surat.ubahstatus');
     // Read Surat di HKI
-    Route::get('hki/surat/read/{no_surat}', 'hki_lihatSurat')->name('hki.surat.read');
+    Route::get('hki/surat/read/{id}', 'hki_lihatSurat')->name('hki.surat.read');
     // scan barcode surat di hki
     Route::get('hki/surat/scan', 'hki_scanSurat')->name('hki.surat.scan');
     

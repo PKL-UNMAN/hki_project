@@ -18,7 +18,7 @@
                                 <select name="id_tujuan" id="id_tujuan" class="form-control @error('id_tujuan') is-invalid @enderror">
                                 <option value="1" selected disabled>-- Pilih Subcon --</option>
                                     @foreach($subcon as $data)
-                                    <option data-id="{{$data->id}}" data-class="SUBCON" value="{{$data->id}}">{{$data->id}} - {{$data->nama}}</option>
+                                    <option data-id="{{$data->id_perusahaan}}" data-class="SUBCON" value="{{$data->id_perusahaan}}">{{$data->id_perusahaan}} - {{$data->nama}}</option>
                                     @endforeach
                                 </select>
                                 @error('id_tujuan')

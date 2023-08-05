@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 01 Agu 2023 pada 15.43
+-- Waktu pembuatan: 04 Agu 2023 pada 05.39
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -211,8 +211,9 @@ CREATE TABLE `purchasing` (
 --
 
 INSERT INTO `purchasing` (`id_po`, `po_number`, `id_tujuan_po`, `default_supplier_id`, `class`, `issue_date`, `currency_code`, `id_destination`, `status`) VALUES
-(404, 'HKI230490', 50010, NULL, 'SUPPLIER', NULL, 'IDR', NULL, 'Unsend'),
-(405, 'HKI230491', 30030, NULL, 'SUBCON', NULL, 'IDR', NULL, 'Unsend');
+(404, 'HKI230490', 50010, 3, 'SUPPLIER', '4/8/2023 - 10.35.27', 'IDR', 2, 'On Progress'),
+(405, 'HKI230491', 30030, 2, 'SUBCON', '4/8/2023 - 10.32.54', 'IDR', 1, 'On Progress'),
+(406, 'tes12', 50010, 3, 'SUPPLIER', '4/8/2023 - 10.37.29', 'IDR', 2, 'On Progress');
 
 -- --------------------------------------------------------
 
@@ -660,7 +661,8 @@ INSERT INTO `purchasing_details` (`id`, `id_po`, `part_no`, `part_name`, `unit_p
 (16129, 405, '46514-52S00', 'HOUSING CENTER, LOWER ', 6873, 270, 'PC', NULL, 1855710, 'PU00145971', '2023-07-21'),
 (16130, 405, '46514-52S00', 'HOUSING CENTER, LOWER ', 6873, 315, 'PC', NULL, 2164995, 'PU00145972', '2023-07-24'),
 (16131, 405, '46514-52S00', 'HOUSING CENTER, LOWER ', 6873, 315, 'PC', NULL, 2164995, 'PU00145973', '2023-07-25'),
-(16132, 405, '46514-52S00', 'HOUSING CENTER, LOWER ', 6873, 315, 'PC', NULL, 2164995, 'PU00145974', '2023-07-26');
+(16132, 405, '46514-52S00', 'HOUSING CENTER, LOWER ', 6873, 315, 'PC', NULL, 2164995, 'PU00145974', '2023-07-26'),
+(16133, 406, '271671', 'pipa', 1000, 9, 'kg', '1', 9000, 'pu778', '2023-08-04');
 
 -- --------------------------------------------------------
 
@@ -709,8 +711,16 @@ CREATE TABLE `surat` (
   `pengirim` varchar(255) NOT NULL,
   `penerima` varchar(255) NOT NULL,
   `status` varchar(255) NOT NULL,
-  `tanggal_terbit` date NOT NULL DEFAULT current_timestamp()
+  `tanggal_terbit` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `surat`
+--
+
+INSERT INTO `surat` (`id`, `no_surat`, `tanggal`, `po_number`, `pengirim`, `penerima`, `status`, `tanggal_terbit`) VALUES
+(1, '1/DO-SI/08/2023', '2023-08-01 00:00:00', 'HKI230490', 'JFE SHOJI STEEL INDONESIA', 'MIYUKI INDONESIA', 'On Progress', '2023-08-01'),
+(2, '2/DO-SI/08/2023', '2023-08-01 00:00:00', 'HKI230491', 'MIYUKI INDONESIA', 'admin HKI', 'On Progress', '2023-08-01');
 
 -- --------------------------------------------------------
 
@@ -726,6 +736,16 @@ CREATE TABLE `surat_details` (
   `qty` varchar(225) NOT NULL,
   `unit` varchar(225) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `surat_details`
+--
+
+INSERT INTO `surat_details` (`id_detail_surat`, `no_surat`, `part_no`, `part_name`, `qty`, `unit`) VALUES
+(32, '1/DO-SI/08/2023', '4000A389-1', 'PLATE,UPPER', '800', 'PC'),
+(33, '1/DO-SI/08/2023', '4000A389-1', 'PLATE,UPPER', '640', 'PC'),
+(34, '2/DO-SI/08/2023', '4113A015', 'ARM LOWER', '200', 'PC'),
+(35, '2/DO-SI/08/2023', '4113A015', 'ARM LOWER', '200', 'PC');
 
 -- --------------------------------------------------------
 
@@ -918,13 +938,13 @@ ALTER TABLE `productions`
 -- AUTO_INCREMENT untuk tabel `purchasing`
 --
 ALTER TABLE `purchasing`
-  MODIFY `id_po` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=406;
+  MODIFY `id_po` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=407;
 
 --
 -- AUTO_INCREMENT untuk tabel `purchasing_details`
 --
 ALTER TABLE `purchasing_details`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16133;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16134;
 
 --
 -- AUTO_INCREMENT untuk tabel `role`
@@ -942,7 +962,7 @@ ALTER TABLE `stocks`
 -- AUTO_INCREMENT untuk tabel `surat_details`
 --
 ALTER TABLE `surat_details`
-  MODIFY `id_detail_surat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_detail_surat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`

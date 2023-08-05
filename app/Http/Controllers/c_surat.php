@@ -43,8 +43,6 @@ class c_surat extends Controller
     }
 
     // END Surat HKI
-
-
     public function monitorSurat(){
         $data =[
             'surat' => $this->surat->monitorSurat()
@@ -100,7 +98,7 @@ class c_surat extends Controller
         'data_table.*.unit' => 'required',
     ]);
     $lastSurat = m_surat::orderBy('tanggal_terbit', 'desc')->first();
-
+    $idMax=$this->surat->maxIditem();
 if ($lastSurat) {
     $lastNoSurat = $lastSurat->no_surat;
     list($lastNo, $lastDoSi, $lastMonth, $lastYear) = explode('/', $lastNoSurat);
@@ -110,7 +108,7 @@ if ($lastSurat) {
     $currentYear = date('Y');
 
     if ($currentMonth == $lastMonth && $currentYear == $lastYear) {
-        $newNo = intval($lastNo) + 1;
+        $newNo = $idMax + 1;
     } else {
         $newNo = 1;
     }
@@ -411,23 +409,19 @@ if ($lastSurat) {
 
     public function ubahStatus(Request $request)
     {
-        $no_surat = $request->no_surat;
-        $validatePO = $this->PO->validatePOWithSurat($no_surat);
-        if($validatePO){
+        $id = $request->id;
             $data = [
                 'status' => "Finish",
             ];
-            $this->surat->editData($no_surat, $data);
-            $this->PO->editData('purchasing','id_po',$validatePO->id_po,$data);
-        }
+        $this->surat->editStatusSuratSup($id, $data);
     }
 
-    public function hki_lihatSurat($no)
+    public function hki_lihatSurat($id)
     {
         $data = [
-            'perusahaan' => $this->surat->detailPengirim($no),
-            'surat' => $this->surat->headSurat($no),
-            'detail'=> $this->surat->detailSurat($no)
+            'perusahaan' => $this->surat->detailPengirim($id),
+            'surat' => $this->surat->headSurat($id),
+            'detail'=> $this->surat->detailSurat($id)
         ];
         return view('hki.surat.read', $data);
     }

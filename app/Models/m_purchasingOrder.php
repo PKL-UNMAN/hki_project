@@ -121,12 +121,12 @@ class m_purchasingOrder extends Model
 
     public function listGroup($id_po)
     {
-        return DB::table('purchasing')->join('users','purchasing.id_tujuan_po','=','users.id')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->join('users_detail','users.id','=','users_detail.id_user')->where('purchasing.id_po', $id_po)->get();
+        return DB::table('purchasing')->join('users_detail','purchasing.id_tujuan_po','=','users_detail.id_perusahaan')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->join('users','users.id','=','users_detail.id_user')->where('purchasing.id_po', $id_po)->get();
     }
 
     public function download($id_po)
     {
-        return DB::table('purchasing')->join('users','purchasing.id_tujuan_po','=','users.id')->join('users_detail','users.id','=','users_detail.id_user')->where('purchasing.id_po', $id_po)->first();
+        return DB::table('purchasing')->join('users_detail','purchasing.id_tujuan_po','=','users_detail.id_perusahaan')->join('users','users.id','=','users_detail.id_user')->where('purchasing.id_po', $id_po)->first();
     }
 
     public function sumAmount($id_po){
