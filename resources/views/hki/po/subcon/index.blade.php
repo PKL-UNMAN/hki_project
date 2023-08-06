@@ -30,9 +30,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Import Excel</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="{{ url('hki/import/po/subcon') }}" method="POST" enctype="multipart/form-data">
@@ -43,7 +41,7 @@
                         <br>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Import</button>
                 </div>
                 </form>
@@ -97,7 +95,8 @@
                                 <a href="{{url('hki/po/subcon/edit/'.$data->id_po)}}" class="btn btn-warning">Edit</a>
                                 <a id="hapus" onclick="modalHapus({{$data->id_po}})" href="#"
                                     class="btn btn-danger">Delete</a>
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal{{$data->id_po}}"class="btn btn-info">Read</a>
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal{{$data->id_po}}"
+                                    class="btn btn-info">Read</a>
                                 <a href="{{url('subcon/po/download/'.$data->id_po)}}"
                                     class="btn btn-primary">Download</a>
                             </td>
@@ -110,7 +109,8 @@
     </div>
     @foreach ($detail_PO as $item)
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal{{$item->id_po}}" tabindex="-1" aria-labelledby="exampleModalLabel"aria-hidden="true">
+    <div class="modal fade" id="exampleModal{{$item->id_po}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">

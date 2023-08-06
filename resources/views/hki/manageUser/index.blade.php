@@ -41,8 +41,9 @@
                                     <td>{{$data->id.' - '.$data->role_name}}</td>
                                     <td>{{$data->class}}</td>
                                     <td>
-                                        @if ($data->role_id == '0')
-                                            No Action
+                                        @if ($data->role_id == '1')
+                                            <a href="{{ route('hki.user.edit', $data->id) }}"
+                                                class="btn btn-warning btn-sm">Edit</a>
                                         @else
                                             <a href="{{ route('hki.user.edit', $data->id) }}"
                                                 class="btn btn-warning btn-sm">Edit</a>

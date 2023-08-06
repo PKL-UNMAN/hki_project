@@ -57,7 +57,9 @@
                     </div>
 
                     <div class="text-center mt-4">
-                        <button type="submit" class="btn btn-primary">Update Data</button>
+                        <button type="button" class="btn btn-warning cancel-button" onclick="showDeleteConfirmation()"
+                            style="color: white">Cancel</button>
+                        <button type="submit" class="btn btn-primary submit-button">Update Data</button>
                     </div>
                 </form>
             </div>
@@ -67,3 +69,32 @@
     </div>
 </div>
 @endsection
+<script>
+    function showDeleteConfirmation() {
+        Swal.fire({
+            title: 'Apakah Anda yakin?',
+            text: 'Untuk membatalkan tindakan?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Batalkan!',
+            cancelButtonText: 'Tidak'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "{{ route('hki.part.index') }}";
+            }
+        });
+    }
+</script>
+<style>
+    .cancel-button {
+        margin-right: 10px;
+        /* Tambahkan jarak margin ke kanan */
+    }
+
+    /* Atau jika Anda ingin memberi jarak ke kedua sisi tombol */
+    .submit-button {
+        margin-left: 10px;
+    }
+</style>
