@@ -132,7 +132,6 @@ if ($lastSurat) {
             $Surat->status="On Progress";
             $Surat->tanggal_terbit=date('Y-m-d');
             $Surat->save();
-
             foreach ($request->data_table as $item) {
                 $detilSurat = new m_detail_surat;
                 $detilSurat->no_surat = $Surat->no_surat; // Jika menggunakan model Surat
@@ -156,7 +155,6 @@ if ($lastSurat) {
             $Surat->status="On Progress";
             $Surat->tanggal_terbit=date('Y-m-d');
             $Surat->save();
-
             foreach ($request->data_table as $item) {
                 $detilSurat = new m_detail_surat;
                 $detilSurat->no_surat = $Surat->no_surat; // Jika menggunakan model Surat

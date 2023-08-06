@@ -66,6 +66,17 @@ class m_purchasingOrder extends Model
         return DB::table($table)->where($key,$id)->update($data);
     }
 
+    public function updateStock($id_po,$order_number,$sisa)
+    {
+        return DB::table('purchasing_details')
+        ->where([
+            'id_po' => $id_po,
+            'order_number' => $order_number
+        ])
+        ->update(['order_qty' => $sisa]);
+    }
+
+
     public function detailData($id)
     {
         return DB::table('purchasing')->join('users_detail','purchasing.id_tujuan_po','=','users_detail.id_perusahaan')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->where('purchasing_details.id_po', $id)->get();
@@ -220,6 +231,15 @@ class m_purchasingOrder extends Model
         return DB::table('purchasing_details')
         ->join('purchasing','purchasing_details.id_po','=','purchasing.id_po')
         ->where('purchasing.class','SUBCON')
+        ->select('purchasing_details.id_po','purchasing_details.part_name','purchasing_details.order_qty','purchasing_details.order_number')
+        ->groupBy('purchasing_details.id_po','purchasing_details.part_name','purchasing_details.order_qty','purchasing_details.order_number')
+        ->get();
+    }
+
+    public function groupItem(){
+        return DB::table('purchasing_details')
+        ->join('purchasing','purchasing_details.id_po','=','purchasing.id_po')
+        ->where('purchasing.class','SUBCON')
         ->select('purchasing_details.part_name',DB::raw('SUM(purchasing_details.order_qty) AS qty'))
         ->groupBy('purchasing_details.part_name')
         ->get();
@@ -228,6 +248,7 @@ class m_purchasingOrder extends Model
     public function getSumPOSent(){
         return DB::table('surat_details')
         ->join('surat','surat_details.no_surat','=','surat.no_surat')
+        ->join('purchasing','surat.po_number','=','purchasing.po_number')
         ->select('surat.no_surat','surat_details.part_name','surat.tanggal',DB::raw('SUM(surat_details.qty) AS qty_sent'))
         ->groupBy('surat.no_surat','surat_details.part_name')
         ->get();
