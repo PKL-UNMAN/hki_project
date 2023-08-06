@@ -96,6 +96,7 @@ class c_surat extends Controller
         'data_table.*.part_name' => 'required',
         'data_table.*.qty' => 'required',
         'data_table.*.unit' => 'required',
+        'data_table.*.order_number' => 'required',
     ]);
     $lastSurat = m_surat::orderBy('tanggal_terbit', 'desc')->first();
     $idMax=$this->surat->maxIditem();
@@ -139,6 +140,7 @@ if ($lastSurat) {
                 $detilSurat->part_name = $item['part_name'];
                 $detilSurat->qty = $item['qty'];
                 $detilSurat->unit = $item['unit'];
+                $detilSurat->order_number = $item['order_number'];
                 $detilSurat->save();
             }
         }
@@ -162,6 +164,7 @@ if ($lastSurat) {
                 $detilSurat->part_name = $item['part_name'];
                 $detilSurat->qty = $item['qty'];
                 $detilSurat->unit = $item['unit'];
+                $detilSurat->order_number = $item['order_number'];
                 $detilSurat->save();
             }
         }
@@ -275,6 +278,7 @@ if ($lastSurat) {
         'data_table.*.part_name' => 'required',
         'data_table.*.qty' => 'required',
         'data_table.*.unit' => 'required',
+        'data_table.*.order_number' => 'required',
     ]);
     $lastSurat = m_surat::orderBy('no_surat', 'desc')->first();
 
@@ -319,6 +323,7 @@ if ($lastSurat) {
                 $detilSurat->part_name = $item['part_name'];
                 $detilSurat->qty = $item['qty'];
                 $detilSurat->unit = $item['unit'];
+                $detilSurat->order_number = $item['order_number'];
                 $detilSurat->save();
             }
         }
@@ -343,6 +348,7 @@ if ($lastSurat) {
                 $detilSurat->part_name = $item['part_name'];
                 $detilSurat->qty = $item['qty'];
                 $detilSurat->unit = $item['unit'];
+                $detilSurat->order_number = $item['order_number'];
                 $detilSurat->save();
             }
         }
@@ -386,6 +392,15 @@ if ($lastSurat) {
 
         // Mengembalikan pengguna ke halaman sebelumnya dengan pesan sukses
         return redirect()->route('supplier.surat.index')->with('success', 'Surat jalan berhasil diperbarui.');
+    }
+    public function readSurat_Supplier($id)
+    {
+        $data = [
+            'perusahaan' => $this->surat->detailPengirim($id),
+            'surat' => $this->surat->headSurat($id),
+            'detail'=> $this->surat->detailSurat($id)
+        ];
+        return view('supplier.surat.read', $data);
     }
 
 

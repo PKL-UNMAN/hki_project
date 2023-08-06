@@ -171,6 +171,7 @@ Route::controller(c_surat::class)->middleware('auth')->group(function () {
     Route::get('supplier/surat/edit/{no}', 'editSurat_supplier')->name('supplier.surat.edit');
     Route::post('supplier/surat/update/{no}', 'updateSurat_supplier')->name('supplier.surat.update');
     Route::post('supplier/surat/delete', 'destroySurat_supplier')->name('supplier.surat.delete');
+    Route::get('supplier/surat/read/{id}', 'readSurat_Supplier')->name('subcon.surat.read');
     Route::get('/hki/monitorsurat', 'monitorSurat')->name('hki.monitorsurat.index');
 
     
