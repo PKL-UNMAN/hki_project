@@ -133,7 +133,7 @@
 <script>
 
     function modalREAD(id) {
-        $.get("{{ url('subcon/surat/read') }}/" + id, {}, function (data, status) {
+        $.get("{{ url('supplier/surat/read') }}/" + id, {}, function (data, status) {
             $("#exampleModalCenterTitle").html(`Detail Surat`)
             $("#page").html(data);
             $("#exampleModalCenter").modal('show');

@@ -152,6 +152,7 @@
                         <th>Description</th>
                         <th>Qty</th>
                         <th>Unit</th>
+                        <th>Order Number</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -172,6 +173,7 @@
                         <td>{{$detail->qty}}</td>
                         <!-- unit -->
                         <td>{{$detail->unit}}</td>
+                        <td>{{$detail->order_number}}</td>
                     </tr>
                     @php
                         $jumlah = $jumlah + $detail->qty;
@@ -189,6 +191,7 @@
                         <!-- total qty -->
                         <td>{{$jumlah}}</td>
                         <!-- total unit -->
+                        <td></td>
                         <td></td>
                     </tr>
                 </tfoot>

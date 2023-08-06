@@ -50,6 +50,7 @@
                         <th>QTY</th>
                         <th>Unit</th>
                         <th>Tanggal Pengiriman</th>
+                        <th>Order Number</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -60,6 +61,7 @@
                         <td>{{$item->qty}}</td>
                         <td>{{$item->unit}}</td>
                         <td>{{$surat->tanggal}}</td>
+                        <td>{{$item->order_number}}</td>
                     </tr>
                     @endforeach
                 </tbody>

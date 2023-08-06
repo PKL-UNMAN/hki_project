@@ -426,13 +426,14 @@
             let partName = $row.find('td:nth-child(2)').text();
             let qty = $row.find('td:nth-child(3) input').val(); // Ambil value dari input pada kolom Qty
             let unit = $row.find('td:nth-child(4)').text();
-
+            let order_number = $row.find('td:nth-child(5)').text();
             // Masukkan data ke dalam array
             tableData.push({
                 part_no: partNo,
                 part_name: partName,
                 qty: qty,
-                unit: unit
+                unit: unit,
+                order_number: order_number
             });
         });
         // Lakukan request Ajax ke server untuk menyimpan data

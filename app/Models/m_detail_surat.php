@@ -18,5 +18,6 @@ class m_detail_surat extends Model
         'part_name',
         'qty',
         'unit',
+        'order_number',
     ];
 }
