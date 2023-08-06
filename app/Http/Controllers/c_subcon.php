@@ -104,6 +104,18 @@ class c_subcon extends Controller
         return view('subcon.suratSup.read', $data);
     }
     // end read surat
+    // tampil surat
+    public function subcon_tampilSurat(Request $request)
+    {
+        $no = $request->input('additionalData1');
+        $data = [
+            'perusahaan' => $this->surat->detailPengirim($no),
+            'surat' => $this->surat->headSurat($no),
+            'detail'=> $this->surat->detailSurat($no)
+        ];
+        return view('subcon.suratSup.read', $data);
+    }
+    // end tampil surat
 
      // END SURAT DARI SUPPLIER
 

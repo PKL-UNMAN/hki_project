@@ -425,4 +425,14 @@ if ($lastSurat) {
         ];
         return view('hki.surat.read', $data);
     }
+    public function hki_tampilSurat(Request $request)
+    {
+        $no = $request->input('additionalData1');
+        $data = [
+            'perusahaan' => $this->surat->detailPengirim($no),
+            'surat' => $this->surat->headSurat($no),
+            'detail'=> $this->surat->detailSurat($no)
+        ];
+        return view('hki.surat.read', $data);
+    }
 }

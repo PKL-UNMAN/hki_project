@@ -22,7 +22,10 @@ function onScanSuccess(decodedText, decodedResult) {
   // Kirim permintaan AJAX
   $.ajax({
         type: "GET",
-        url: '/subcon/surat/read/' + no_surat,
+        url: '/hki/surat/read/',
+        data: {
+        additionalData1: no_surat,
+        },
         success: function (response) {
           $("#exampleModalCenterTitle").html(`Detail Surat`);
           $("#page").html(response);
