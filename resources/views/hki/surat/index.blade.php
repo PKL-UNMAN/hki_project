@@ -28,6 +28,7 @@
                     <thead>
                         <tr>
                             <th>No</th>
+                            <th>NO Surat</th>
                             <th>PO Number</th>
                             <th>Pengirim</th>
                             <th>Tujuan Pengiriman</th>
@@ -40,6 +41,7 @@
                         @foreach ($surat as $data)
                         <tr>
                             <td></td>
+                            <td>{{ $data->no_surat }}</td>
                             <td>{{ $data->po_number }}</td>
                             <td>{{ $data->pengirim }}</td>
                             <td>{{ $data->penerima }}</td>
