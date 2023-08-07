@@ -95,14 +95,13 @@
                               <tr style="height:50px;vertical-align:top">
                                     <td style="width:20%"><p>To</p></td>
                                     <td style="width:2%"><p>:</p></td>
-                                    <td style="">{{$from->nama}}</td>
-
+                                    <td style="width:">{{$from->nama}}</td>
+                                    
                                     <td style="width:10"></td>
 
                                     <td style="width:20%"><p>PO No</p></td>
                                     <td style="width:2%"><p>:</p></td>
                                     <td style="width:78%"><p>{{$from->po_number}}</p></td>
-                                    
                                     
                               </tr>
                               <tr>
