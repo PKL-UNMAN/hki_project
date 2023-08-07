@@ -99,7 +99,7 @@ class c_subcon extends Controller
         $data = [
             'perusahaan' => $this->surat->detailPengirim($no),
             'surat' => $this->surat->headSurat($no),
-            'detail'=> $this->surat->detailSurat($no)
+            'detail'=> $this->surat->detailSurat2($no)
         ];
         return view('subcon.suratSup.read', $data);
     }
@@ -111,7 +111,7 @@ class c_subcon extends Controller
         $data = [
             'perusahaan' => $this->surat->detailPengirim($no),
             'surat' => $this->surat->headSurat($no),
-            'detail'=> $this->surat->detailSurat($no)
+            'detail'=> $this->surat->detailSurat2($no)
         ];
         return view('subcon.suratSup.read', $data);
     }
@@ -125,7 +125,7 @@ class c_subcon extends Controller
     public function mySurat_Download($id)
     {
         $data =[
-            'details'=> $this->surat->detailSurat($id),
+            'details'=> $this->surat->detailSurat2($id),
             'from'=> $this->surat->headSurat($id)
         ];
         $pdf = PDF::loadview('subcon.surat.pdf', $data)->setPaper('a4', 'potrait');

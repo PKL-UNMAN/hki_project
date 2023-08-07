@@ -64,7 +64,7 @@ class c_supplier extends Controller
     {
         
         $data =[
-            'details'=> $this->surat->detailSurat($id),
+            'details'=> $this->surat->detailSurat2($id),
             'from'=> $this->surat->headSurat($id),
             'tujuan'=> $this->surat->alamattujuan($id),
         ];

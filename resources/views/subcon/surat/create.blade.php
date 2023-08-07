@@ -228,7 +228,7 @@
         var rowData = {
             no_part: row.cells[0].innerHTML,
             part_name: row.cells[1].innerHTML,
-            qty: row.cells[2].querySelector('input').value,
+            qty: parseInt(row.cells[2].querySelector('input').getAttribute('max')), // Mengonversi menjadi angka
             unit: row.cells[3].innerHTML,
             order_number: row.cells[4].innerHTML,
         };
@@ -445,6 +445,8 @@
                 window.location.href = "{{ route('subcon.surat.index') }}";
             },
             error: function (error) {
+                // Tampilkan pesan kesalahan dalam bentuk alert
+                alert("Terjadi kesalahan: " + error.responseText);
             }
         });
     });

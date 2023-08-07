@@ -144,6 +144,7 @@
                             <div class="table-cell">Order Number</div>
                         </div>
                         @foreach ($detail as $index => $item)
+                            <input type="hidden" name="detail_id[]" value="{{ $item->id_detail_surat }}">
                             <div class="table-row">
                                 <div class="table-cell">
                                     <input type="text" class="form-control disabled-input" id="part_no"
@@ -154,16 +155,15 @@
                                         name="part_name[]" readonly value="{{ $item->part_name }}">
                                 </div>
                                 <div class="table-cell">
-                                    <input type="number" class="form-control disabled-input" id="order_qty" name="qty[]"
-                                        value="{{ $item->qty }}" readonly>
+                                    <input type="number" class="form-control" id="order_qty" name="qty[]" value="{{ $item->qty }}">
                                 </div>
                                 <div class="table-cell">
                                     <input type="text" class="form-control disabled-input" id="unit" name="unit[]"
                                         value="{{ $item->unit }}" readonly>
                                 </div>
                                 <div class="table-cell">
-                                    <input type="text" class="form-control disabled-input" id="unit" name="unit[]"
-                                        value="{{ $item->unit }}" readonly>
+                                    <input type="text" class="form-control disabled-input" id="order_number" name="order_number[]"
+                                        value="{{ $item->order_number }}" readonly>
                                 </div>
                             </div>
                         @endforeach

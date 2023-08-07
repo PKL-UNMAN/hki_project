@@ -31,9 +31,12 @@ class m_surat extends Model
     }
     public function detailSurat($id)
     {
+        return DB::table('surat')->join('surat_details', 'surat.no_surat','=','surat_details.no_surat')->join('stocks', 'stocks.order_number','=','surat_details.order_number')->where('id',$id)->get();
+    }
+    public function detailSurat2($id)
+    {
         return DB::table('surat')->join('surat_details', 'surat.no_surat','=','surat_details.no_surat')->where('id',$id)->get();
     }
-    
     public function detailPengirim($id)
     {
         return DB::table('surat')->join('users', 'surat.pengirim','=','users.nama')->join('users_detail', 'users.id', '=', 'users_detail.id_user')->where('surat.id',$id)->first();

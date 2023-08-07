@@ -378,24 +378,33 @@ if ($lastSurat) {
         $data = [
             'perusahaan' => $this->surat->detailPengirim($id),
             'surat' => $this->surat->headSurat($id),
-            'detail'=> $this->surat->detailSurat($id)
+            'detail'=> $this->surat->detailSurat2($id)
         ];
         return view('subcon.surat.read', $data);
     }
 
     public function updateSurat_Subcon(Request $request, $id)
     {
-        // Validasi data yang diinputkan
-        $request->validate([
+        $surat = m_surat::where('id', $id)->firstOrFail();
+
+        // Validasi input dari form
+        $validatedData = $request->validate([
             'tanggal' => 'required|date',
+            'qty.*' => 'required|numeric',
         ]);
 
-        // Mengambil data surat jalan berdasarkan nomor surat
-        $surat = m_surat::where('id', $id)->first();
+        $surat->tanggal = $request->input('tanggal');
+        // Update atribut-atribut lainnya pada model Surat
 
-        // Mengupdate tanggal pengiriman
-        $surat->tanggal = $request->tanggal;
         $surat->save();
+
+        // Update detail surat jalan
+        foreach ($request->input('qty') as $index => $qty) {
+            $detail = m_detail_surat::findOrFail($request->input('detail_id')[$index]);
+            $detail->qty = $qty;
+            // Update atribut-atribut detail lainnya pada model DetailSurat
+            $detail->save();
+        }
 
         // Mengembalikan pengguna ke halaman sebelumnya dengan pesan sukses
         return redirect()->route('subcon.surat.index')->with('success', 'Surat jalan berhasil diperbarui.');
@@ -564,23 +573,32 @@ if ($lastSurat) {
     {
         $data = [
             'surat' => $this->surat->headSurat($no),
-            'detail'=> $this->surat->detailSurat($no)
+            'detail'=> $this->surat->detailSurat2($no)
         ];
         return view('supplier.surat.edit', $data);
     }
     public function updateSurat_supplier(Request $request, $id)
     {
-        // Validasi data yang diinputkan
-        $request->validate([
+        $surat = m_surat::where('id', $id)->firstOrFail();
+
+        // Validasi input dari form
+        $validatedData = $request->validate([
             'tanggal' => 'required|date',
+            'qty.*' => 'required|numeric',
         ]);
 
-        // Mengambil data surat jalan berdasarkan nomor surat
-        $surat = m_surat::where('id', $id)->first();
+        $surat->tanggal = $request->input('tanggal');
+        // Update atribut-atribut lainnya pada model Surat
 
-        // Mengupdate tanggal pengiriman
-        $surat->tanggal = $request->tanggal;
         $surat->save();
+
+        // Update detail surat jalan
+        foreach ($request->input('qty') as $index => $qty) {
+            $detail = m_detail_surat::findOrFail($request->input('detail_id')[$index]);
+            $detail->qty = $qty;
+            // Update atribut-atribut detail lainnya pada model DetailSurat
+            $detail->save();
+        }
 
         // Mengembalikan pengguna ke halaman sebelumnya dengan pesan sukses
         return redirect()->route('supplier.surat.index')->with('success', 'Surat jalan berhasil diperbarui.');
@@ -590,7 +608,7 @@ if ($lastSurat) {
         $data = [
             'perusahaan' => $this->surat->detailPengirim($id),
             'surat' => $this->surat->headSurat($id),
-            'detail'=> $this->surat->detailSurat($id)
+            'detail'=> $this->surat->detailSurat2($id)
         ];
         return view('supplier.surat.read', $data);
     }
@@ -626,7 +644,7 @@ if ($lastSurat) {
         $data = [
             'perusahaan' => $this->surat->detailPengirim($id),
             'surat' => $this->surat->headSurat($id),
-            'detail'=> $this->surat->detailSurat($id)
+            'detail'=> $this->surat->detailSurat2($id)
         ];
         return view('hki.surat.read', $data);
     }
@@ -636,7 +654,7 @@ if ($lastSurat) {
         $data = [
             'perusahaan' => $this->surat->detailPengirim($no),
             'surat' => $this->surat->headSurat($no),
-            'detail'=> $this->surat->detailSurat($no)
+            'detail'=> $this->surat->detailSurat2($no)
         ];
         return view('hki.surat.read', $data);
     }
