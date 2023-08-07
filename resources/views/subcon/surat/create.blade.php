@@ -334,7 +334,8 @@
 
         var cell2_3 = newRow2.insertCell(2);
         var maxQuantity = parseInt(rowData.qty);
-        cell2_3.innerHTML = '<input type="number" max="' + maxQuantity + '" value="' + rowData.qty +'">'; // Ubah kolom "Qty" menjadi input
+        cell2_3.innerHTML = '<input type="number" max="' + maxQuantity + '" value="' + rowData.qty +
+            '">'; // Ubah kolom "Qty" menjadi input
 
         var cell2_4 = newRow2.insertCell(3);
         cell2_4.innerHTML = rowData.unit;
@@ -375,7 +376,6 @@
             });
         });
     });
-
 </script>
 
 <script>
@@ -445,11 +445,9 @@
                 window.location.href = "{{ route('subcon.surat.index') }}";
             },
             error: function (error) {
-                
             }
         });
     });
-
 </script>
 <style>
     /* Warna latar belakang dan teks pada table */
@@ -519,7 +517,6 @@
         width: 150px;
         /* Tambahkan lebar pada tombol */
     }
-
 </style>
 
 
@@ -590,6 +587,5 @@
         width: 150px;
         /* Tambahkan lebar pada tombol */
     }
-
 </style>
 @endsection
