@@ -341,7 +341,7 @@
 
         var cell2_3 = newRow2.insertCell(2);
         var maxQuantity = parseInt(rowData.qty);
-        cell2_3.innerHTML = '<input type="number" max="' + maxQuantity + '" value="' + rowData.qty +'">'; // Ubah kolom "Qty" menjadi input
+        cell2_3.innerHTML = rowData.qty; // Ubah kolom "Qty" menjadi input
 
         var cell2_4 = newRow2.insertCell(3);
         cell2_4.innerHTML = rowData.unit;
@@ -424,7 +424,7 @@
             let $row = $(row);
             let partNo = $row.find('td:nth-child(1)').text();
             let partName = $row.find('td:nth-child(2)').text();
-            let qty = $row.find('td:nth-child(3) input').val(); // Ambil value dari input pada kolom Qty
+            let qty = $row.find('td:nth-child(3)').text(); // Ambil value dari input pada kolom Qty
             let unit = $row.find('td:nth-child(4)').text();
             let order_number = $row.find('td:nth-child(5)').text();
             // Masukkan data ke dalam array

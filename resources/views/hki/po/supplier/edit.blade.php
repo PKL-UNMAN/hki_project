@@ -58,7 +58,7 @@
                         <div class="col-md-4">
                             <div class="form-group text-start">
                                 <label for="default_id" class="fw-bold">ID Default Supplier</label>
-                                <input type="text" class="form-control @error('default_id') is-invalid @enderror" id="default_id" placeholder="Masukkan default_id" value="{{$POById->default_supplier_id}}">
+                                <input type="text" class="form-control @error('default_id') is-invalid @enderror" id="default_id" placeholder="Masukkan default_id" value="{{$POById->id_tujuan_po}}">
                                 @error('default_id')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

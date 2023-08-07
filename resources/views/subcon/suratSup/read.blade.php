@@ -65,8 +65,55 @@
                 </tbody>
                
             </table>
+            @if ($surat->status == 'On Progress')
+                <a href="#" class="btn btn-success" onclick="acc('{{ $surat->id }}')">ACC</a>
+            @endif
         </div>
         
     </div>
 
 </div>
+<script>
+    function acc(id){
+        Swal.fire({
+            title: 'Apakah Anda yakin?',
+            text: "ACC Surat?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Setuju!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "get",
+                    url: "{{ url('subcon/suratSup/status/ ') }}" + id,
+                    success: function (data) {
+                        Swal.fire(
+                            'Surat Disetujui!',
+                            'Status diubah menjadi Finish.',
+                            'success',
+                            '3000'
+                            )
+                            location.reload(true);
+                        },
+                        error: function (xhr, status, error) {
+                        Swal.fire(
+                            'Kesalahan!',
+                            'Terjadi kesalahan dalam memproses permintaan.',
+                            'error'
+                        )
+                    }
+                });
+            }
+        }).catch((error) => {
+            Swal.fire(
+                'Kesalahan!',
+                'Terjadi kesalahan dalam memproses permintaan.',
+                'error'
+            )
+        });
+    }
+</script>
+@section('script')
+@endsection

@@ -95,7 +95,7 @@
                               <tr style="height:50px;vertical-align:top">
                                     <td style="width:20%"><p>To</p></td>
                                     <td style="width:2%"><p>:</p></td>
-                                    <td style="width:28%"><p>{{$from->nama}}</p></td>
+                                    <td style="width:50%"><p>{{$from->nama}}</p></td>
 
                                     <td style="width:10"></td>
 
