@@ -25,6 +25,7 @@ class m_purchasingOrder extends Model
         ->join('surat_details','stocks.no_surat','=','surat_details.no_surat')
         ->select('stocks.sisa','surat.po_number','surat_details.part_no','surat_details.part_name','stocks.tanggal','surat.pengirim')
         ->groupBy('stocks.sisa','surat.po_number','surat_details.part_no','surat_details.part_name','stocks.tanggal','surat.pengirim')
+        ->orderBy('stocks.sisa', 'ASC')
         ->get();
     }
 
@@ -118,6 +119,8 @@ class m_purchasingOrder extends Model
     {
         return DB::table('purchasing')->max('no');
     }
+
+
 
     // PO DI HALAMAN SUBCON
     public function myPO_Subcon($id)
@@ -248,13 +251,28 @@ class m_purchasingOrder extends Model
     public function getSumPOSent(){
         return DB::table('surat_details')
         ->join('surat','surat_details.no_surat','=','surat.no_surat')
-        ->join('purchasing','surat.po_number','=','purchasing.po_number')
-        ->select('surat.no_surat','surat_details.part_name','surat.tanggal',DB::raw('SUM(surat_details.qty) AS qty_sent'))
-        ->groupBy('surat.no_surat','surat_details.part_name')
+        ->select('surat_details.order_number','surat.no_surat','surat_details.part_name','surat.tanggal',DB::raw('SUM(surat_details.qty) AS qty_sent'))
+        ->groupBy('surat_details.order_number','surat.no_surat','surat_details.part_name')
         ->get();
     }
 
     public function validateNoSurat($no_surat){
-        return DB::table('stocks')->where('stocks.no_surat', $no_surat)->first();
+        return DB::table('stocks')
+        ->where('stocks.no_surat', $no_surat)
+        ->first();
+    }
+
+    public function validateOrderNumber($order_number){
+        return DB::table('stocks')
+        ->where('stocks.order_number', $order_number)
+        ->first();
+    }
+
+
+    public function maxIdStocks($order_number)
+    {
+        return DB::table('stocks')
+        ->where('order_number',$order_number)
+        ->max('sisa');
     }
 }

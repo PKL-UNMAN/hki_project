@@ -205,7 +205,6 @@ class c_purchasingOrder extends Controller
     }
 
     public function sisa(){
-        $this->countSisaBarang();
         $data = [
             'groupSubcon' => $this->PO->groupNameSubcon(),
             'sisa' => $this->PO->getSisaBarang()
@@ -213,70 +212,6 @@ class c_purchasingOrder extends Controller
        return view ('hki.sisabarang.index', $data);
     }
 
-    public function countSisaBarang(){
-        $qty_group_item = $this->PO->qtyGroupPerItem();
-        $sumPOSent = $this->PO->getSumPoSent();
-        dd($sumPOSent);
-        //Looping data item beserta QTY PO untuk dapat nama part dan jumlah dari table purchasing details
-        //Looping data item beserta QTY PO yang dikirimkan subcon dari table surat_details
-        foreach($qty_group_item as $qty_item){
-            foreach($sumPOSent as $sumSent){
-                //Validasi jika terdapat nama item yang sama dari tabel purchasing_details dan surat_details
-                if($qty_item->part_name === $sumSent->part_name){
-                    //Jika terdapat data yang sama, lanjutkan kondisi jika tanggal di table surat <= current date
-                    if($sumSent->tanggal <= date('Y-m-d H:i:s')){
-                        dd($sumSent);
-                        // if($this->PO->validateNoSurat($sumSent->no_surat) !== NULL){
-                            if(count($sumPOSent) == 1){
-                                //jika jumlah data row == 1
-                                $sisa = intval($qty_item->order_qty) - $sumSent->qty_sent;
-                                $data = [
-                                    'no_surat'=>$sumSent->no_surat,
-                                    'order_number'=>$qty_item->order_number,
-                                    'tanggal'=>$sumSent->tanggal,
-                                    'part_name'=>$qty_item->part_name,
-                                    'qty_requested'=>$qty_item->order_qty,
-                                    'qty_sent'=>$sumSent->qty_sent,
-                                    'sisa'=>$sisa
-                                ];
-                                //add ke table stocks
-                                $this->PO->addData('stocks',$data);
-                                //update jumlah item pada table purchasing_details by order number dan id po
-                                $this->PO->updateStock($qty_item->id_po,$qty_item->order_number,$sisa);
-                            }else{
-                                //jika jumlah data row > 1
-                                $sisa = intval($qty_item->order_qty) - $sumSent->qty_sent;
-                                $data = [
-                                    'no_surat'=>$sumSent->no_surat,
-                                    'order_number'=>$qty_item->order_number,
-                                    'tanggal'=>$sumSent->tanggal,
-                                    'part_name'=>$qty_item->part_name,
-                                    'qty_requested'=>$qty_item->order_qty,
-                                    'qty_sent'=>$sumSent->qty_sent,
-                                    'sisa'=>$sisa
-                                ];
-                                //add ke table stocks
-                                $this->PO->addData('stocks',$data);
-                                //update jumlah item pada table purchasing_details by order number dan id po
-                                $this->PO->updateStock($qty_item->id_po,$qty_item->order_number,$sisa);
-                            }
-                            
-                        // }
-                    }else{
-                        echo 'belum dikirim';
-                        // die;
-                    }
-                }
-            }  
-        }  
-        // die;
-
-                //     if($this->PO->validateNoSurat($sumSent->no_surat) !== NULL){
-                //         //edit data existing pada table stocks
-                //         $this->PO->deleteStock($sumSent->no_surat);
-                //     }
-            
-    }
 
 
 
