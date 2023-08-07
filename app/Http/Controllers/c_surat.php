@@ -182,6 +182,7 @@ if ($lastSurat) {
         //Looping data item beserta QTY PO yang dikirimkan subcon dari table surat_details
         foreach($qty_group_item as $qty_item){
             foreach($sumPOSent as $sumSent){
+                // dd($sumSent);
                     if($sumSent->tanggal <= date("Y-m-d H:i:s")){
                         $lastSisa = $this->PO->maxIdStocks($sumSent->order_number);
                         if($lastSisa == NULL){
