@@ -1,86 +1,68 @@
 <html>
 <head>
     <title> KOP SURAT </title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <style type= "text/css">
-    *{
-            margin-top: 20px;
-        }
-        
-    body {font-family: Arial, Helvetica, sans-serif; background-color : #ffffff }
-    .rangkasurat {margin:auto ;background-color : #fff;padding: 10px}
-   .header {border-bottom : 3px solid black; padding: 0px;margin-top:0em;line-height: 1.5}
-    .tengah {text-align : center;font-size:16px;}
-    .judul{
-      text-align:center;line-height:5px;font-size:14px;padding-top:25px;}
-     .isi{
-      margin-left:2em;margin-top:1em;margin-right:2em;
-     }
-     .isi p{
-      font-size:12px;
-     }
+    .container {
+                font-family: Arial, sans-serif;
+                width: 100%;
+                background-color: #ffffff;
+            }
 
-     .list{
-      margin-top:1em;
-     }
+            h1 {
+                text-align: center;
+            }
+            .header {
+                  border-bottom : 3px solid black;
+                   padding: 0px;
+                   margin-top:0em;
+                   line-height: 1.5
+                   }
 
-     .list, .th, .td {
-      border: 1px solid black;
-      border-collapse: collapse;
-      font-size:12pt;
-      margin-top:1.5em;
-      margin-left:0.4em;
-      }
+            table {
+                margin-top: 24px;
+                width: 100%;
+                border-collapse: collapse;
+            }
 
-      .kegiatan{
-            margin-top:1.5em;
-      }
-      .persyaratan{
-            margin-top:1.5em;
-            line-height:1;
-      }
+            table td,
+            table th {
+                padding: 5px;
+            }
 
-      h6{
-            font-size:12pt;
-            font-weight:400;
-            line-height:1.5;
-      }
-      p{
-            font-size:12pt;
-      }
+            .row::after {
+                content: "";
+                display: table;
+                clear: both;
+            }
 
-      .from{
-            margin-left:auto;
-            margin-right:auto;
-            line-height:0;
-      }
+            .col {
+                width: 50%;
+                float: left;
+            }
 
-      .from1{
-            line-height:0;
-            word-break:break-all;
-      }
 
-      .staff{
-            line-height:1;
-      }
-      
+            #td11,
+            #td21,
+            #td22,
+            #td12,
+            .judul, .header {
+                text-align: center;
+                padding:0;
+            }
+            .identitas{
+                  font-size:12px;
+            }
 
      </style >
 </head>
 <body>
-
-
-
-
-<div class = "rangkasurat">
+<div class = "container">
      <table class="header" width="100%">
            <tr>
-                 <td style="width:100%" class = "tengah">
-                       <h2 style="line-height:40px;font-weight:100"><b>PT HIRUTA KOGYO INDONESIA</b></h2>
-                       <h4 style="font-weight:1;line-height:20px;font-size:14px"> Jalan Maligi X Lot V-6, Margakaya</h4>
-                       <h4  style="font-weight:1;line-height:10px;font-size:14px">Kec. Telukjambe Barat, Karawang. Phone : {{$hki->telepon}}, Fax : {{$hki->fax}}</h4>
-                       {{-- <h4 style="font-weight:1;line-height:20px;">Telp. (0260) 417658 Laman: <span style="color:blue">https://www.polsub.ac.id</span></h4> --}}
+                 <td style="width:100%">
+                       <h2 style="font-weight:100"><b>PT HIRUTA KOGYO INDONESIA</b></h2>
+                       <p style="font-size:14px"> Jalan Maligi X Lot V-6, Margakaya</p>
+                       <p style="font-size:14px">Kec. Telukjambe Barat, Karawang. Phone : {{$hki->telepon}}, Fax : {{$hki->fax}}</p>
                  </td>
             </tr>
      </table>
@@ -90,153 +72,123 @@
 
       <div class="identitas">
             <div class="row">
-                  <div class="col-md-12">
-                        <table  width="100%" class="from mt-2">
-                              <tr style="height:50px;vertical-align:top">
-                                    <td style="width:20%"><p>To</p></td>
-                                    <td style="width:2%"><p>:</p></td>
-                                    <td style="display:flex;flex-warp:warp;"><p>{{$from->nama}}</p></td>
-
-                                    <td style="width:10"></td>
-
-                                    <td style="width:20%"><p>PO No</p></td>
-                                    <td style="width:2%"><p>:</p></td>
-                                    <td style="width:78%"><p>{{$from->po_number}}</p></td>
-                                    
-                                    
-                              </tr>
+                <div id="sender" class="col">
+                    <table border="0">
+                        <tbody>
+                            <tr>
+                                <td class="field">
+                                    To &nbsp;&nbsp;&nbsp;:&nbsp; {{$from->nama}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="field">Tel &nbsp;&nbsp;:&nbsp; {{$from->telepon}}</td>
+                            </tr>
                               <tr>
-                                    <td style="width:20%"></td>
-                                    <td style="width:2%"></td>
-                                    <td style="width:28%"></td>
-                                    <td></td>
-
-                                    <td style="width:20%"><p>Issue Date</p></td>
-                                    <td style="width:2%"><p>:</p></td>
-                                    <td style="width:78%"><p>{{$from->issue_date}}</p></td>
-                              </tr>
+                                <td class="field">Fax &nbsp;:&nbsp; {{$from->fax}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="detail" class="col">
+                    <table border="0">
+                        <tbody>
+                            <tr>
+                                <td class="field" style="width: 25%">PO No</td>
+                                <td>&nbsp;:&nbsp; {{$from->po_number}}</td>
+                            </tr>            
+                            <tr>
+                                <td class="field">Issue Date</td>
+                                <td>&nbsp;:&nbsp;{{$from->issue_date}}</td>
+                            </tr>
                               <tr>
-                                    <td style="width:20%"><p>Tel</p></td>
-                                    <td style="width:2%"><p>:</p></td>
-                                    <td style="width:78%"><p>{{$from->telepon}}</p></td>
-                                    <td></td>
-                                    <td style="width:50%"><p>Term of Payment</p></td>
-                                    <td style="width:2%"><p>:</p></td>
-                                    <td style="width:28%"></td>
-
-                              </tr>
+                                <td class="field">Term of Payment</td>
+                                <td>&nbsp;:&nbsp;--</td>
+                            </tr>
                               <tr>
-                                    <td style="width:20%"><p>Fax</p></td>
-                                    <td style="width:2%"><p>:</p></td>
-                                    <td style="width:78%"><p>{{$from->fax}}</p></td>
-
-                                    <td></td>
-
-                                    <td style="width:20%"><p>Currency</p></td>
-                                    <td style="width:2%"><p>:</p></td>
-                                    <td style="width:78%"><p>IDR</p></td>
-                              </tr>
-                              <tr>
-                                    <td style="width:20%"></td>
-                                    <td style="width:2%"></td>
-                                    <td style="width:28%"></td>
-                                    <td></td>
-
-                                    <td style="width:20%"><p>Delivery Destination</p></td>
-                                    <td style="width:2%"><p>:</p></td>
-                                    <td style="width:78%"></td>
-                              </tr>
-                              <tr style="word-break: keep-all">
-                                    <td colspan="3"><p>{{$sucon->nama}}</p></td>
-                              </tr>
-                              <tr style="line-height:1;">
-                                    <td colspan="3"><p>{{$sucon->alamat}}</p></td>
-                              </tr>
-                              <tr>
-                                    <td colspan="3"><p>TEL : {{$sucon->telepon}}/FAX : {{$sucon->fax}}</p></td>
-                              </tr>
-                              </table>
-                              
-                  </div>
-
+                                <td class="field">Currency</td>
+                                <td>&nbsp;:&nbsp;IDR</td>
+                            </tr>
+                             <tr>
+                                <td class="field">Delivery Destination</td>
+                                <td>&nbsp;:&nbsp;{{$sucon->nama}}</td>
+                            </tr>
+                            <tr >
+                                <td class="field">&nbsp;&nbsp;</td>
+                                <td>{{$sucon->alamat}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
       </div>
 
-      <div class="isi" >
-      
 
-      <table width="100%" class="text-center">
-      <tr>
-            <th class="th"><p>No</p></th>
-            <th class="th"><p>Part No</p></th>
-            <th class="th"><p>Description</p></th>
-            <th class="th"><p>QTY<br>pcs</p></th>
-            <th class="th"><p>QTY<br>(PC) </p></th>
-            <th class="th"><p>UOM</p></th>
-            <th class="th"><p>Price per Unit</p></th>
-            <th class="th"><p>Delivery Date</p></th>
-            <th class="th" style="width:10%"><p>Amount</p></th>
-            <th class="th" style="width:10%"><p>Order No</p></th>
-      </tr>
-      @php
-          $no=1
-      @endphp
-      @foreach ($group as $item)
-            <tr >
-                  <td style="text-align:center;width:5%" class="td"><p>{{$no++}}</p></td>
-                  <td class="td" style="width:10%"><p>{{$item->part_no}}</p></td>
-                  <td class="td" style="width:20%"><p>{{$item->part_name}}</p></td>
-                  <td class="td"><p>{{$item->order_qty}}</p></td>
-                  <td class="td"><p>@currency($item->composition)</p></td>
-                  <td class="td"><p>{{$item->unit}}</p></td>
-                  <td class="td"><p>@currency($item->unit_price)</p></td>
-                  <td class="td" style="width:10%"><p>&nbsp;{{$item->delivery_time}}&nbsp;</p></td>
-                  <td class="td" style="width:10%"><p>&nbsp;@currency($item->amount)&nbsp;</p></td>
-                  <td class="td"><p>&nbsp;{{$item->order_number}}&nbsp;</p></td>
-            </tr>
-      @endforeach
-      <tr>
-            <td colspan="6"></td>
-            <td colspan="2" class="text-left">Subtotal</td>
-            <td style="border:1px solid black;text-align:right;">@currency($sum_amount)</td>
-            <td></td>
-
-      </tr>
-      <tr>
-            <td colspan="6"></td>
-            <td colspan="2" class="text-left">Discount</td>
-            <td style="border:1px solid black;text-align:right;">0.00</td>
-            <td></td>   
-      </tr>
-      <tr>
-            <td colspan="6"></td>
-            <td colspan="2" class="text-left">Vat 11.00%</td>
-            <td style="border:1px solid black;text-align:right;">
-            @currency($pajak = $sum_amount*11/100)</td>
-            <td></td>
-      </tr>
-      <tr>
-            <td colspan="6"></td>
-            <td colspan="2" class="text-left"><b>Grand Total</b></td>
-            <td style="border:1px solid black;text-align:right;">@currency($sum_amount+$pajak)</td>
-            <td></td>
-
-      </tr>
-     
-
-      </table>
-
-      
-      <div class="ttd mt-4">
-           <table>
+<div class="container" style="font-size:12px">
+      <table id="table" class="table" border="1">
             <tr>
-                  <td>Please Sign to confirm order and return to us</td>
-                  <td style="width:55%"></td>
+                  <th class="th"><p>No</p></th>
+                  <th class="th"><p>Part No</p></th>
+                  <th class="th"><p>Description</p></th>
+                  <th class="th"><p>QTY<br>pcs</p></th>
+                  <th class="th"><p>QTY<br>(PC) </p></th>
+                  <th class="th"><p>UOM</p></th>
+                  <th class="th"><p>Price per Unit</p></th>
+                  <th class="th"><p>Delivery Date</p></th>
+                  <th class="th" style="width:10%"><p>Amount</p></th>
+                  <th class="th" style="width:10%"><p>Order No</p></th>
+            </tr>
+            @php
+            $no=1
+            @endphp
+            @foreach ($group as $item)
+                  <tr >
+                        <td style="text-align:center;width:5%" class="td"><p>{{$no++}}</p></td>
+                        <td class="td" style="width:10%"><p>{{$item->part_no}}</p></td>
+                        <td class="td" style="width:20%"><p>{{$item->part_name}}</p></td>
+                        <td class="td"><p>{{$item->order_qty}}</p></td>
+                        <td class="td"><p>@currency($item->composition)</p></td>
+                        <td class="td"><p>{{$item->unit}}</p></td>
+                        <td class="td"><p>@currency($item->unit_price)</p></td>
+                        <td class="td" style="width:10%"><p>&nbsp;{{$item->delivery_time}}&nbsp;</p></td>
+                        <td class="td" style="width:10%"><p>&nbsp;@currency($item->amount)&nbsp;</p></td>
+                        <td class="td"><p>&nbsp;{{$item->order_number}}&nbsp;</p></td>
+                  </tr>
+            @endforeach
+            <tr>
+                  <td colspan="6"></td>
+                  <td colspan="2" class="text-left">Subtotal</td>
+                  <td style="border:1px solid black;text-align:right;">@currency($sum_amount)</td>
+                  <td></td>
+
+            </tr>
+            <tr>
+                  <td colspan="6"></td>
+                  <td colspan="2" class="text-left">Discount</td>
+                  <td style="border:1px solid black;text-align:right;">0.00</td>
+                  <td></td>   
+            </tr>
+            <tr>
+                  <td colspan="6"></td>
+                  <td colspan="2" class="text-left">Vat 11.00%</td>
+                  <td style="border:1px solid black;text-align:right;">
+                  @currency($pajak = $sum_amount*11/100)</td>
                   <td></td>
             </tr>
             <tr>
+                  <td colspan="6"></td>
+                  <td colspan="2" class="text-left"><b>Grand Total</b></td>
+                  <td style="border:1px solid black;text-align:right;">@currency($sum_amount+$pajak)</td>
+                  <td></td>
+
+            </tr>
+      </table>
+</div>
+
+      <div class="ttd mt-1" style="font-size:12px;font-weight:bold;">
+           <table>
+            <tr>
                   <td>AUTHORIZED SIGNATURE & DATE</td>
-                  <td style="width:100%"></td>
+                  <td style="width:60%"></td>
                   <td>PT HIRUTA KOGYO INDONESIA</td>
             </tr>
             <tr>
@@ -244,16 +196,11 @@
             </tr>
             <tr>
                   <td>................................</td>
-                  <td style="width:100%"></td>
+                  <td style="width:60%"></td>
                   <td>MASAHIRO TAKASUGI</td>
             </tr>
-            
-      
             </table>         
       </div>
-    
-      
-
       </div>
 </div>
 
