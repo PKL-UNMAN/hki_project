@@ -42,6 +42,7 @@ class c_supplier extends Controller
             'from'=> $this->PO->download($id_po),
             'group'=> $this->PO->listGroup($id_po),
             'sum_amount'=> $this->PO->sumAmount($id_po),
+            'sucon'=> $this->user->subconDownload($id_po),
             'hki'=> $this->user->detailHKI(),
         ];
         $pdf = PDF::loadview('supplier.po.pdf', $data)->setPaper('legal', 'potrait');;

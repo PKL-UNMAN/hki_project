@@ -95,7 +95,7 @@
                               <tr style="height:50px;vertical-align:top">
                                     <td style="width:20%"><p>To</p></td>
                                     <td style="width:2%"><p>:</p></td>
-                                    <td style="width:28%"><p>{{$from->nama}}</p></td>
+                                    <td style="display:flex;flex-warp:warp;"><p>{{$from->nama}}</p></td>
 
                                     <td style="width:10"></td>
 
@@ -146,13 +146,17 @@
                                     <td style="width:2%"><p>:</p></td>
                                     <td style="width:78%"></td>
                               </tr>
+                              <tr style="word-break: keep-all">
+                                    <td colspan="3"><p>{{$sucon->nama}}</p></td>
+                              </tr>
+                              <tr style="line-height:1;">
+                                    <td colspan="3"><p>{{$sucon->alamat}}</p></td>
+                              </tr>
                               <tr>
-                                    <td style="width:20%"></td>
-                                    <td style="width:2%"></td>
-                                    <td style="width:78%"></td>
+                                    <td colspan="3"><p>TEL : {{$sucon->telepon}}/FAX : {{$sucon->fax}}</p></td>
+                              </tr>
                               </table>
-                              <p style="margin-left:50%">PT. HIRUTA KOGYO INDONESIA<br>Maligi X Lot.V-6 Kawasan Industri KIIC Desa Margakaya, Kecamatan Telukjambe Barat Kabupaten Karawang,<br>
-                              TEL: 0267 648 2020 / FAX: 0267 845 6464</p>      
+                              
                   </div>
 
             </div>

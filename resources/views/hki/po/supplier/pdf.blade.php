@@ -95,7 +95,7 @@
                               <tr style="height:50px;vertical-align:top">
                                     <td style="width:20%"><p>To</p></td>
                                     <td style="width:2%"><p>:</p></td>
-                                    <td style="width:50%"><p>{{$from->nama}}</p></td>
+                                    <td style="">{{$from->nama}}</td>
 
                                     <td style="width:10"></td>
 
@@ -181,20 +181,20 @@
                                     <td style="width:78%"><p>IDR</p></td>
                               </tr>
                               <tr style="vertical-align:top;">
-                                    <td style="width:22%"><p>Delivery Destination</p></td>
+                                    <td style=""><p>Delivery Destinations</p></td>
                                     <td style="width:2%"><p>:</p></td>
                               </tr>
                               <tr style="height:10px">
                                     <td></td>
                               </tr>
-                              <tr style="word-break: keep-all">
-                                    <td colspan="3"><p>PT. HIRUTA KOGYO INDONESIA</p></td>
+                              <tr style="line-height:1;">
+                                    <td colspan="3"><p>{{$subcon->nama}}</p></td>
                               </tr>
                               <tr style="line-height:1;">
-                                    <td colspan="3"><p>{{$hki->alamat}}</p></td>
+                                    <td colspan="3"><p>{{$subcon->alamat}}</p></td>
                               </tr>
                               <tr>
-                                    <td colspan="3"><p>TEL : {{$hki->telepon}}/FAX : {{$hki->fax}}</p></td>
+                                    <td colspan="3"><p>TEL : {{$subcon->telepon}}/FAX : {{$subcon->fax}}</p></td>
                               </tr>
                               
                         </table>

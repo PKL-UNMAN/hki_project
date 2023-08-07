@@ -118,7 +118,7 @@ if ($lastSurat) {
     $newNo = 1;
 }
 
-    $noSurat = $newNo . '/DO-SI/' . date('m') . '/' . date('Y');
+    $noSurat = $newNo . '/DO-SU/' . date('m') . '/' . date('Y');
 
     $id=$this->surat->checkID();
         if ($id==null) {

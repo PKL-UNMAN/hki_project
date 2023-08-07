@@ -106,8 +106,8 @@
                             </tr> --}}
                             
                             <tr>
-                                <td class="field">Invoice</td>
-                                <td>&nbsp;:&nbsp;--</td>
+                                <td class="field">Delivery Order</td>
+                                <td>&nbsp;:&nbsp;{{$from->no_surat}}</td>
                             </tr>
                         </tbody>
                     </table>

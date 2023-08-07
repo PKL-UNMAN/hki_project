@@ -60,6 +60,11 @@ class m_user extends Model
         return DB::table('users')->join('users_detail','users_detail.id_user','=','users.id')->where('role_id', '2')->get();
     }
 
+    public function subconDownload($id_po)
+    {
+        return DB::table('purchasing')->join('users_detail','users_detail.id_perusahaan','purchasing.id_tujuan_po')->join('users','users.id','users_detail.id_user')->select('users.nama','users_detail.alamat','users_detail.telepon','users_detail.fax')->where('purchasing.id_po', $id_po)->first();
+    }
+
     public function subconDataById($id)
     {
         return DB::table('users')->where('id', $id)->orWhere('id',NULL)->first();
