@@ -309,7 +309,7 @@ class c_purchasingOrder extends Controller
                 'id_tujuan_po'=> $data[0][1][4],
                 'default_supplier_id'=>$data[0][1][4],
                 'issue_date'=>date('Y-m-d H:i:s'), 
-                'status' => 'Unsend'
+                'status' => ($request->class === 'supplier') ? 'Unsend' : 'On Progress'
                 ]
             );
             if($class === 'supplier'){

@@ -505,6 +505,7 @@ if ($lastSurat) {
 
 if ($lastSurat) {
     $lastNoSurat = $lastSurat->no_surat;
+    $idMax=$this->surat->maxIditem();
     list($lastNo, $lastDoSi, $lastMonth, $lastYear) = explode('/', $lastNoSurat);
 
     // Lakukan pengecekan untuk memastikan format bulan dan tahun sesuai dengan yang diinginkan
@@ -512,9 +513,9 @@ if ($lastSurat) {
     $currentYear = date('Y');
 
     if ($currentMonth == $lastMonth && $currentYear == $lastYear) {
-        $newNo = intval($lastNo) + 1;
+        $newNo = $idMax + 1;
     } else {
-        $newNo = 1;
+        $newNo = $idMax + 1;
     }
 } else {
     // Jika tidak ada "no surat" sebelumnya, beri nomor surat baru mulai dari 1
@@ -672,9 +673,9 @@ if ($lastSurat) {
     {
         $no = $request->input('additionalData1');
         $data = [
-            'perusahaan' => $this->surat->detailPengirim($no),
-            'surat' => $this->surat->headSurat($no),
-            'detail'=> $this->surat->detailSurat2($no)
+            'perusahaan' => $this->surat->detailPengirim2($no),
+            'surat' => $this->surat->headSurat2($no),
+            'detail'=> $this->surat->detailSurat3($no)
         ];
         return view('hki.surat.read', $data);
     }

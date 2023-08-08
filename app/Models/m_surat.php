@@ -23,6 +23,23 @@ class m_surat extends Model
         return DB::table('surat')->where('status', 'On Progress')->count();
     }
     // end dashboard hki
+    // dashboard subcon
+    public function jumlahSurat1($nama)
+    {
+        return DB::table('surat')->where('pengirim', $nama)->count();
+    }
+    public function suratFinish1($nama)
+    {
+        return DB::table('surat')->where('pengirim', $nama)->where('status', 'Finish')->count();
+    }
+    public function suratOnProgres1($nama)
+    {
+        return DB::table('surat')->where('pengirim', $nama)->where('status', 'On Progress')->count();
+    }
+    // end
+    // dashboard supplier
+
+    // end
     // tampil surat dari subcon di hki
     public function suratdarisub($nama)
     {
@@ -39,6 +56,10 @@ class m_surat extends Model
     {
         return DB::table('surat')->where('id',$id)->first();
     }
+    public function headSurat2($no)
+    {
+        return DB::table('surat')->where('no_surat',$no)->first();
+    }
     public function alamattujuan($id)
     {
         return DB::table('surat')->join('users', 'surat.penerima','=','users.nama')->join('users_detail', 'users.id', '=', 'users_detail.id_user')->where('surat.id',$id)->first();
@@ -51,9 +72,17 @@ class m_surat extends Model
     {
         return DB::table('surat')->join('surat_details', 'surat.no_surat','=','surat_details.no_surat')->where('id',$id)->get();
     }
+    public function detailSurat3($no)
+    {
+        return DB::table('surat')->join('surat_details', 'surat.no_surat','=','surat_details.no_surat')->where('surat.no_surat',$no)->get();
+    }
     public function detailPengirim($id)
     {
         return DB::table('surat')->join('users', 'surat.pengirim','=','users.nama')->join('users_detail', 'users.id', '=', 'users_detail.id_user')->where('surat.id',$id)->first();
+    }
+    public function detailPengirim2($no)
+    {
+        return DB::table('surat')->join('users', 'surat.pengirim','=','users.nama')->join('users_detail', 'users.id', '=', 'users_detail.id_user')->where('surat.no_surat',$no)->first();
     }
     // end tampilan read surat
 

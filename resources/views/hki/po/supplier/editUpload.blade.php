@@ -19,7 +19,7 @@
                         <div class="col-md-4">
                             <div class="form-group text-start">
                                 <label for="id_tujuan" class="text-left fw-bold">Tujuan Supplier (ID Perusahaan)</label>
-                                <input type="text" class="form-control @error('Tujuan') is-invalid @enderror" id="id_tujuan" placeholder="Masukkan Tujuan" value="{{$POById->id_tujuan_po}}">
+                                <input type="text" class="form-control @error('Tujuan') is-invalid @enderror" id="id_tujuan" placeholder="Masukkan Tujuan" value="{{$POById->id_tujuan_po}}" readonly>
                                 @error('id_tujuan')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -28,7 +28,7 @@
                             </div>
                             <div class="form-group mt-3 text-start">
                                 <label for="po_number" class="fw-bold">PO Number</label>
-                                <input type="text" class="form-control @error('po_number') is-invalid @enderror" id="po_number" placeholder="Masukkan po_number" value="{{$POById->po_number}}">
+                                <input type="text" class="form-control @error('po_number') is-invalid @enderror" id="po_number" placeholder="Masukkan po_number" value="{{$POById->po_number}}" readonly>
                                 @error('po_number')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -53,7 +53,7 @@
                         <div class="col-md-4">
                             <div class="form-group text-start">
                                 <label for="default_id" class="fw-bold">ID Default Supplier</label>
-                                <input type="text" class="form-control @error('default_id') is-invalid @enderror" id="default_id" placeholder="Masukkan default_id" value="{{$POById->id_tujuan_po}}">
+                                <input type="text" class="form-control @error('default_id') is-invalid @enderror" id="default_id" placeholder="Masukkan default_id" value="{{$POById->id_tujuan_po}}" readonly>
                                 @error('default_id')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -62,7 +62,7 @@
                             </div>
                             <div class="form-group mt-3 text-start">
                                 <label for="issue_date" class="fw-bold">Issue Date</label>
-                                <input type="text" class="form-control @error('issue_date') is-invalid @enderror" id="issue_date" placeholder="Masukkan issue_date">
+                                <input type="text" class="form-control @error('issue_date') is-invalid @enderror" id="issue_date" placeholder="Masukkan issue_date" readonly>
                                 @error('issue_date')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -73,7 +73,7 @@
                         <div class="col-md-4">
                             <div class="form-group text-start">
                                 <label for="class" class="fw-bold">Class</label>
-                                <input type="text" class="form-control @error('class') is-invalid @enderror" id="classname" placeholder="Masukkan class" value="{{$POById->class}}">
+                                <input type="text" class="form-control @error('class') is-invalid @enderror" id="classname" placeholder="Masukkan class" value="{{$POById->class}}" readonly>
                                 @error('classname')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

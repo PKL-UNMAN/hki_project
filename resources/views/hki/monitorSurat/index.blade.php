@@ -48,7 +48,7 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="#" class="btn btn-warning" onclick="modalREAD('{{ $data->no_surat }}')">READ</a>
+                                <a href="#" class="btn btn-info" style="color:white" onclick="modalREAD('{{ $data->no_surat }}')">Detail</a>
                             </td>
                         </tr>
                         @endforeach

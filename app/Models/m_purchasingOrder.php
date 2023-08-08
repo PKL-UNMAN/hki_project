@@ -19,7 +19,29 @@ class m_purchasingOrder extends Model
     {
         return DB::table('purchasing')->count();
     }
+    public function poOnProgres()
+    {
+        return DB::table('purchasing')->where('status','!=', 'Finish')->count();
+    }
+    public function poFinish()
+    {
+        return DB::table('purchasing')->where('status','Finish')->count();
+    }
     // end dashboard hki
+    // dashboard subcon dan supplier
+    public function countPo1($id_user)
+    {
+        return DB::table('purchasing')->join('users_detail','users_detail.id_perusahaan','purchasing.id_tujuan_po')->join('users','users.id','users_detail.id_user')->where('users.id',$id_user)->count();
+    }
+    public function poOnProgres1($id_user)
+    {
+        return DB::table('purchasing')->join('users_detail','users_detail.id_perusahaan','purchasing.id_tujuan_po')->join('users','users.id','users_detail.id_user')->where('users.id',$id_user)->where('status','!=', 'Finish')->count();
+    }
+    public function poFinish1($id_user)
+    {
+        return DB::table('purchasing')->join('users_detail','users_detail.id_perusahaan','purchasing.id_tujuan_po')->join('users','users.id','users_detail.id_user')->where('users.id',$id_user)->where('status', 'Finish')->count();
+    }
+    // end
     public function getData($table){
         return DB::table($table)->get();
     }
@@ -38,8 +60,10 @@ class m_purchasingOrder extends Model
     public function groupNameSubcon(){
         return DB::table('purchasing')
         ->join('surat','purchasing.po_number','=','surat.po_number')
+        ->join('users','users.nama','=','surat.pengirim')
         ->select('surat.pengirim','surat.po_number')
         ->groupBy('surat.pengirim','surat.po_number')
+        ->where('users.role_id','2')
         ->get();
     }
 
@@ -99,7 +123,7 @@ class m_purchasingOrder extends Model
     }
 
     public function getPOById($table,$id){
-        return DB::table('purchasing')->join('users_detail','purchasing.id_tujuan_po','=','users_detail.id_perusahaan')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->where('purchasing_details.id_po',$id)->first();
+        return DB::table('purchasing')->join('users_detail','purchasing.id_tujuan_po','=','users_detail.id_perusahaan')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->join('users','users.id','=','users_detail.id_user')->where('purchasing_details.id_po',$id)->first();
     }
 
     public function getDetailsByIdPO($id){

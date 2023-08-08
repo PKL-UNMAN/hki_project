@@ -109,9 +109,9 @@ class c_subcon extends Controller
     {
         $no = $request->input('additionalData1');
         $data = [
-            'perusahaan' => $this->surat->detailPengirim($no),
-            'surat' => $this->surat->headSurat($no),
-            'detail'=> $this->surat->detailSurat2($no)
+            'perusahaan' => $this->surat->detailPengirim2($no),
+            'surat' => $this->surat->headSurat2($no),
+            'detail'=> $this->surat->detailSurat3($no)
         ];
         return view('subcon.suratSup.read', $data);
     }
