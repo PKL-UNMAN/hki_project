@@ -74,15 +74,37 @@ class c_login extends Controller
         if (Auth::user()->role_id == "1") {
             $data = [
                 'po' => $this->PO->countPo(),
+                'poFinish' => $this->PO->poFinish(),
+                'poOnProgres' => $this->PO->poOnProgres(),
                 'surat' => $this->surat->jumlahSurat(),
                 'suratFinish' => $this->surat->suratFinish(),
                 'suratOnProgres' => $this->surat->suratOnProgres(),
             ];
             return view('hki.dashboard',compact('data'));
         } elseif(Auth::user()->role_id == "2") {
-            return view('subcon.dashboard');
+            $id = Auth::user()->id;
+            $nama = Auth::user()->nama;
+            $data = [
+                'po' => $this->PO->countPo1($id),
+                'poFinish' => $this->PO->poFinish1($id),
+                'poOnProgres' => $this->PO->poOnProgres1($id),
+                'surat' => $this->surat->jumlahSurat1($nama),
+                'suratFinish' => $this->surat->suratFinish1($nama),
+                'suratOnProgres' => $this->surat->suratOnProgres1($nama),
+            ];
+            return view('subcon.dashboard',compact('data'));
         }elseif(Auth::user()->role_id == "3") {
-            return view('supplier.dashboard');
+            $id = Auth::user()->id;
+            $nama = Auth::user()->nama;
+            $data = [
+                'po' => $this->PO->countPo1($id),
+                'poFinish' => $this->PO->poFinish1($id),
+                'poOnProgres' => $this->PO->poOnProgres1($id),
+                'surat' => $this->surat->jumlahSurat1($nama),
+                'suratFinish' => $this->surat->suratFinish1($nama),
+                'suratOnProgres' => $this->surat->suratOnProgres1($nama),
+            ];
+            return view('supplier.dashboard',compact('data'));
         }
        
     }
