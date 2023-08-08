@@ -9,6 +9,20 @@ use Illuminate\Support\Facades\DB;
 class m_surat extends Model
 {
     use HasFactory;
+    // dashboard hki
+    public function jumlahSurat()
+    {
+        return DB::table('surat')->count();
+    }
+    public function suratFinish()
+    {
+        return DB::table('surat')->where('status', 'Finish')->count();
+    }
+    public function suratOnProgres()
+    {
+        return DB::table('surat')->where('status', 'On Progress')->count();
+    }
+    // end dashboard hki
     // tampil surat dari subcon di hki
     public function suratdarisub($nama)
     {

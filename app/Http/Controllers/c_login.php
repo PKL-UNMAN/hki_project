@@ -6,10 +6,16 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use DB;
+use App\Models\m_purchasingOrder;
+use App\Models\m_surat;
 
 class c_login extends Controller
 {
-
+    public function __construct()
+    {
+        $this->PO = new m_purchasingOrder();
+        $this->surat = new m_surat();
+    }
     public function login_hki()
     {
         return view('login_hki');
@@ -66,7 +72,13 @@ class c_login extends Controller
     // Login multiuser
     public function dashboard(){
         if (Auth::user()->role_id == "1") {
-            return view('hki.dashboard');
+            $data = [
+                'po' => $this->PO->countPo(),
+                'surat' => $this->surat->jumlahSurat(),
+                'suratFinish' => $this->surat->suratFinish(),
+                'suratOnProgres' => $this->surat->suratOnProgres(),
+            ];
+            return view('hki.dashboard',compact('data'));
         } elseif(Auth::user()->role_id == "2") {
             return view('subcon.dashboard');
         }elseif(Auth::user()->role_id == "3") {

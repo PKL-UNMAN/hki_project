@@ -12,7 +12,7 @@
 				<div class="card">
 					<div class="card-body">
 						<h5>Akumulasi PO</h5>
-						<h5>100</h5>
+						<h5>{{ $data['po'] }}</h5>
 					</div>
 
 				</div>
@@ -22,7 +22,7 @@
 				<div class="card">
 					<div class="card-body">
 						<h5>Akumulasi Surat Jalan</h5>
-						<h5>100</h5>
+						<h5>{{ $data['surat'] }}</h5>
 					</div>
 
 				</div>
@@ -31,10 +31,17 @@
 			<div class="col col-md-4">
 				<div class="card">
 					<div class="card-body">
-						<h5>Progress Surat Jalan</h5>
-						<h5>100</h5>
+						<h5>Surat Jalan On Progres</h5>
+						<h5>{{ $data['suratOnProgres'] }}</h5>
 					</div>
-
+				</div>
+			</div>
+			<div class="col col-md-4">
+				<div class="card">
+					<div class="card-body">
+						<h5>Surat Jalan Finish</h5>
+						<h5>{{ $data['suratFinish'] }}</h5>
+					</div>
 				</div>
 			</div>
 

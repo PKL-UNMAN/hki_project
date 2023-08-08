@@ -14,7 +14,12 @@ class m_purchasingOrder extends Model
     {
         return DB::table('purchasing')->get();
     }
-
+    // dashboard hki
+    public function countPo()
+    {
+        return DB::table('purchasing')->count();
+    }
+    // end dashboard hki
     public function getData($table){
         return DB::table($table)->get();
     }
@@ -273,6 +278,6 @@ class m_purchasingOrder extends Model
     {
         return DB::table('stocks')
         ->where('order_number',$order_number)
-        ->max('sisa');
+        ->min('sisa');
     }
 }
