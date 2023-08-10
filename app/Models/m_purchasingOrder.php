@@ -268,12 +268,11 @@ class m_purchasingOrder extends Model
         ->get();
     }
 
-    public function groupItem(){
+    public function groupItem($order_number){
         return DB::table('purchasing_details')
         ->join('purchasing','purchasing_details.id_po','=','purchasing.id_po')
         ->where('purchasing.class','SUBCON')
-        ->select('purchasing_details.part_name',DB::raw('SUM(purchasing_details.order_qty) AS qty'))
-        ->groupBy('purchasing_details.part_name')
+        ->where('purchasing_details.order_number',$order_number)
         ->get();
     }
 
