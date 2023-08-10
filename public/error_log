@@ -3,3 +3,5 @@
 [01-Aug-2023 04:30:40 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 63003896 bytes) in /home1/kreasin3/hki.kreasinusantara.co.id/vendor/laravel/framework/src/Illuminate/View/Concerns/ManagesLayouts.php on line 102
 [01-Aug-2023 04:31:49 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 63003896 bytes) in /home1/kreasin3/hki.kreasinusantara.co.id/vendor/laravel/framework/src/Illuminate/View/Concerns/ManagesLayouts.php on line 102
 [01-Aug-2023 04:34:06 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 63003896 bytes) in /home1/kreasin3/hki.kreasinusantara.co.id/vendor/laravel/framework/src/Illuminate/View/Concerns/ManagesLayouts.php on line 102
+[08-Aug-2023 01:31:45 UTC] PHP Fatal error:  Cannot redeclare App\Models\m_purchasingOrder::countPo() in /home1/kreasin3/hki.kreasinusantara.co.id/app/Models/m_purchasingOrder.php on line 32
+[08-Aug-2023 01:31:46 UTC] PHP Fatal error:  Cannot redeclare App\Models\m_purchasingOrder::countPo() in /home1/kreasin3/hki.kreasinusantara.co.id/app/Models/m_purchasingOrder.php on line 32

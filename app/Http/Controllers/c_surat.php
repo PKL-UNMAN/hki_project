@@ -182,32 +182,11 @@ if ($lastSurat) {
         //Looping data item beserta QTY PO yang dikirimkan subcon dari table surat_details
         foreach($qty_group_item as $qty_item){
             foreach($sumPOSent as $sumSent){
-                // dd($sumSent->tanggal);
                     if($sumSent->tanggal <= date_default_timezone_set("Asia/Jakarta")){
-                        $lastSisa = $this->PO->maxIdStocks($sumSent->order_number);
-                        // dd($lastSisa);
+                        if(count($sumPOSent) > 1){
                             if($qty_item->order_number === $sumSent->order_number){
                                 if($this->PO->validateOrderNumber($sumSent->order_number)!== NULL){
-                                    if($this->PO->validateNoSurat($sumSent->no_surat) !== NULL){
-                                        // $sisa = $lastSisa - $sumSent->qty_sent;
-                                        // dd($lastSisa);
-                                        $data = [
-                                            'no_surat'=>$sumSent->no_surat,
-                                            'order_number'=>$sumSent->order_number,
-                                            'tanggal'=>$sumSent->tanggal,
-                                            'part_name'=>$sumSent->part_name,
-                                            'qty_requested'=>$lastSisa,
-                                            'qty_sent'=>$sumSent->qty_sent,
-                                            'sisa'=>$lastSisa
-                                        ];
-                                        //update jumlah item pada table purchasing_details by order number dan id po
-                                        $this->PO->updateStock($qty_item->id_po,$sumSent->order_number,$lastSisa); 
-                                        //add ke table stocks
-                                        $this->PO->editData('stocks','no_surat',$sumSent->no_surat,$data);
-                                        // break;
-                                    }else{
-                                        $sisa = $qty_item->order_qty - $sumSent->qty_sent;
-                                        // dd($lastSisa);
+                                    if($this->PO->validateNoSurat($sumSent->no_surat) != NULL){
                                         $data = [
                                             'no_surat'=>$sumSent->no_surat,
                                             'order_number'=>$sumSent->order_number,
@@ -215,19 +194,73 @@ if ($lastSurat) {
                                             'part_name'=>$sumSent->part_name,
                                             'qty_requested'=>$qty_item->order_qty,
                                             'qty_sent'=>$sumSent->qty_sent,
-                                            'sisa'=>$sisa
+                                            'sisa'=>$qty_item->order_qty
                                         ];
                                         //update jumlah item pada table purchasing_details by order number dan id po
-                                        $this->PO->updateStock($qty_item->id_po,$sumSent->order_number,$sisa); 
+                                        $this->PO->updateStock($qty_item->id_po,$sumSent->order_number,$qty_item->order_qty); 
+                                        //add ke table stocks
+                                        $this->PO->editData('stocks','no_surat',$sumSent->no_surat,$data);
+                                        // break;
+                                    }else{
+                                        $data = [
+                                            'no_surat'=>$sumSent->no_surat,
+                                            'order_number'=>$sumSent->order_number,
+                                            'tanggal'=>$sumSent->tanggal,
+                                            'part_name'=>$sumSent->part_name,
+                                            'qty_requested'=>$qty_item->order_qty,
+                                            'qty_sent'=>$sumSent->qty_sent,
+                                            'sisa'=>$qty_item->order_qty
+                                        ];
+                                        //update jumlah item pada table purchasing_details by order number dan id po
+                                        $this->PO->editData('stocks','no_surat',$sumSent->no_surat,$data);
                                         //add ke table stocks
                                         $this->PO->addData('stocks',$data);
-                                        // break;   
+                                        // break; 
                                     }
                                 }else{
-                                    //jika jumlah data row == 1
-                                    // dd($qty_item);
                                     $sisa = $qty_item->order_qty - $sumSent->qty_sent;
-                                        $data = [
+                                    // dd($lastSisa);
+                                    $data = [
+                                        'no_surat'=>$sumSent->no_surat,
+                                        'order_number'=>$sumSent->order_number,
+                                        'tanggal'=>$sumSent->tanggal,
+                                        'part_name'=>$sumSent->part_name,
+                                        'qty_requested'=>$qty_item->order_qty,
+                                        'qty_sent'=>$sumSent->qty_sent,
+                                        'sisa'=>$sisa
+                                    ];
+                                    //update jumlah item pada table purchasing_details by order number dan id po
+                                    $this->PO->updateStock($qty_item->id_po,$sumSent->order_number,$sisa); 
+                                    //add ke table stocks
+                                    $this->PO->addData('stocks',$data);
+                                    break; 
+                                }
+                            }
+                        }else{
+                            $lastSisa = $this->PO->maxIdStocks($sumSent->order_number);
+                            // dd($lastSisa);
+                                if($qty_item->order_number === $sumSent->order_number){
+                                    if($this->PO->validateOrderNumber($sumSent->order_number)!== NULL){
+                                        if($this->PO->validateNoSurat($sumSent->no_surat) !== NULL){
+                                            // $sisa = $lastSisa - $sumSent->qty_sent;
+                                            // dd($lastSisa);
+                                            $data = [
+                                                'no_surat'=>$sumSent->no_surat,
+                                                'order_number'=>$sumSent->order_number,
+                                                'tanggal'=>$sumSent->tanggal,
+                                                'part_name'=>$sumSent->part_name,
+                                                'qty_requested'=>$lastSisa,
+                                                'qty_sent'=>$sumSent->qty_sent,
+                                                'sisa'=>$lastSisa
+                                            ];
+                                            //update jumlah item pada table purchasing_details by order number dan id po
+                                            $this->PO->updateStock($qty_item->id_po,$sumSent->order_number,$lastSisa); 
+                                            //add ke table stocks
+                                            $this->PO->editData('stocks','no_surat',$sumSent->no_surat,$data);
+                                        }else{
+                                            $sisa = $qty_item->order_qty - $sumSent->qty_sent;
+                                            // dd($lastSisa);
+                                            $data = [
                                                 'no_surat'=>$sumSent->no_surat,
                                                 'order_number'=>$sumSent->order_number,
                                                 'tanggal'=>$sumSent->tanggal,
@@ -235,14 +268,34 @@ if ($lastSurat) {
                                                 'qty_requested'=>$qty_item->order_qty,
                                                 'qty_sent'=>$sumSent->qty_sent,
                                                 'sisa'=>$sisa
-                                        ];
-                                    //add ke table stocks
-                                    $this->PO->addData('stocks',$data);
-                                    //update jumlah item pada table purchasing_details by order number dan id po
-                                    $this->PO->updateStock($qty_item->id_po,$sumSent->order_number,$sisa);
-                                    break;
+                                            ];
+                                            //update jumlah item pada table purchasing_details by order number dan id po
+                                            $this->PO->updateStock($qty_item->id_po,$sumSent->order_number,$sisa); 
+                                            //add ke table stocks
+                                            $this->PO->addData('stocks',$data); 
+                                        }
+                                    }else{
+                                        //jika jumlah data row == 1
+                                        // dd($qty_item);
+                                        $sisa = $qty_item->order_qty - $sumSent->qty_sent;
+                                            $data = [
+                                                    'no_surat'=>$sumSent->no_surat,
+                                                    'order_number'=>$sumSent->order_number,
+                                                    'tanggal'=>$sumSent->tanggal,
+                                                    'part_name'=>$sumSent->part_name,
+                                                    'qty_requested'=>$qty_item->order_qty,
+                                                    'qty_sent'=>$sumSent->qty_sent,
+                                                    'sisa'=>$sisa
+                                            ];
+                                        //add ke table stocks
+                                        $this->PO->addData('stocks',$data);
+                                        //update jumlah item pada table purchasing_details by order number dan id po
+                                        $this->PO->updateStock($qty_item->id_po,$sumSent->order_number,$sisa);
+                                        break;
+                                    }
                                 }
-                            }
+                        }
+
                     }
             }  
         }  

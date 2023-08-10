@@ -50,8 +50,8 @@ class m_purchasingOrder extends Model
         return DB::table('stocks')
         ->join('surat','stocks.no_surat','=','surat.no_surat')
         ->join('surat_details','stocks.no_surat','=','surat_details.no_surat')
-        ->select('stocks.sisa','surat.po_number','surat_details.part_no','surat_details.part_name','stocks.tanggal','surat.pengirim')
-        ->groupBy('stocks.sisa','surat.po_number','surat_details.part_no','surat_details.part_name','stocks.tanggal','surat.pengirim')
+        ->select('stocks.sisa','surat.po_number','surat_details.part_no','surat_details.part_name','stocks.tanggal','surat.pengirim','stocks.order_number')
+        ->groupBy('stocks.sisa','surat.po_number','surat_details.part_no','surat_details.part_name','stocks.tanggal','surat.pengirim','stocks.order_number')
         ->orderBy('stocks.sisa', 'ASC')
         ->get();
     }
@@ -303,5 +303,11 @@ class m_purchasingOrder extends Model
         return DB::table('stocks')
         ->where('order_number',$order_number)
         ->min('sisa');
+    }
+
+    public function validateSurat($no_surat){
+        return DB::table('surat_details')
+        ->where('surat_details.no_surat', $no_surat)
+        ->get();
     }
 }

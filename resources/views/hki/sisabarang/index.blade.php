@@ -81,6 +81,7 @@
                               <tr>
                                   <th>No. Part</th>
                                   <th>Part Name</th>
+                                  <th>Order Number</th>
                                   <th>Pengirim</th>
                                   <th>Tanggal Pengiriman</th>
                                   <th>Sisa</th>
@@ -89,6 +90,7 @@
                               <tr>
                                   <td>{{$item1->part_no}}</td>
                                   <td>{{$item1->part_name}}</td>
+                                  <td>{{$item1->order_number}}</td>
                                   <td>{{$item1->pengirim}}</td>
                                   <td>{{$item1->tanggal}}</td>
                                   <td>{{$item1->sisa}}</td>
