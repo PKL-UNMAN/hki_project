@@ -42,6 +42,12 @@ class m_purchasingOrder extends Model
         return DB::table('purchasing')->join('users_detail','users_detail.id_perusahaan','purchasing.id_tujuan_po')->join('users','users.id','users_detail.id_user')->where('users.id',$id_user)->where('status', 'Finish')->count();
     }
     // end
+    // buat surat supplier
+    public function myPO_supp($id)
+    {
+        return DB::table('purchasing')->join('users_detail','purchasing.id_tujuan_po','=','users_detail.id_perusahaan')->join('users','users.id','=','users_detail.id_user')->where('users_detail.id_user', $id)->where('purchasing.status','!=', 'Finish')->get();
+    }
+    // end
     public function getData($table){
         return DB::table($table)->get();
     }
@@ -183,7 +189,18 @@ class m_purchasingOrder extends Model
         return DB::table('purchasing')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->where('po_number', $selectedPoNumber)->Where('purchasing_details.part_no', $selectedPartno)->get();
     }
     public function ambilData_posupp($selectedValue,$id){
-        return DB::table('purchasing')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->join('users_detail','purchasing.id_tujuan_po','=','users_detail.id_perusahaan')->where('po_number', $selectedValue)->get();
+        return DB::table('purchasing')
+        ->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')
+        ->join('users_detail','purchasing.id_tujuan_po','=','users_detail.id_perusahaan')
+        ->where('po_number', $selectedValue)
+        ->where('users_detail.id_user', $id)
+        ->whereNotIn('order_number', function ($query) use ($selectedValue) {
+            $query->select('order_number')
+                ->from('surat_details')
+                ->join('surat','surat.no_surat','surat_details.no_surat')
+                ->where('po_number', $selectedValue);
+        })
+        ->get();
     }
     public function ambilData_dposupp($selectedPartno, $selectedPoNumber,$id){
         return DB::table('purchasing')->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')->join('users_detail','purchasing.id_tujuan_po','=','users_detail.id_perusahaan')->join('users','users.id','=','users_detail.id_user')->where('po_number', $selectedPoNumber)->Where('purchasing_details.part_no', $selectedPartno)->Where('users.id', $id)->get();

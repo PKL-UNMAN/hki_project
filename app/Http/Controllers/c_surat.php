@@ -466,7 +466,7 @@ if ($lastSurat) {
     {
         $id = Auth::user()->id;
         $data = [
-            'po' => $this->PO->myPO_Subcon($id),
+            'po' => $this->PO->myPO_supp($id),
         ];
         return view('supplier.surat.create', $data);
     }
