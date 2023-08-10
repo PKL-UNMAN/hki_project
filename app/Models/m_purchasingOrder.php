@@ -101,6 +101,10 @@ class m_purchasingOrder extends Model
     {
         return DB::table($table)->where($key,$id)->update($data);
     }
+    public function ubahstatus($no,$data)
+    {
+        return DB::table('purchasing')->where('po_number',$no)->update($data);
+    }
 
     public function updateStock($id_po,$order_number,$sisa)
     {
@@ -199,6 +203,20 @@ class m_purchasingOrder extends Model
                 ->from('surat_details')
                 ->join('surat','surat.no_surat','surat_details.no_surat')
                 ->where('po_number', $selectedValue);
+        })
+        ->get();
+    }
+    public function cekData_posupp($selectedValue){
+        return DB::table('purchasing')
+        ->join('purchasing_details','purchasing.id_po','=','purchasing_details.id_po')
+        ->join('users_detail','purchasing.id_tujuan_po','=','users_detail.id_perusahaan')
+        ->where('po_number', $selectedValue)
+        ->whereNotIn('order_number', function ($query) use ($selectedValue) {
+            $query->select('order_number')
+                ->from('surat_details')
+                ->join('surat','surat.no_surat','surat_details.no_surat')
+                ->where('po_number', $selectedValue)
+                ->where('status', 'Finish');
         })
         ->get();
     }

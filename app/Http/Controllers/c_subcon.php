@@ -86,11 +86,21 @@ class c_subcon extends Controller
       // ubah status
     public function ubahStatus_suratSup(Request $request)
     {
-        $id = $request->id;
-            $data = [
-                'status' => "Finish",
+        $combinedIdPo = $request->id; // Terima combinedIdPo dari request
+
+        // Pisahkan combinedIdPo menjadi id dan no
+        list($id, $no) = explode(',', $combinedIdPo);
+        $data = [
+            'status' => "Finish",
+        ];
+        $this->surat->editStatusSuratSup($id, $data);
+        $cekPo = $this->PO->cekData_posupp($no);
+        if($cekPo->isEmpty()){
+            $data2 = [
+                'status'=> "Finish",
             ];
-            $this->surat->editStatusSuratSup($id, $data);
+            $this->PO->ubahstatus($no, $data2);
+        } 
     }
     // end surat dari supplier ke subcon di subcon
     // read surat

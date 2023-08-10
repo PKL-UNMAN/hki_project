@@ -55,7 +55,7 @@
                             </td>
                             <td>
                                 @if ($data->status == 'On Progress')
-                                <a href="#" class="btn btn-success" onclick="modalACC('{{ $data->id }}')">ACC</a>
+                                <a href="#" class="btn btn-success" onclick="modalACC('{{ $data->id}}','{{$data->po_number}}')">ACC</a>
                                 @endif
                                 <a href="#" class="btn btn-warning" onclick="modalREAD({{$data->id}})">READ</a>
                                 <a href="{{ route('supplier.surat.download', $data->id) }}"
@@ -144,7 +144,7 @@
 </script>
 
 <script>
-    function modalACC(id) {
+    function modalACC(id,no) {
         Swal.fire({
             title: 'Apakah Anda yakin?',
             text: "ACC Surat?",
@@ -155,9 +155,10 @@
             confirmButtonText: 'Ya, Setuju!'
         }).then((result) => {
             if (result.isConfirmed) {
+                var combinedIdPo = id + ',' + no;
                 $.ajax({
                     type: "get",
-                    url: "{{ url('subcon/suratSup/status/ ') }}" + id,
+                    url: "{{ url('subcon/suratSup/status') }}/" + combinedIdPo,
                     success: function (data) {
                         Swal.fire(
                             'Surat Disetujui!',
