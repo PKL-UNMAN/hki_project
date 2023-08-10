@@ -54,11 +54,9 @@ class m_purchasingOrder extends Model
 
     public function getSisaBarang(){
         return DB::table('stocks')
-        ->join('surat','stocks.no_surat','=','surat.no_surat')
-        ->join('surat_details','stocks.no_surat','=','surat_details.no_surat')
-        ->select('stocks.sisa','surat.po_number','surat_details.part_no','surat_details.part_name','stocks.tanggal','surat.pengirim','stocks.order_number')
-        ->groupBy('stocks.sisa','surat.po_number','surat_details.part_no','surat_details.part_name','stocks.tanggal','surat.pengirim','stocks.order_number')
-        ->orderBy('stocks.sisa', 'ASC')
+        ->select('stocks.no_surat','stocks.sisa','stocks.part_name','stocks.tanggal','stocks.order_number')
+        ->groupBy('stocks.no_surat','stocks.sisa','stocks.part_name','stocks.tanggal','stocks.order_number')
+        ->orderBy('stocks.no_surat', 'DESC')
         ->get();
     }
 
