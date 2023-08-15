@@ -9,6 +9,7 @@ use App\Models\m_role;
 use App\Models\m_purchasingOrder;
 use App\Models\m_surat;
 use App\Models\m_detail_surat;
+use Illuminate\Support\Facades\Session;
 
 use DB;
 use File;
@@ -216,8 +217,16 @@ if ($lastSurat) {
     {
         $data = [
             'surat' => $this->surat->headSurat($id),
-            'detail'=> $this->surat->detailSurat($id)
+            'detail'=> $this->surat->detailSurat($id),
+            'po_details'=> $this->surat->getPoBySurat($id)
         ];
+        Session::put('id_po', $data['po_details']->id_po);
+        $no = 1;
+        foreach ($data['detail'] as $session) {
+            Session::put('qty_sent'.$no.'', $session->qty_sent);
+            Session::put('qty_req'.$no.'', $session->qty_requested);
+            $no++;
+        }
         return view('subcon.surat.edit', $data);
     }
 
@@ -243,12 +252,15 @@ if ($lastSurat) {
 
         $surat->tanggal = $request->input('tanggal');
         // Update atribut-atribut lainnya pada model Surat
-
         $surat->save();
-
+        
         // Update detail surat jalan
         foreach ($request->input('qty') as $index => $qty) {
             $detail = m_detail_surat::findOrFail($request->input('detail_id')[$index]);
+            //validasi jika qty existing tidak sama dengan qty yang dikirim
+            if($detail->qty !== $qty){
+                $this->returnQtyPO($detail->order_number,$qty);
+            }
             $detail->qty = $qty;
             // Update atribut-atribut detail lainnya pada model DetailSurat
             $detail->save();
@@ -256,6 +268,21 @@ if ($lastSurat) {
 
         // Mengembalikan pengguna ke halaman sebelumnya dengan pesan sukses
         return redirect()->route('subcon.surat.index')->with('success', 'Surat jalan berhasil diperbarui.');
+    }
+
+    public function returnQtyPO($ord_num,$qty){
+        $id_po = Session::get('id_po');
+        $no=1;
+            if($this->PO->detailPOByOrderNumber($ord_num)){
+                $qty_req = Session::get('qty_req'.$no);
+                $back_qty = $qty_req - $qty;
+                $this->PO->updatePODetails($ord_num,$id_po,['order_qty'=>$back_qty]);
+                $this->PO->editData('stocks','order_number',$ord_num,[
+                    'sisa'=> $back_qty,
+                    'qty_sent' => $qty
+                ]);
+                $no++;
+            }
     }
 
     public function destroySurat_Subcon(Request $request)

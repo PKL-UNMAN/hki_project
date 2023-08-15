@@ -178,6 +178,13 @@ class m_surat extends Model
         return DB::table($table)->where($key,$val)->delete();
     }
 
+    public function getPoBySurat($id_surat){
+        return DB::table('purchasing')
+        ->join('surat','purchasing.po_number','=','surat.po_number')
+        ->where('surat.no_surat','LIKE',$id_surat.'/DO-SU/%')
+        ->first();
+    }
+
 
     // END Kondisi
 }

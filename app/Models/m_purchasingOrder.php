@@ -329,6 +329,19 @@ class m_purchasingOrder extends Model
         ->first();
     }
 
+    public function detailPOByOrderNumber($order_number){
+        return DB::table('purchasing_details')
+        ->where('purchasing_details.order_number', $order_number)
+        ->first();
+    }
+
+    public function updatePODetails($key1,$key2,$data)
+    {
+        return DB::table('purchasing_details')
+        ->where('order_number',$key1)
+        ->where('id_po',$key2)
+        ->update($data);
+    }
 
     public function maxIdStocks($order_number)
     {
