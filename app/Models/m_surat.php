@@ -66,7 +66,10 @@ class m_surat extends Model
     }
     public function detailSurat($id)
     {
-        return DB::table('surat')->join('surat_details', 'surat.no_surat','=','surat_details.no_surat')->join('stocks', 'stocks.order_number','=','surat_details.order_number')->where('id',$id)->get();
+        return DB::table('surat')->join('surat_details', 'surat.no_surat','=','surat_details.no_surat')->join('stocks', 'stocks.order_number','=','surat_details.order_number')
+        ->where('stocks.no_surat','LIKE',$id.'%')
+        ->where('surat.id','LIKE',$id.'%')
+        ->get();
     }
     public function detailSurat2($id)
     {
@@ -106,6 +109,13 @@ class m_surat extends Model
     {
         return DB::table('surat')->where('id', $id)->update($data);
     }
+
+
+    public function getStockBySurat($no_surat)
+    {
+        return DB::table('stocks')->where('stocks.no_surat', $no_surat)->first();
+    }
+    
 
     public function checkID()
     {

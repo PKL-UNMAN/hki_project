@@ -220,6 +220,7 @@ if ($lastSurat) {
             'detail'=> $this->surat->detailSurat($id),
             'po_details'=> $this->surat->getPoBySurat($id)
         ];
+
         Session::put('id_po', $data['po_details']->id_po);
         $no = 1;
         foreach ($data['detail'] as $session) {
@@ -292,6 +293,11 @@ if ($lastSurat) {
         if (!$surat) {
             return response()->json(['message' => 'Data not found'], 404);
         }
+        
+        //Ubah detail PO
+        $stock = $this->surat->getStockBySurat($id);
+        $this->PO->updatePODetail($stock->order_number,['order_qty'=>$stock->qty_requested]);
+
         //Hapus data stok
         $this->surat->deleteRow('stocks','no_surat',$id);
         // Hapus detail surat terlebih dahulu karena memiliki relasi dengan no_surat

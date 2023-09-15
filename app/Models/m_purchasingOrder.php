@@ -343,6 +343,13 @@ class m_purchasingOrder extends Model
         ->update($data);
     }
 
+    public function updatePODetail($key1,$data)
+    {
+        return DB::table('purchasing_details')
+        ->where('order_number',$key1)
+        ->update($data);
+    }
+
     public function maxIdStocks($order_number)
     {
         return DB::table('stocks')

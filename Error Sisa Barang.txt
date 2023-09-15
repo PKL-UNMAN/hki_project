@@ -1,0 +1,3 @@
+Error Sisa Barang
+*Tambah Surat Jalan kedua terdapat double pengurangan
+*Belum bisa tambah surat jalan dengan item yang berbeda
